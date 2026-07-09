@@ -132,21 +132,15 @@ function ParticleSystem() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={positions.length / 3}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
         <bufferAttribute
           attach="attributes-aScale"
-          count={scales.length}
-          array={scales}
-          itemSize={1}
+          args={[scales, 1]}
         />
         <bufferAttribute
           attach="attributes-aRandom"
-          count={randoms.length / 3}
-          array={randoms}
-          itemSize={3}
+          args={[randoms, 3]}
         />
       </bufferGeometry>
       <shaderMaterial
