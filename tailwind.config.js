@@ -5,56 +5,56 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        lg: '0px',
+        md: '0px',
+        sm: '0px'
       },
       colors: {
-        background: '#0A0A0A',
-        foreground: '#FFFFFF',
-        'core': '#111111',
-        'secondary-panel': '#1A1A1A',
-        'accent': '#C7FF3A',
-        'accent-glow': '#D9FF7A',
-        'text-secondary': '#A0A0A0',
+        background: '#F4F1ED',
+        foreground: '#000000',
+        'core': '#FFFFFF',
+        'secondary-panel': '#EDE9E3',
+        'accent': '#0047FF',
+        'accent-glow': '#3366FF',
+        'text-secondary': '#555555',
         card: {
-          DEFAULT: '#111111',
-          foreground: '#FFFFFF'
+          DEFAULT: '#FFFFFF',
+          foreground: '#000000'
         },
         popover: {
-          DEFAULT: '#111111',
-          foreground: '#FFFFFF'
+          DEFAULT: '#FFFFFF',
+          foreground: '#000000'
         },
         primary: {
-          DEFAULT: '#111111',
-          foreground: '#FFFFFF'
+          DEFAULT: '#FFFFFF',
+          foreground: '#000000'
         },
         secondary: {
-          DEFAULT: '#1A1A1A',
-          foreground: '#FFFFFF'
+          DEFAULT: '#EDE9E3',
+          foreground: '#000000'
         },
         muted: {
-          DEFAULT: '#1A1A1A',
-          foreground: '#A0A0A0'
+          DEFAULT: '#EDE9E3',
+          foreground: '#555555'
         },
         accent: {
-          DEFAULT: '#C7FF3A',
-          foreground: '#0A0A0A',
-          glow: '#D9FF7A'
+          DEFAULT: '#0047FF',
+          foreground: '#FFFFFF',
+          glow: '#3366FF'
         },
         destructive: {
           DEFAULT: '#ef4444',
           foreground: '#FFFFFF'
         },
-        border: 'rgba(255, 255, 255, 0.08)',
-        input: 'rgba(255, 255, 255, 0.1)',
-        ring: '#C7FF3A',
+        border: '#000000',
+        input: '#000000',
+        ring: '#0047FF',
       },
       fontFamily: {
-        heading: ['Syne', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Syne', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+        display: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
       },
       spacing: {
         '18': '4.5rem',
@@ -63,9 +63,9 @@ module.exports = {
         '40': '10rem',
       },
       fontSize: {
-        'hero': ['clamp(3rem, 9vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '700' }],
-        'display': ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
-        'section': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'hero': ['clamp(3rem, 9vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '800' }],
+        'display': ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '800' }],
+        'section': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
       },
       keyframes: {
         'accordion-down': {

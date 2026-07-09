@@ -23,7 +23,7 @@ export default function Services() {
         scrollTrigger: { trigger: root.current, start: 'top 75%' },
       });
       gsap.from('[data-anim="srv-card"]', {
-        opacity: 0, y: 60, stagger: 0.15, duration: 0.8, ease: 'power3.out',
+        opacity: 0, y: 40, stagger: 0.15, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: '[data-anim="srv-grid"]', start: 'top 70%' },
       });
     }, root);
@@ -34,15 +34,15 @@ export default function Services() {
     <div ref={root} className="pt-32">
       {/* Page Hero */}
       <section className="relative py-20 md:py-32">
-        <div className="grid-bg absolute inset-0 opacity-40" />
+        <div className="grid-bg absolute inset-0" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <div data-anim="srv-header">
             <SectionLabel>Services</SectionLabel>
-            <h1 className="mt-6 font-heading text-hero text-white">
+            <h1 className="mt-6 font-heading text-hero uppercase text-black">
               Three pillars.<br />
-              <span className="text-text-secondary">One system.</span>
+              <span className="text-accent">One system.</span>
             </h1>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-secondary">
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
               We don't sell services — we engineer systems. Each pillar is designed to
               compound the value of the others. AI without solid engineering is a demo.
               Engineering without design is invisible. Design without intelligence is static.
@@ -53,49 +53,46 @@ export default function Services() {
 
       {/* Detailed Services */}
       <section className="relative py-20">
-        <div data-anim="srv-grid" className="mx-auto max-w-[1400px] space-y-6 px-6 lg:px-10">
+        <div data-anim="srv-grid" className="mx-auto max-w-[1400px] space-y-4 px-6 lg:px-10">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Cpu;
             const reversed = i % 2 === 1;
             return (
               <div key={service.id} data-anim="srv-card">
-                <TiltCard maxTilt={2} className="group grid gap-8 rounded-3xl glass-panel glass-panel-hover p-8 md:grid-cols-2 md:p-12">
-                  {/* Left / Right alternating */}
+                <TiltCard maxTilt={1} className="group grid gap-8 border border-black bg-white p-8 md:grid-cols-2 md:p-12">
                   <div className={reversed ? 'md:order-2' : ''}>
                     <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-accent/10">
-                        <Icon size={24} className="text-accent" />
+                      <div className="flex h-12 w-12 items-center justify-center border border-black bg-accent">
+                        <Icon size={20} className="text-white" />
                       </div>
                       <div>
-                        <span className="font-mono text-xs text-accent/60">{String(i + 1).padStart(2, '0')}</span>
-                        <h2 className="font-heading text-3xl font-medium text-white">{service.title}</h2>
+                        <span className="font-mono text-xs text-text-secondary">{String(i + 1).padStart(2, '0')}</span>
+                        <h2 className="font-heading text-3xl font-extrabold uppercase text-black">{service.title}</h2>
                       </div>
                     </div>
-                    <p className="mt-2 text-sm text-accent/80">{service.tagline}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.15em] text-accent">{service.tagline}</p>
                     <p className="mt-6 text-sm leading-relaxed text-text-secondary">{service.description}</p>
 
-                    {/* Sequence flow */}
                     <div className="mt-8 flex items-center gap-3">
                       {service.sequence.map((step, j) => (
                         <div key={step} className="flex items-center gap-3">
-                          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-text-secondary">
+                          <span className="border border-black bg-white px-3 py-1 text-xs text-black">
                             {step}
                           </span>
                           {j < service.sequence.length - 1 && (
-                            <ArrowRight size={12} className="text-accent/40" />
+                            <ArrowRight size={12} className="text-accent" />
                           )}
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Features list */}
                   <div className={reversed ? 'md:order-1' : ''}>
-                    <h4 className="font-heading text-xs uppercase tracking-widest text-text-secondary/60">Capabilities</h4>
+                    <h4 className="font-heading text-xs uppercase tracking-[0.2em] font-bold text-text-secondary">Capabilities</h4>
                     <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <Plus size={14} className="mt-1 flex-shrink-0 text-accent/60" />
+                          <Plus size={14} className="mt-1 flex-shrink-0 text-accent" />
                           {feature}
                         </li>
                       ))}

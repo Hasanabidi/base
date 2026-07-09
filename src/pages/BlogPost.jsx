@@ -3,7 +3,6 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
-import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
 import { blogPosts } from '@/data/blogPosts';
 
@@ -36,38 +35,38 @@ export default function BlogPost() {
 
   return (
     <div ref={root} className="pt-32">
-      {/* Article header */}
       <article>
+        {/* Article header */}
         <section className="relative py-20">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <div data-anim="post-header">
-              <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-accent">
+              <Link to="/blog" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:text-accent">
                 <ArrowLeft size={14} /> Back to insights
               </Link>
 
               <div className="mt-8">
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-accent">
+                <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-accent">
                   {post.category}
                 </span>
               </div>
 
-              <h1 className="mt-6 font-heading text-display text-white">
+              <h1 className="mt-6 font-heading text-display uppercase text-black">
                 {post.title}
               </h1>
 
-              <p className="mt-6 text-lg leading-relaxed text-text-secondary">
+              <p className="mt-6 text-base leading-relaxed text-text-secondary">
                 {post.excerpt}
               </p>
 
-              <div className="mt-8 flex items-center gap-6 border-t border-white/[0.06] pt-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent/20 to-accent/5">
-                  <span className="text-sm font-medium text-accent">
+              <div className="mt-8 flex items-center gap-6 border-t border-black pt-6">
+                <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+                  <span className="text-sm font-heading font-bold text-white">
                     {post.author.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
                 <div>
-                  <div className="text-sm text-white">{post.author}</div>
-                  <div className="flex items-center gap-3 text-xs text-text-secondary/60">
+                  <div className="text-sm font-heading font-bold text-black">{post.author}</div>
+                  <div className="flex items-center gap-3 text-xs text-text-secondary">
                     <span className="flex items-center gap-1"><Calendar size={11} /> {post.date}</span>
                     <span className="flex items-center gap-1"><Clock size={11} /> {post.readTime}</span>
                   </div>
@@ -80,9 +79,8 @@ export default function BlogPost() {
         {/* Hero image */}
         <section className="relative">
           <div className="mx-auto max-w-5xl px-6 lg:px-10">
-            <div className="relative aspect-[21/9] overflow-hidden rounded-3xl">
+            <div className="relative aspect-[21/9] overflow-hidden border border-black">
               <img src={post.heroImage} alt={post.title} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
             </div>
           </div>
         </section>
@@ -93,7 +91,7 @@ export default function BlogPost() {
             {post.content.map((block, i) => {
               if (block.type === 'heading') {
                 return (
-                  <h2 key={i} className="mt-12 mb-4 font-heading text-2xl font-medium text-white">
+                  <h2 key={i} className="mt-12 mb-4 font-heading text-2xl font-extrabold uppercase text-black">
                     {block.text}
                   </h2>
                 );
@@ -106,14 +104,14 @@ export default function BlogPost() {
             })}
 
             {/* Author footer */}
-            <div className="mt-16 flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-accent/20 to-accent/5">
-                <span className="text-sm font-medium text-accent">
+            <div className="mt-16 flex items-center gap-4 border border-black bg-white p-6">
+              <div className="flex h-12 w-12 items-center justify-center border border-black bg-accent">
+                <span className="text-sm font-heading font-bold text-white">
                   {post.author.split(' ').map(n => n[0]).join('')}
                 </span>
               </div>
               <div>
-                <div className="text-sm text-white">{post.author}</div>
+                <div className="text-sm font-heading font-bold text-black">{post.author}</div>
                 <div className="text-xs text-text-secondary">Engineer at Fulcrum System</div>
               </div>
             </div>
@@ -125,10 +123,10 @@ export default function BlogPost() {
           <section className="relative py-12">
             <div className="mx-auto max-w-3xl px-6 lg:px-10">
               <Link to={`/blog/${nextPost.slug}`}>
-                <div className="group flex items-center justify-between rounded-2xl glass-panel glass-panel-hover p-8">
+                <div className="group flex items-center justify-between border border-black bg-white p-8 transition-colors hover:bg-secondary-panel">
                   <div>
-                    <div className="text-xs text-text-secondary/60">Next article</div>
-                    <h3 className="mt-2 font-heading text-xl font-medium text-white transition-colors group-hover:text-accent">
+                    <div className="text-xs uppercase tracking-[0.15em] text-text-secondary">Next article</div>
+                    <h3 className="mt-2 font-heading text-xl font-extrabold uppercase text-black transition-colors group-hover:text-accent">
                       {nextPost.title}
                     </h3>
                   </div>

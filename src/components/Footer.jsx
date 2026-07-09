@@ -29,26 +29,25 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.06] bg-core/30">
-      <div className="grid-bg absolute inset-0 opacity-50" />
+    <footer className="relative border-t border-black bg-white">
+      <div className="grid-bg absolute inset-0 opacity-30" />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 py-20 lg:px-10">
-        <div className="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
+      <div className="relative mx-auto max-w-[1400px] px-6 py-16 lg:px-10">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <Link to="/" className="group flex items-center gap-3">
-              <span className="relative flex h-3 w-3 items-center justify-center">
-                <span className="absolute h-3 w-3 rounded-full bg-accent animate-pulse-glow" />
-                <span className="absolute h-1 w-1 rounded-full bg-accent-glow" />
+            <Link to="/" className="group flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center bg-accent">
+                <span className="h-2 w-2 bg-white" />
               </span>
-              <span className="font-heading text-lg font-medium tracking-tight text-white">
-                FULCRUM
+              <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-black">
+                Fulcrum
               </span>
             </Link>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-text-secondary">
               Engineering leverage from complexity. AI automation, digital systems, and high-performance software built to scale.
             </p>
-            <div className="mt-8 flex items-center gap-4">
+            <div className="mt-8 flex items-center gap-2">
               {socials.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -58,7 +57,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text-secondary transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-[0_0_20px_rgba(199,255,58,0.2)]"
+                    className="group flex h-10 w-10 items-center justify-center border border-black text-black transition-all duration-300 hover:bg-accent hover:text-white"
                   >
                     <Icon size={16} />
                   </a>
@@ -70,15 +69,15 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="font-heading text-xs uppercase tracking-widest text-text-secondary/60">
+              <h4 className="font-heading text-xs uppercase tracking-[0.2em] font-bold text-black">
                 {category}
               </h4>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-4 space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.to}
-                      className="group inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-white"
+                      className="group inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-accent"
                     >
                       {link.label}
                       <ArrowUpRight
@@ -94,11 +93,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
-          <p className="text-xs text-text-secondary/60">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black pt-6 sm:flex-row">
+          <p className="text-xs uppercase tracking-[0.15em] text-text-secondary">
             © 2025 Fulcrum System. All rights reserved.
           </p>
-          <p className="font-mono text-xs text-text-secondary/40">
+          <p className="font-mono text-xs text-text-secondary">
             Engineered with precision.
           </p>
         </div>

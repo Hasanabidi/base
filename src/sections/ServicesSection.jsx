@@ -18,94 +18,79 @@ export default function ServicesSection({ detailed = false }) {
     const ctx = gsap.context(() => {
       gsap.from('[data-anim="service-card"]', {
         opacity: 0,
-        y: 60,
-        rotateX: 8,
-        scale: 0.95,
+        y: 40,
         stagger: 0.15,
-        duration: 1,
+        duration: 0.8,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top 70%',
-        },
+        scrollTrigger: { trigger: root.current, start: 'top 70%' },
       });
-
       gsap.from('[data-anim="service-header"]', {
         opacity: 0,
         y: 30,
         duration: 0.8,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top 80%',
-        },
+        scrollTrigger: { trigger: root.current, start: 'top 80%' },
       });
     }, root);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative py-40">
-      <div className="grid-bg absolute inset-0 opacity-40" />
-
+    <section ref={root} className="relative py-32">
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
-        <div data-anim="service-header" className="mb-20 max-w-2xl">
+        <div data-anim="service-header" className="mb-16 max-w-2xl">
           <SectionLabel>Services</SectionLabel>
-          <h2 className="mt-6 font-heading text-section text-white">
+          <h2 className="mt-6 font-heading text-section uppercase text-black">
             Three pillars.{' '}
-            <span className="text-text-secondary">One unified system.</span>
+            <span className="text-accent">One unified system.</span>
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-text-secondary">
+          <p className="mt-6 text-base leading-relaxed text-text-secondary">
             We don't build isolated solutions. Every engagement is engineered as an integrated
             system — where AI, software, and design compound each other's leverage.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-0 md:grid-cols-3 border-t border-l border-black">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Cpu;
+            const isFirst = i === 0;
             return (
-              <div key={service.id} data-anim="service-card">
+              <div key={service.id} data-anim="service-card" className="border-b border-r border-black">
                 <TiltCard
-                  className="group h-full rounded-2xl glass-panel glass-panel-hover p-8"
-                  maxTilt={4}
+                  className={`group h-full p-8 transition-colors duration-300 ${isFirst ? 'bg-accent' : 'bg-white hover:bg-secondary-panel'}`}
+                  maxTilt={2}
                 >
-                  {/* Animated icon */}
-                  <div className="relative mb-8 h-14 w-14">
-                    <div className="absolute inset-0 rounded-xl bg-accent/10 transition-all duration-500 group-hover:bg-accent/20" />
-                    <div className="relative flex h-14 w-14 items-center justify-center">
+                  <div className="relative mb-8 h-12 w-12">
+                    <div className="flex h-12 w-12 items-center justify-center border border-black">
                       <Icon
-                        size={24}
-                        className="text-accent transition-transform duration-500 group-hover:scale-110"
+                        size={20}
+                        className={isFirst ? 'text-white' : 'text-accent'}
                       />
                     </div>
-                    {/* Animated line on hover */}
-                    <div className="absolute -bottom-3 left-0 h-px w-0 bg-gradient-to-r from-accent to-transparent transition-all duration-500 group-hover:w-12" />
                   </div>
 
-                  <span className="font-mono text-xs text-accent/60">
+                  <span className={`font-mono text-xs ${isFirst ? 'text-white/60' : 'text-text-secondary/50'}`}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h3 className="mt-2 font-heading text-2xl font-medium text-white">
+                  <h3 className="mt-2 font-heading text-2xl font-extrabold uppercase text-black">
                     {service.title}
                   </h3>
-                  <p className="mt-1 text-sm text-accent/80">{service.tagline}</p>
+                  <p className={`mt-1 text-xs uppercase tracking-[0.15em] ${isFirst ? 'text-white' : 'text-accent'}`}>
+                    {service.tagline}
+                  </p>
 
                   <p className="mt-6 text-sm leading-relaxed text-text-secondary">
                     {service.description}
                   </p>
 
                   {detailed && (
-                    <ul className="mt-6 space-y-3">
+                    <ul className="mt-6 space-y-2">
                       {service.features.map((feature) => (
                         <li
                           key={feature}
                           className="flex items-start gap-2 text-sm text-text-secondary"
                         >
-                          <Plus
-                            size={14}
-                            className="mt-1 flex-shrink-0 text-accent/60"
-                          />
+                          <Plus size={14} className="mt-1 flex-shrink-0 text-accent" />
                           {feature}
                         </li>
                       ))}
@@ -114,7 +99,7 @@ export default function ServicesSection({ detailed = false }) {
 
                   <Link
                     to="/contact"
-                    className="mt-8 inline-flex items-center gap-1 text-sm text-accent transition-colors hover:text-accent-glow"
+                    className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:text-accent"
                   >
                     Learn more
                     <ArrowUpRight size={14} />

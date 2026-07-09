@@ -1,11 +1,10 @@
-import { useRef, useLayoutEffect, Suspense, lazy } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
+import GeometricArt from '@/components/GeometricArt';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-
-const ParticleField = lazy(() => import('@/components/ParticleField'));
 
 const headlineWords = ['Engineering', 'Leverage', 'from', 'Complexity.'];
 
@@ -39,14 +38,19 @@ export default function Hero() {
           '-=0.3'
         )
         .from(
+          '[data-anim="art"]',
+          { opacity: 0, y: 40, duration: 1 },
+          '-=0.2'
+        )
+        .from(
           '[data-anim="scroll"]',
           { opacity: 0, duration: 0.6 },
-          '-=0.2'
+          '-=0.3'
         )
         .from(
           '[data-anim="badge"]',
           { opacity: 0, y: 10, duration: 0.5 },
-          '-=0.5'
+          '-=0.8'
         );
     }, root);
 
@@ -58,28 +62,20 @@ export default function Hero() {
       ref={root}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* WebGL Background */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={<div className="h-full w-full bg-core" />}>
-          {!reducedMotion && <ParticleField />}
-        </Suspense>
-      </div>
-
-      {/* Gradient overlays */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-background/40 via-transparent to-background" />
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-background via-transparent to-background/20" />
+      {/* Grid background */}
+      <div className="grid-bg absolute inset-0" />
 
       {/* Content */}
-      <div className="relative z-20 mx-auto max-w-[1400px] px-6 text-center lg:px-10">
+      <div className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
         <div
           data-anim="badge"
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-text-secondary backdrop-blur-md"
+          className="mb-8 inline-flex items-center gap-2 border border-black bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+          <span className="h-1.5 w-1.5 bg-accent" />
           Full-Stack Digital Partner
         </div>
 
-        <h1 className="font-heading text-hero text-white">
+        <h1 className="font-heading text-hero font-extrabold uppercase text-black">
           {headlineWords.map((word, i) => (
             <span key={i} className="inline-block overflow-hidden">
               <span
@@ -96,17 +92,17 @@ export default function Hero() {
 
         <p
           data-anim="subhead"
-          className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl"
+          className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg"
         >
           AI Automation. Digital Systems. High Performance Software.{' '}
-          <span className="text-white">Built to Scale.</span>
+          <span className="text-black font-medium">Built to Scale.</span>
         </p>
 
-        <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <div data-anim="cta">
             <MagneticButton to="/contact" variant="primary">
               Start Your Transformation
-              <ArrowRight size={16} />
+              <ArrowRight size={14} />
             </MagneticButton>
           </div>
           <div data-anim="cta">
@@ -114,6 +110,11 @@ export default function Hero() {
               View Our Work
             </MagneticButton>
           </div>
+        </div>
+
+        {/* Geometric art */}
+        <div data-anim="art" className="mx-auto mt-16 max-w-4xl">
+          <GeometricArt />
         </div>
       </div>
 
@@ -123,7 +124,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-widest text-text-secondary/60">
+          <span className="text-xs uppercase tracking-[0.2em] text-text-secondary">
             Scroll
           </span>
           <ChevronDown size={16} className="animate-breathe text-accent" />

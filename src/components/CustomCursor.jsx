@@ -57,19 +57,19 @@ export default function CustomCursor() {
       <div
         ref={ringRef}
         className={cn(
-          'cursor-ring pointer-events-none fixed left-0 top-0 z-[9998] h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/40 transition-[width,height,border-color,opacity] duration-300',
+          'cursor-ring pointer-events-none fixed left-0 top-0 z-[9998] h-8 w-8 -translate-x-1/2 -translate-y-1/2 border border-accent transition-[width,height,border-color,opacity] duration-300',
           'transition-all'
         )}
-        style={{ marginLeft: '-20px', marginTop: '-20px' }}
+        style={{ marginLeft: '-16px', marginTop: '-16px' }}
       />
       <style>{`
         .cursor-ring--active {
-          width: 56px !important;
-          height: 56px !important;
-          margin-left: -28px !important;
-          margin-top: -28px !important;
-          border-color: rgba(199, 255, 58, 0.8) !important;
-          background: rgba(199, 255, 58, 0.05);
+          width: 48px !important;
+          height: 48px !important;
+          margin-left: -24px !important;
+          margin-top: -24px !important;
+          border-color: rgba(0, 71, 255, 0.8) !important;
+          background: rgba(0, 71, 255, 0.05);
         }
       `}</style>
     </>

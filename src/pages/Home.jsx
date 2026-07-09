@@ -16,7 +16,6 @@ export default function Home() {
   const root = useRef(null);
 
   useLayoutEffect(() => {
-    // Refresh ScrollTrigger after all sections mount
     const t = setTimeout(() => ScrollTrigger.refresh(), 300);
     return () => clearTimeout(t);
   }, []);
