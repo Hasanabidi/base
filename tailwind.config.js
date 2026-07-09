@@ -10,37 +10,37 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
-        background: '#030612',
+        background: '#0A0A0A',
         foreground: '#FFFFFF',
-        'core': '#09192F',
-        'secondary-panel': '#132A4B',
-        'accent': '#4DEBFF',
-        'accent-glow': '#79F6FF',
-        'text-secondary': '#C6D0E0',
+        'core': '#111111',
+        'secondary-panel': '#1A1A1A',
+        'accent': '#C7FF3A',
+        'accent-glow': '#D9FF7A',
+        'text-secondary': '#A0A0A0',
         card: {
-          DEFAULT: '#09192F',
+          DEFAULT: '#111111',
           foreground: '#FFFFFF'
         },
         popover: {
-          DEFAULT: '#09192F',
+          DEFAULT: '#111111',
           foreground: '#FFFFFF'
         },
         primary: {
-          DEFAULT: '#09192F',
+          DEFAULT: '#111111',
           foreground: '#FFFFFF'
         },
         secondary: {
-          DEFAULT: '#132A4B',
+          DEFAULT: '#1A1A1A',
           foreground: '#FFFFFF'
         },
         muted: {
-          DEFAULT: '#132A4B',
-          foreground: '#C6D0E0'
+          DEFAULT: '#1A1A1A',
+          foreground: '#A0A0A0'
         },
         accent: {
-          DEFAULT: '#4DEBFF',
-          foreground: '#030612',
-          glow: '#79F6FF'
+          DEFAULT: '#C7FF3A',
+          foreground: '#0A0A0A',
+          glow: '#D9FF7A'
         },
         destructive: {
           DEFAULT: '#ef4444',
@@ -48,12 +48,12 @@ module.exports = {
         },
         border: 'rgba(255, 255, 255, 0.08)',
         input: 'rgba(255, 255, 255, 0.1)',
-        ring: '#4DEBFF',
+        ring: '#C7FF3A',
       },
       fontFamily: {
-        heading: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['Syne', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Syne', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
       },
       spacing: {
@@ -63,9 +63,9 @@ module.exports = {
         '40': '10rem',
       },
       fontSize: {
-        'hero': ['clamp(3rem, 9vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '500' }],
-        'display': ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '500' }],
-        'section': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '500' }],
+        'hero': ['clamp(3rem, 9vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '700' }],
+        'display': ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'section': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
       },
       keyframes: {
         'accordion-down': {

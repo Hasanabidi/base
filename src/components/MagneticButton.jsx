@@ -35,7 +35,7 @@ export default function MagneticButton({
   const variantClass = {
     primary: cn(
       'bg-accent text-background rounded-full',
-      'shadow-[0_0_30px_rgba(77,235,255,0.3)] hover:shadow-[0_0_50px_rgba(77,235,255,0.5)]',
+      'shadow-[0_0_30px_rgba(199,255,58,0.3)] hover:shadow-[0_0_50px_rgba(199,255,58,0.5)]',
       'hover:bg-accent-glow'
     ),
     secondary: cn(

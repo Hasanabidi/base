@@ -67,7 +67,7 @@ export default function ProcessSection() {
         <div
           className="absolute inset-0 transition-background duration-1000"
           style={{
-            background: `radial-gradient(circle at 50% 50%, rgba(19, 42, 75, ${0.3 + activeStep * 0.08}) 0%, transparent 70%)`,
+            background: `radial-gradient(circle at 50% 50%, rgba(199, 255, 58, ${0.04 + activeStep * 0.02}) 0%, transparent 70%)`,
           }}
         />
         <div className="grid-bg absolute inset-0 opacity-30" />
@@ -104,8 +104,8 @@ export default function ProcessSection() {
                 data-anim="progress-line"
                 className="absolute top-0 left-0 h-full w-full origin-top"
                 style={{
-                  background: 'linear-gradient(to bottom, #4DEBFF, #79F6FF)',
-                  boxShadow: '0 0 10px rgba(77, 235, 255, 0.5)',
+                  background: 'linear-gradient(to bottom, #C7FF3A, #D9FF7A)',
+                  boxShadow: '0 0 10px rgba(199, 255, 58, 0.5)',
                 }}
               />
             </div>
@@ -126,9 +126,9 @@ export default function ProcessSection() {
                     <div
                       className="h-4 w-4 rounded-full border-2 transition-all duration-500"
                       style={{
-                        borderColor: i <= activeStep ? '#4DEBFF' : 'rgba(255,255,255,0.1)',
-                        background: i === activeStep ? '#4DEBFF' : 'transparent',
-                        boxShadow: i === activeStep ? '0 0 12px rgba(77,235,255,0.6)' : 'none',
+                        borderColor: i <= activeStep ? '#C7FF3A' : 'rgba(255,255,255,0.1)',
+                        background: i === activeStep ? '#C7FF3A' : 'transparent',
+                        boxShadow: i === activeStep ? '0 0 12px rgba(199,255,58,0.6)' : 'none',
                       }}
                     />
                     {i === activeStep && (
@@ -140,7 +140,7 @@ export default function ProcessSection() {
                     <span className="font-mono text-xs text-accent/60">{step.step}</span>
                     <h3
                       className="font-heading text-2xl font-medium transition-colors duration-500"
-                      style={{ color: i === activeStep ? '#FFFFFF' : '#C6D0E0' }}
+                      style={{ color: i === activeStep ? '#FFFFFF' : '#A0A0A0' }}
                     >
                       {step.title}
                     </h3>

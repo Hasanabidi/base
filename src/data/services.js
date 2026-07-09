@@ -12,7 +12,7 @@ export const services = [
       "Document Intelligence Systems",
       "API Orchestration & Integration"
     ],
-    accent: "#4DEBFF",
+    accent: "#C7FF3A",
     icon: "cpu",
     sequence: ["Raw Input", "Processing", "Intelligent Output"]
   },
@@ -29,7 +29,7 @@ export const services = [
       "Performance Optimization",
       "Cloud Infrastructure & DevOps"
     ],
-    accent: "#4DEBFF",
+    accent: "#C7FF3A",
     icon: "code",
     sequence: ["Architecture", "Development", "Deployment"]
   },
@@ -46,7 +46,7 @@ export const services = [
       "User Research & Testing",
       "Visual Prototyping"
     ],
-    accent: "#4DEBFF",
+    accent: "#C7FF3A",
     icon: "palette",
     sequence: ["Research", "Design", "Prototype"]
   }

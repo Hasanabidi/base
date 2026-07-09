@@ -111,14 +111,14 @@ export default function AISection() {
                 <path
                   key={i}
                   d={`M 0 ${y} C 40 ${y}, 80 ${100 + i * 80}, 128 ${100 + i * 80}`}
-                  stroke="rgba(77, 235, 255, 0.15)"
+                  stroke="rgba(199, 255, 58, 0.15)"
                   strokeWidth="1"
                   fill="none"
                 />
               ))}
               {/* Animated particles traveling */}
               {[60, 150, 240, 330].map((y, i) => (
-                <circle key={`particle-${i}`} r="2.5" fill="#4DEBFF">
+                <circle key={`particle-${i}`} r="2.5" fill="#C7FF3A">
                   <animateMotion
                     dur={`${2 + i * 0.3}s`}
                     repeatCount="indefinite"

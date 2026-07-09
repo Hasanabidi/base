@@ -140,7 +140,7 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    className="group relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-background shadow-[0_0_30px_rgba(77,235,255,0.3)] transition-all duration-300 hover:bg-accent-glow hover:shadow-[0_0_50px_rgba(77,235,255,0.5)] sm:w-auto"
+                    className="group relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-background shadow-[0_0_30px_rgba(199,255,58,0.3)] transition-all duration-300 hover:bg-accent-glow hover:shadow-[0_0_50px_rgba(199,255,58,0.5)] sm:w-auto"
                   >
                     Send Message
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />

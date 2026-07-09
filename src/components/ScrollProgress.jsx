@@ -20,7 +20,7 @@ export default function ScrollProgress() {
         className="h-full bg-gradient-to-r from-accent to-accent-glow transition-all duration-100"
         style={{
           width: `${progress}%`,
-          boxShadow: '0 0 8px rgba(77, 235, 255, 0.6)',
+          boxShadow: '0 0 8px rgba(199, 255, 58, 0.6)',
         }}
       />
     </div>

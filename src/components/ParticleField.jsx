@@ -99,8 +99,8 @@ function ParticleSystem() {
       uMouse: { value: new THREE.Vector2(0, 0) },
       uMouseStrength: { value: 0 },
       uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-      uColor: { value: new THREE.Color('#4DEBFF') },
-      uGlowColor: { value: new THREE.Color('#79F6FF') },
+      uColor: { value: new THREE.Color('#C7FF3A') },
+      uGlowColor: { value: new THREE.Color('#D9FF7A') },
     }),
     []
   );

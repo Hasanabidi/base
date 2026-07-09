@@ -58,7 +58,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text-secondary transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-[0_0_20px_rgba(77,235,255,0.2)]"
+                    className="group relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-text-secondary transition-all duration-300 hover:border-accent/50 hover:text-accent hover:shadow-[0_0_20px_rgba(199,255,58,0.2)]"
                   >
                     <Icon size={16} />
                   </a>

@@ -41,7 +41,7 @@ export default function TiltCard({ children, className, maxTilt = 6 }) {
       <div
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(77, 235, 255, 0.08) 0%, transparent 50%)`,
+          background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(199, 255, 58, 0.08) 0%, transparent 50%)`,
         }}
       />
       {children}
