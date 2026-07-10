@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
+import { useParallax } from '@/hooks/useParallax';
 import { projects } from '@/data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function PortfolioSection({ limit }) {
   const root = useRef(null);
   const featured = limit ? projects.slice(0, limit) : projects;
+  const imgRefs = useRef([]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,6 +24,20 @@ export default function PortfolioSection({ limit }) {
       gsap.from('[data-anim="portfolio-card"]', {
         opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: root.current, start: 'top 65%' },
+      });
+      // Parallax on project images
+      imgRefs.current.forEach((img) => {
+        if (!img) return;
+        gsap.fromTo(img, { y: -30 }, {
+          y: 30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: img.parentElement,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        });
       });
     }, root);
     return () => ctx.revert();
@@ -55,12 +71,13 @@ export default function PortfolioSection({ limit }) {
             <div key={project.id} data-anim="portfolio-card" className="border-b border-r border-black">
               <TiltCard className="group h-full bg-white" maxTilt={2}>
                 {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden border-b border-black">
+                <div className="img-zoom relative aspect-[16/10] overflow-hidden border-b border-black">
                   <img
+                    ref={(el) => (imgRefs.current[project.id] = el)}
                     src={project.heroImage}
                     alt={project.title}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="h-[120%] w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 

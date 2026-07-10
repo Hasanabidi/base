@@ -1,10 +1,13 @@
 import { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import GeometricArt from '@/components/GeometricArt';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const headlineWords = ['Engineering', 'Leverage', 'from', 'Complexity.'];
 
@@ -54,6 +57,22 @@ export default function Hero() {
         );
     }, root);
 
+    // Scroll-driven: content fades & lifts, art parallaxes away
+    if (!reducedMotion) {
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.8,
+        },
+      });
+      scrollTl
+        .to('[data-hero="content"]', { y: -80, opacity: 0.15, ease: 'none' }, 0)
+        .to('[data-hero="art"]', { y: 120, scale: 0.92, ease: 'none' }, 0)
+        .to('[data-hero="grid"]', { y: 60, ease: 'none' }, 0);
+    }
+
     return () => ctx.revert();
   }, [reducedMotion]);
 
@@ -63,10 +82,10 @@ export default function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       {/* Grid background */}
-      <div className="grid-bg absolute inset-0" />
+      <div data-hero="grid" className="grid-bg absolute inset-0" />
 
       {/* Content */}
-      <div className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
+      <div data-hero="content" className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
         <div
           data-anim="badge"
           className="mb-8 inline-flex items-center gap-2 border border-black bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black"
@@ -113,7 +132,7 @@ export default function Hero() {
         </div>
 
         {/* Geometric art */}
-        <div data-anim="art" className="mx-auto mt-16 max-w-4xl">
+        <div data-anim="art" data-hero="art" className="mx-auto mt-16 max-w-4xl">
           <GeometricArt />
         </div>
       </div>

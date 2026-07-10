@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TestimonialsSection() {
   const root = useRef(null);
-  const track = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -17,18 +16,9 @@ export default function TestimonialsSection() {
         opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: root.current, start: 'top 80%' },
       });
-      const totalWidth = track.current?.scrollWidth / 2 || 0;
-      gsap.to(track.current, {
-        x: -totalWidth,
-        ease: 'none',
-        repeat: -1,
-        duration: 40,
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        },
+      gsap.from('[data-anim="test-card"]', {
+        opacity: 0, y: 20, stagger: 0.05, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: root.current, start: 'top 75%' },
       });
     }, root);
     return () => ctx.revert();
@@ -53,22 +43,25 @@ export default function TestimonialsSection() {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-background to-transparent" />
 
-        <div ref={track} className="flex gap-4 w-max">
+        <div className="marquee-track flex gap-4 w-max">
           {doubled.map((t, i) => (
-            <div key={i} className="w-[420px] flex-shrink-0">
-              <div className="border border-black bg-white p-8 h-full">
-                <Quote size={24} className="text-accent mb-6" />
-                <p className="text-sm leading-relaxed text-black">"{t.quote}"</p>
-                <div className="mt-6 flex items-center justify-between border-t border-black pt-4">
+            <div key={i} data-anim="test-card" className="w-[420px] flex-shrink-0">
+              <div className="hover-fill group border border-black bg-white p-8 h-full">
+                <div className="hover-fill__layer" />
+                <div className="relative z-10">
+                <Quote size={24} className="text-accent mb-6 transition-colors duration-300 group-hover:text-white" />
+                <p className="text-sm leading-relaxed text-black transition-colors duration-300 group-hover:text-white/90">"{t.quote}"</p>
+                <div className="mt-6 flex items-center justify-between border-t border-black pt-4 transition-colors duration-300 group-hover:border-white/30">
                   <div>
-                    <div className="text-sm font-heading font-bold text-black">{t.name}</div>
-                    <div className="text-xs text-text-secondary">{t.role}, {t.company}</div>
+                    <div className="text-sm font-heading font-bold text-black transition-colors duration-300 group-hover:text-white">{t.name}</div>
+                    <div className="text-xs text-text-secondary transition-colors duration-300 group-hover:text-white/70">{t.role}, {t.company}</div>
                   </div>
                   <div className="flex gap-0.5">
                     {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star key={j} size={10} className="fill-accent text-accent" />
+                      <Star key={j} size={10} className="fill-accent text-accent transition-colors duration-300 group-hover:fill-white group-hover:text-white" />
                     ))}
                   </div>
+                </div>
                 </div>
               </div>
             </div>

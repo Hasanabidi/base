@@ -36,15 +36,18 @@ export default function StatisticsSection() {
         <div className="grid grid-cols-2 gap-0 border-t border-l border-black lg:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.id} data-anim="stat-item"
-              className="group border-b border-r border-black bg-white p-8 text-center transition-colors duration-300 hover:bg-accent">
-              <div className="font-heading text-5xl font-extrabold text-black md:text-6xl">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="mt-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-accent group-hover:text-white">
-                {stat.label}
-              </div>
-              <div className="mt-1 text-xs text-text-secondary group-hover:text-white/70">
-                {stat.subtext}
+              className="hover-fill group relative border-b border-r border-black bg-white p-8 text-center">
+              <div className="hover-fill__layer" />
+              <div className="relative z-10">
+                <div className="font-heading text-5xl font-extrabold text-black transition-colors duration-300 group-hover:text-white md:text-6xl">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="mt-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-accent transition-colors duration-300 group-hover:text-white">
+                  {stat.label}
+                </div>
+                <div className="mt-1 text-xs text-text-secondary transition-colors duration-300 group-hover:text-white/70">
+                  {stat.subtext}
+                </div>
               </div>
             </div>
           ))}

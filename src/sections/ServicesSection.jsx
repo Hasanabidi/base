@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Cpu, Code2, Palette, ArrowUpRight, Plus } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
+import { useParallax } from '@/hooks/useParallax';
 import { services } from '@/data/services';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,6 +14,7 @@ const iconMap = { cpu: Cpu, code: Code2, palette: Palette };
 
 export default function ServicesSection({ detailed = false }) {
   const root = useRef(null);
+  const headerRef = useParallax(0.08);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -38,7 +40,7 @@ export default function ServicesSection({ detailed = false }) {
   return (
     <section ref={root} className="relative py-32">
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
-        <div data-anim="service-header" className="mb-16 max-w-2xl">
+        <div data-anim="service-header" ref={headerRef} className="mb-16 max-w-2xl">
           <SectionLabel>Services</SectionLabel>
           <h2 className="mt-6 font-heading text-section uppercase text-black">
             Three pillars.{' '}
@@ -57,53 +59,57 @@ export default function ServicesSection({ detailed = false }) {
             return (
               <div key={service.id} data-anim="service-card" className="border-b border-r border-black">
                 <TiltCard
-                  className={`group h-full p-8 transition-colors duration-300 ${isFirst ? 'bg-accent' : 'bg-white hover:bg-secondary-panel'}`}
+                  className={`group relative h-full p-8 overflow-hidden transition-colors duration-300 ${isFirst ? 'bg-accent' : 'hover-fill bg-white'}`}
                   maxTilt={2}
                 >
-                  <div className="relative mb-8 h-12 w-12">
-                    <div className="flex h-12 w-12 items-center justify-center border border-black">
-                      <Icon
-                        size={20}
-                        className={isFirst ? 'text-white' : 'text-accent'}
-                      />
+                  {!isFirst && <div className="hover-fill__layer" />}
+
+                  <div className="relative z-10">
+                    <div className="relative mb-8 h-12 w-12">
+                      <div className="flex h-12 w-12 items-center justify-center border border-black transition-colors duration-300 group-hover:border-white">
+                        <Icon
+                          size={20}
+                          className={`${isFirst ? 'text-white' : 'text-accent'} transition-colors duration-300 group-hover:text-white`}
+                        />
+                      </div>
                     </div>
+
+                    <span className={`font-mono text-xs transition-colors duration-300 ${isFirst ? 'text-white/60' : 'text-text-secondary/50 group-hover:text-white/60'}`}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className="mt-2 font-heading text-2xl font-extrabold uppercase text-black transition-colors duration-300 group-hover:text-white">
+                      {service.title}
+                    </h3>
+                    <p className={`mt-1 text-xs uppercase tracking-[0.15em] transition-colors duration-300 ${isFirst ? 'text-white' : 'text-accent group-hover:text-white'}`}>
+                      {service.tagline}
+                    </p>
+
+                    <p className="mt-6 text-sm leading-relaxed text-text-secondary transition-colors duration-300 group-hover:text-white/80">
+                      {service.description}
+                    </p>
+
+                    {detailed && (
+                      <ul className="mt-6 space-y-2">
+                        {service.features.map((feature) => (
+                          <li
+                            key={feature}
+                            className="flex items-start gap-2 text-sm text-text-secondary transition-colors duration-300 group-hover:text-white/80"
+                          >
+                            <Plus size={14} className="mt-1 flex-shrink-0 text-accent transition-colors duration-300 group-hover:text-white" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <Link
+                      to="/contact"
+                      className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors duration-300 group-hover:text-white"
+                    >
+                      Learn more
+                      <ArrowUpRight size={14} />
+                    </Link>
                   </div>
-
-                  <span className={`font-mono text-xs ${isFirst ? 'text-white/60' : 'text-text-secondary/50'}`}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="mt-2 font-heading text-2xl font-extrabold uppercase text-black">
-                    {service.title}
-                  </h3>
-                  <p className={`mt-1 text-xs uppercase tracking-[0.15em] ${isFirst ? 'text-white' : 'text-accent'}`}>
-                    {service.tagline}
-                  </p>
-
-                  <p className="mt-6 text-sm leading-relaxed text-text-secondary">
-                    {service.description}
-                  </p>
-
-                  {detailed && (
-                    <ul className="mt-6 space-y-2">
-                      {service.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-start gap-2 text-sm text-text-secondary"
-                        >
-                          <Plus size={14} className="mt-1 flex-shrink-0 text-accent" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  <Link
-                    to="/contact"
-                    className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:text-accent"
-                  >
-                    Learn more
-                    <ArrowUpRight size={14} />
-                  </Link>
                 </TiltCard>
               </div>
             );
