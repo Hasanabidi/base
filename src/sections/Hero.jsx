@@ -92,7 +92,7 @@ export default function Hero() {
           className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft"
         >
           <span className="h-1.5 w-1.5 bg-accent" />
-          Full-Stack Digital Partner
+          Full-Service Digital Agency
         </div>
 
         <h1 className="font-heading text-hero font-extrabold uppercase text-black">
@@ -114,8 +114,9 @@ export default function Hero() {
           data-anim="subhead"
           className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg"
         >
-          AI Automation. Digital Systems. High Performance Software.{' '}
-          <span className="text-black font-medium">Built to Scale.</span>
+          Web development, mobile apps, SaaS platforms, POS software, financial services,
+          and cybersecurity — all under one roof.{' '}
+          <span className="text-black font-medium">Built to perform.</span>
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

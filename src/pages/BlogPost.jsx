@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import CTASection from '@/sections/CTASection';
+import SEO from '@/components/SEO';
 import { blogPosts } from '@/data/blogPosts';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -35,6 +36,22 @@ export default function BlogPost() {
 
   return (
     <div ref={root} className="pt-32">
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        path={`/blog/${post.slug}`}
+        image={post.heroImage}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt,
+          "datePublished": post.date,
+          "author": { "@type": "Person", "name": post.author },
+          "image": post.heroImage,
+          "publisher": { "@type": "Organization", "name": "Fulcrum System" }
+        }}
+      />
       <article>
         {/* Article header */}
         <section className="relative py-20">

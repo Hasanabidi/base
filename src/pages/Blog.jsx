@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
+import SEO from '@/components/SEO';
 import { blogPosts, blogCategories } from '@/data/blogPosts';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,6 +33,11 @@ export default function Blog() {
 
   return (
     <div ref={root} className="pt-32">
+      <SEO
+        title="Insights"
+        description="Engineering insights on web development, mobile apps, SaaS architecture, cybersecurity, and financial technology from the Fulcrum System team."
+        path="/blog"
+      />
       {/* Header */}
       <section className="relative py-20 md:py-32">
         <div className="grid-bg absolute inset-0" />

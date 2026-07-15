@@ -5,6 +5,7 @@ import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import CTASection from '@/sections/CTASection';
+import SEO from '@/components/SEO';
 import { team } from '@/data/team';
 import { stats } from '@/data/stats';
 import { Target, Layers, Zap, GitBranch } from 'lucide-react';
@@ -45,6 +46,11 @@ export default function About() {
 
   return (
     <div ref={root} className="pt-32">
+      <SEO
+        title="About Us"
+        description="Fulcrum System is a full-service digital agency specializing in web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity."
+        path="/about"
+      />
       {/* Hero */}
       <section className="relative py-20 md:py-32">
         <div className="grid-bg absolute inset-0" />

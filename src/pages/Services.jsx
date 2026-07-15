@@ -1,17 +1,18 @@
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Plus } from 'lucide-react';
+import { ArrowRight, Plus, Code2, Smartphone, Cloud, CreditCard, Calculator, Shield } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import CTASection from '@/sections/CTASection';
 import ProcessSection from '@/sections/ProcessSection';
 import { services } from '@/data/services';
-import { Cpu, Code2, Palette } from 'lucide-react';
+import SEO from '@/components/SEO';
+import { servicesPageJsonLd } from '@/data/seoData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const iconMap = { cpu: Cpu, code: Code2, palette: Palette };
+const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
 
 export default function Services() {
   const root = useRef(null);
@@ -32,6 +33,12 @@ export default function Services() {
 
   return (
     <div ref={root} className="pt-32">
+      <SEO
+        title="Services"
+        description="Web development (Shopify, Wix, Framer, GoHighLevel, Next.js, React), mobile apps, Android games, SaaS platforms, POS software, financial services, tax filing, and cybersecurity."
+        path="/services"
+        jsonLd={servicesPageJsonLd}
+      />
       {/* Page Hero */}
       <section className="relative py-20 md:py-32">
         <div className="grid-bg absolute inset-0" />
@@ -39,13 +46,13 @@ export default function Services() {
           <div data-anim="srv-header">
             <SectionLabel>Services</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
-              Three pillars.<br />
-              <span className="text-gradient">One system.</span>
+              Six disciplines.<br />
+              <span className="text-gradient">One partner.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
-              We don't sell services — we engineer systems. Each pillar is designed to
-              compound the value of the others. AI without solid engineering is a demo.
-              Engineering without design is invisible. Design without intelligence is static.
+              From web development and mobile apps to SaaS platforms, POS software, financial
+              services, and cybersecurity — we deliver end-to-end solutions for businesses that
+              need more than just a website.
             </p>
           </div>
         </div>
@@ -55,7 +62,7 @@ export default function Services() {
       <section className="relative py-20">
         <div data-anim="srv-grid" className="mx-auto max-w-[1400px] space-y-4 px-6 lg:px-10">
           {services.map((service, i) => {
-            const Icon = iconMap[service.icon] || Cpu;
+            const Icon = iconMap[service.icon] || Code2;
             const reversed = i % 2 === 1;
             return (
               <div key={service.id} data-anim="srv-card">

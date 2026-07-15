@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { ArrowRight, Check, Mail, Phone, MapPin } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import MagneticButton from '@/components/MagneticButton';
+import SEO from '@/components/SEO';
 
 const budgetRanges = ['< $10K', '$10K – $50K', '$50K – $100K', '$100K+'];
-const serviceTypes = ['AI Automation', 'Web Engineering', 'Digital Design', 'Full Project'];
+const serviceTypes = ['Web Development', 'Mobile Apps', 'SaaS / POS', 'Financial Services', 'Cybersecurity', 'Full Project'];
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -24,6 +25,17 @@ export default function Contact() {
 
   return (
     <div className="pt-32">
+      <SEO
+        title="Contact"
+        description="Get in touch with Fulcrum System for web development, mobile apps, SaaS platforms, POS software, financial services, or cybersecurity solutions."
+        path="/contact"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Fulcrum System",
+          "url": "https://fulcrumsystem.com/contact"
+        }}
+      />
       {/* Header */}
       <section className="relative py-20 md:py-32">
         <div className="grid-bg absolute inset-0" />

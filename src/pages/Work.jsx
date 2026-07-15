@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import CTASection from '@/sections/CTASection';
+import SEO from '@/components/SEO';
 import { projects } from '@/data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,11 @@ export default function Work() {
 
   return (
     <div ref={root} className="pt-32">
+      <SEO
+        title="Our Work"
+        description="Explore our portfolio of web development, mobile app, SaaS platform, POS system, and cybersecurity projects delivered for clients across industries."
+        path="/work"
+      />
       {/* Header */}
       <section className="relative py-20 md:py-32">
         <div className="grid-bg absolute inset-0" />

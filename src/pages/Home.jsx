@@ -9,6 +9,7 @@ import StatisticsSection from '@/sections/StatisticsSection';
 import PortfolioSection from '@/sections/PortfolioSection';
 import TestimonialsSection from '@/sections/TestimonialsSection';
 import CTASection from '@/sections/CTASection';
+import SEO from '@/components/SEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,19 @@ export default function Home() {
 
   return (
     <div ref={root}>
+      <SEO
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "Fulcrum System",
+          "description": "Web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity solutions.",
+          "url": "https://fulcrumsystem.com",
+          "telephone": "+1-555-555-0100",
+          "email": "hello@fulcrumsystem.com",
+          "areaServed": "Worldwide"
+        }}
+      />
       <Hero />
       <ServicesSection />
       <AISection />

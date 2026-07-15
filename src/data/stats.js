@@ -14,11 +14,11 @@ export const stats = [
     subtext: "Measured post-launch"
   },
   {
-    id: "automated",
-    value: 5,
-    suffix: "M+",
-    label: "Automated Tasks",
-    subtext: "Per month, globally"
+    id: "apps",
+    value: 40,
+    suffix: "+",
+    label: "Apps & Games",
+    subtext: "Published to stores"
   },
   {
     id: "experience",

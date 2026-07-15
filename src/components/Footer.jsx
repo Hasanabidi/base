@@ -9,10 +9,11 @@ const footerLinks = {
     { label: 'Insights', to: '/blog' },
   ],
   Services: [
-    { label: 'AI Automation', to: '/services' },
-    { label: 'Web Engineering', to: '/services' },
-    { label: 'Digital Design', to: '/services' },
-    { label: 'Strategy Call', to: '/contact' },
+    { label: 'Web Development', to: '/services' },
+    { label: 'Mobile Apps & Games', to: '/services' },
+    { label: 'SaaS & POS Software', to: '/services' },
+    { label: 'Financial & Tax', to: '/services' },
+    { label: 'Cybersecurity', to: '/services' },
   ],
   Legal: [
     { label: 'Privacy Policy', to: '/contact' },
@@ -45,7 +46,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-text-secondary">
-              Engineering leverage from complexity. AI automation, digital systems, and high-performance software built to scale.
+              Web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity — all under one roof.
             </p>
             <div className="mt-8 flex items-center gap-2">
               {socials.map((social) => {
@@ -95,7 +96,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black pt-6 sm:flex-row">
           <p className="text-xs uppercase tracking-[0.15em] text-text-secondary">
-            © 2025 Fulcrum System. All rights reserved.
+            © 2026 Fulcrum System. All rights reserved.
           </p>
           <p className="font-mono text-xs text-text-secondary">
             Engineered with precision.
