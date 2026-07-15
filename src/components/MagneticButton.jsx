@@ -28,20 +28,20 @@ export default function MagneticButton({
   };
 
   const baseClass = cn(
-    'btn-sweep group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300',
+    'btn-sweep group relative inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300',
     className
   );
 
   const variantClass = {
     primary: cn(
-      'bg-accent text-white border border-black',
-      'hover:bg-black hover:text-white'
+      'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border border-transparent shadow-lg shadow-indigo-500/25',
+      'hover:shadow-xl hover:-translate-y-0.5'
     ),
     secondary: cn(
-      'bg-transparent text-black border border-black',
-      'hover:bg-black hover:text-white'
+      'bg-white text-slate-900 border border-slate-200 shadow-soft',
+      'hover:border-indigo-300 hover:text-indigo-600 hover:-translate-y-0.5'
     ),
-    ghost: 'text-text-secondary hover:text-black',
+    ghost: 'text-slate-500 hover:text-slate-900',
   };
 
   const content = (

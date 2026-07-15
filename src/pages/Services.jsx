@@ -40,7 +40,7 @@ export default function Services() {
             <SectionLabel>Services</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
               Three pillars.<br />
-              <span className="text-accent">One system.</span>
+              <span className="text-gradient">One system.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
               We don't sell services — we engineer systems. Each pillar is designed to
@@ -59,10 +59,10 @@ export default function Services() {
             const reversed = i % 2 === 1;
             return (
               <div key={service.id} data-anim="srv-card">
-                <TiltCard maxTilt={1} className="group grid gap-8 border border-black bg-white p-8 md:grid-cols-2 md:p-12">
+                <TiltCard maxTilt={1} className="group grid gap-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-soft md:grid-cols-2 md:p-12">
                   <div className={reversed ? 'md:order-2' : ''}>
                     <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center border border-black bg-accent">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                         <Icon size={20} className="text-white" />
                       </div>
                       <div>
@@ -76,7 +76,7 @@ export default function Services() {
                     <div className="mt-8 flex items-center gap-3">
                       {service.sequence.map((step, j) => (
                         <div key={step} className="flex items-center gap-3">
-                          <span className="border border-black bg-white px-3 py-1 text-xs text-black">
+                          <span className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs text-slate-900">
                             {step}
                           </span>
                           {j < service.sequence.length - 1 && (

@@ -8,9 +8,9 @@ export default function SectionLabel({ children, className }) {
         className
       )}
     >
-      <span className="h-2 w-2 bg-accent" />
+      <span className="h-2 w-2 rounded-full bg-accent" />
       <span className="font-heading">{children}</span>
-      <span className="h-px w-12 bg-black" />
+      <span className="h-px w-12 bg-slate-300" />
     </div>
   );
 }

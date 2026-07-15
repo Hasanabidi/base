@@ -54,24 +54,24 @@ export default function PortfolioSection({ limit }) {
             <SectionLabel>Selected Work</SectionLabel>
             <h2 className="mt-6 font-heading text-section uppercase text-black">
               Engineering that{' '}
-              <span className="text-accent">compounds.</span>
+              <span className="text-gradient">compounds.</span>
             </h2>
           </div>
           <Link
             to="/work"
-            className="group inline-flex items-center gap-2 border border-black px-5 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:bg-accent hover:text-white"
+            className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft transition-colors hover:bg-accent hover:text-white"
           >
             View all projects
             <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
-        <div className="grid gap-0 md:grid-cols-2 border-t border-l border-black">
+        <div className="grid gap-5 md:grid-cols-2">
           {featured.map((project) => (
-            <div key={project.id} data-anim="portfolio-card" className="border-b border-r border-black">
-              <TiltCard className="group h-full bg-white" maxTilt={2}>
+            <div key={project.id} data-anim="portfolio-card">
+              <TiltCard className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft" maxTilt={2}>
                 {/* Image */}
-                <div className="img-zoom relative aspect-[16/10] overflow-hidden border-b border-black">
+                <div className="img-zoom relative aspect-[16/10] overflow-hidden">
                   <img
                     ref={(el) => (imgRefs.current[project.id] = el)}
                     src={project.heroImage}
@@ -83,7 +83,7 @@ export default function PortfolioSection({ limit }) {
 
                   {/* Category badge */}
                   <div className="absolute left-4 top-4">
-                    <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">
                       {project.category}
                     </span>
                   </div>
@@ -116,7 +116,7 @@ export default function PortfolioSection({ limit }) {
                     {project.tech.slice(0, 4).map((t) => (
                       <span
                         key={t}
-                        className="border border-black px-2 py-1 font-mono text-xs text-black"
+                        className="rounded-md border border-slate-200 px-2 py-1 font-mono text-xs text-slate-700"
                       >
                         {t}
                       </span>

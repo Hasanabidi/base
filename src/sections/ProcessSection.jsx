@@ -52,7 +52,7 @@ export default function ProcessSection() {
   return (
     <section
       ref={root}
-      className="relative border-t border-black"
+      className="relative border-t border-slate-200"
       style={{ height: `${processSteps.length * 80}vh` }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
@@ -64,7 +64,7 @@ export default function ProcessSection() {
             <SectionLabel>Process</SectionLabel>
             <h2 className="mt-6 font-heading text-section uppercase text-black">
               The Engineering{' '}
-              <span className="text-accent">Pipeline</span>
+              <span className="text-gradient">Pipeline</span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-text-secondary">
               Every project follows a rigorous five-stage pipeline. No guesswork.
@@ -84,11 +84,11 @@ export default function ProcessSection() {
           {/* Right: Timeline + stages */}
           <div className="relative">
             {/* Vertical progress track */}
-            <div className="absolute left-0 top-0 h-full w-px bg-black/20">
+            <div className="absolute left-0 top-0 h-full w-px bg-slate-200">
               <div
                 data-anim="progress-line"
                 className="absolute top-0 left-0 h-full w-full origin-top"
-                style={{ background: '#0047FF' }}
+                style={{ background: '#6366F1' }}
               />
             </div>
 
@@ -105,10 +105,10 @@ export default function ProcessSection() {
                 >
                   <div className="absolute -left-[37px] top-1 flex h-4 w-4 items-center justify-center">
                     <div
-                      className="h-4 w-4 border-2 transition-all duration-500"
+                      className="h-4 w-4 rounded-full border-2 transition-all duration-500"
                       style={{
-                        borderColor: i <= activeStep ? '#0047FF' : 'rgba(0,0,0,0.2)',
-                        background: i === activeStep ? '#0047FF' : 'transparent',
+                        borderColor: i <= activeStep ? '#6366F1' : '#E2E8F0',
+                        background: i === activeStep ? '#6366F1' : 'transparent',
                       }}
                     />
                   </div>
@@ -117,7 +117,7 @@ export default function ProcessSection() {
                     <span className="font-mono text-xs text-accent">{step.step}</span>
                     <h3
                       className="font-heading text-2xl font-extrabold uppercase transition-colors duration-500"
-                      style={{ color: i === activeStep ? '#000000' : '#555555' }}
+                      style={{ color: i === activeStep ? '#0F172A' : '#64748B' }}
                     >
                       {step.title}
                     </h3>
@@ -132,7 +132,7 @@ export default function ProcessSection() {
                         {step.deliverables.map((d) => (
                           <span
                             key={d}
-                            className="border border-black bg-white px-3 py-1 text-xs text-black"
+                            className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs text-slate-900"
                           >
                             {d}
                           </span>

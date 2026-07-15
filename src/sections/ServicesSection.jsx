@@ -44,7 +44,7 @@ export default function ServicesSection({ detailed = false }) {
           <SectionLabel>Services</SectionLabel>
           <h2 className="mt-6 font-heading text-section uppercase text-black">
             Three pillars.{' '}
-            <span className="text-accent">One unified system.</span>
+            <span className="text-gradient">One unified system.</span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-text-secondary">
             We don't build isolated solutions. Every engagement is engineered as an integrated
@@ -52,21 +52,21 @@ export default function ServicesSection({ detailed = false }) {
           </p>
         </div>
 
-        <div className="grid gap-0 md:grid-cols-3 border-t border-l border-black">
+        <div className="grid gap-5 md:grid-cols-3">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Cpu;
             const isFirst = i === 0;
             return (
-              <div key={service.id} data-anim="service-card" className="border-b border-r border-black">
+              <div key={service.id} data-anim="service-card">
                 <TiltCard
-                  className={`group relative h-full p-8 overflow-hidden transition-colors duration-300 ${isFirst ? 'bg-accent' : 'hover-fill bg-white'}`}
+                  className={`group relative h-full overflow-hidden rounded-2xl border border-slate-200 p-8 shadow-soft transition-colors duration-300 ${isFirst ? 'bg-gradient-to-br from-indigo-500 to-violet-600' : 'hover-fill bg-white'}`}
                   maxTilt={2}
                 >
                   {!isFirst && <div className="hover-fill__layer" />}
 
                   <div className="relative z-10">
                     <div className="relative mb-8 h-12 w-12">
-                      <div className="flex h-12 w-12 items-center justify-center border border-black transition-colors duration-300 group-hover:border-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 transition-colors duration-300 group-hover:border-white">
                         <Icon
                           size={20}
                           className={`${isFirst ? 'text-white' : 'text-accent'} transition-colors duration-300 group-hover:text-white`}

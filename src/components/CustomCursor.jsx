@@ -68,8 +68,8 @@ export default function CustomCursor() {
           height: 48px !important;
           margin-left: -24px !important;
           margin-top: -24px !important;
-          border-color: rgba(0, 71, 255, 0.8) !important;
-          background: rgba(0, 71, 255, 0.05);
+          border-color: rgba(99, 102, 241, 0.8) !important;
+          background: rgba(99, 102, 241, 0.05);
         }
       `}</style>
     </>

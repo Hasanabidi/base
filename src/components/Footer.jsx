@@ -37,10 +37,10 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <Link to="/" className="group flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center bg-accent">
-                <span className="h-2 w-2 bg-white" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600">
+                <span className="h-2 w-2 rounded-full bg-white" />
               </span>
-              <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-black">
+              <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-slate-900">
                 Fulcrum
               </span>
             </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="group flex h-10 w-10 items-center justify-center border border-black text-black transition-all duration-300 hover:bg-accent hover:text-white"
+                    className="group flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 shadow-soft transition-all duration-300 hover:bg-accent hover:text-white hover:border-transparent"
                   >
                     <Icon size={16} />
                   </a>

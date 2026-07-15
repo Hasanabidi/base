@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
-import GeometricArt from '@/components/GeometricArt';
+import AIWorkflowDiagram from '@/components/AIWorkflowDiagram';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -82,13 +82,14 @@ export default function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       {/* Grid background */}
-      <div data-hero="grid" className="grid-bg absolute inset-0" />
+      <div data-hero="grid" className="absolute inset-0 bg-gradient-mesh" />
+      <div className="grid-bg absolute inset-0 opacity-40" />
 
       {/* Content */}
       <div data-hero="content" className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
         <div
           data-anim="badge"
-          className="mb-8 inline-flex items-center gap-2 border border-black bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black"
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft"
         >
           <span className="h-1.5 w-1.5 bg-accent" />
           Full-Stack Digital Partner
@@ -131,9 +132,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Geometric art */}
-        <div data-anim="art" data-hero="art" className="mx-auto mt-16 max-w-4xl">
-          <GeometricArt />
+        {/* AI workflow pipeline */}
+        <div data-anim="art" data-hero="art" className="mx-auto mt-16 max-w-5xl">
+          <AIWorkflowDiagram />
         </div>
       </div>
 

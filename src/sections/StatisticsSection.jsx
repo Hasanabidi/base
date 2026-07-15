@@ -25,18 +25,18 @@ export default function StatisticsSection() {
   }, []);
 
   return (
-    <section ref={root} className="relative py-32 border-t border-black">
+    <section ref={root} className="relative py-32 border-t border-slate-200">
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
         <div data-anim="stat-header" className="mb-16 text-center">
           <div className="flex justify-center"><SectionLabel>Impact</SectionLabel></div>
           <h2 className="mt-6 font-heading text-section uppercase text-black">
-            Measurable results. <span className="text-accent">Real leverage.</span>
+            Measurable results. <span className="text-gradient">Real leverage.</span>
           </h2>
         </div>
-        <div className="grid grid-cols-2 gap-0 border-t border-l border-black lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.id} data-anim="stat-item"
-              className="hover-fill group relative border-b border-r border-black bg-white p-8 text-center">
+              className="hover-fill group relative rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-soft">
               <div className="hover-fill__layer" />
               <div className="relative z-10">
                 <div className="font-heading text-5xl font-extrabold text-black transition-colors duration-300 group-hover:text-white md:text-6xl">

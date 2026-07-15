@@ -40,7 +40,7 @@ export default function Blog() {
             <SectionLabel>Insights</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
               Engineering<br />
-              <span className="text-accent">perspectives.</span>
+              <span className="text-gradient">perspectives.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
               Field notes from the intersection of AI, software architecture, and design.
@@ -58,10 +58,10 @@ export default function Blog() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300 border border-black ${
+                className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300 border border-slate-200 ${
                   activeCategory === cat
-                    ? 'bg-accent text-white'
-                    : 'bg-white text-black hover:bg-secondary-panel'
+                    ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
+                    : 'bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
                 {cat}
@@ -76,8 +76,8 @@ export default function Blog() {
         <section className="relative py-8">
           <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
             <Link to={`/blog/${featured.slug}`}>
-              <div className="group grid gap-0 border border-black bg-white md:grid-cols-2">
-                <div className="relative aspect-[16/10] overflow-hidden border-b border-black md:border-b-0 md:border-r">
+              <div className="group grid gap-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft md:grid-cols-2">
+                <div className="relative aspect-[16/10] overflow-hidden">
                   <img
                     src={featured.heroImage}
                     alt={featured.title}
@@ -85,7 +85,7 @@ export default function Blog() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute left-4 top-4">
-                    <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">
                       {featured.category}
                     </span>
                   </div>
@@ -113,11 +113,11 @@ export default function Blog() {
       {/* Rest of posts */}
       <section className="relative py-12">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-          <div className="grid gap-0 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-black">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {rest.map((post) => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="border-b border-r border-black">
-                <div className="group h-full bg-white transition-colors hover:bg-secondary-panel">
-                  <div className="relative aspect-[16/10] overflow-hidden border-b border-black">
+              <Link key={post.slug} to={`/blog/${post.slug}`}>
+                <div className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition-colors hover:bg-slate-50">
+                  <div className="relative aspect-[16/10] overflow-hidden">
                     <img
                       src={post.heroImage}
                       alt={post.title}
@@ -125,7 +125,7 @@ export default function Blog() {
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute left-3 top-3">
-                      <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">
+                      <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">
                         {post.category}
                       </span>
                     </div>

@@ -46,7 +46,7 @@ export default function TestimonialsSection() {
         <div className="marquee-track flex gap-4 w-max">
           {doubled.map((t, i) => (
             <div key={i} data-anim="test-card" className="w-[420px] flex-shrink-0">
-              <div className="hover-fill group border border-black bg-white p-8 h-full">
+              <div className="hover-fill group rounded-2xl border border-slate-200 bg-white p-8 shadow-soft h-full">
                 <div className="hover-fill__layer" />
                 <div className="relative z-10">
                 <Quote size={24} className="text-accent mb-6 transition-colors duration-300 group-hover:text-white" />

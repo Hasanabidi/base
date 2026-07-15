@@ -45,7 +45,7 @@ export default function BlogPost() {
               </Link>
 
               <div className="mt-8">
-                <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-accent">
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-indigo-500 shadow-soft">
                   {post.category}
                 </span>
               </div>
@@ -58,8 +58,8 @@ export default function BlogPost() {
                 {post.excerpt}
               </p>
 
-              <div className="mt-8 flex items-center gap-6 border-t border-black pt-6">
-                <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+              <div className="mt-8 flex items-center gap-6 border-t border-slate-200 pt-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                   <span className="text-sm font-heading font-bold text-white">
                     {post.author.split(' ').map(n => n[0]).join('')}
                   </span>
@@ -79,7 +79,7 @@ export default function BlogPost() {
         {/* Hero image */}
         <section className="relative">
           <div className="mx-auto max-w-5xl px-6 lg:px-10">
-            <div className="relative aspect-[21/9] overflow-hidden border border-black">
+            <div className="relative aspect-[21/9] overflow-hidden rounded-2xl border border-slate-200 shadow-soft">
               <img src={post.heroImage} alt={post.title} className="h-full w-full object-cover" />
             </div>
           </div>
@@ -104,8 +104,8 @@ export default function BlogPost() {
             })}
 
             {/* Author footer */}
-            <div className="mt-16 flex items-center gap-4 border border-black bg-white p-6">
-              <div className="flex h-12 w-12 items-center justify-center border border-black bg-accent">
+            <div className="mt-16 flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                 <span className="text-sm font-heading font-bold text-white">
                   {post.author.split(' ').map(n => n[0]).join('')}
                 </span>
@@ -123,7 +123,7 @@ export default function BlogPost() {
           <section className="relative py-12">
             <div className="mx-auto max-w-3xl px-6 lg:px-10">
               <Link to={`/blog/${nextPost.slug}`}>
-                <div className="group flex items-center justify-between border border-black bg-white p-8 transition-colors hover:bg-secondary-panel">
+                <div className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-8 shadow-soft transition-colors hover:bg-slate-50">
                   <div>
                     <div className="text-xs uppercase tracking-[0.15em] text-text-secondary">Next article</div>
                     <h3 className="mt-2 font-heading text-xl font-extrabold uppercase text-black transition-colors group-hover:text-accent">

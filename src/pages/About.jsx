@@ -53,7 +53,7 @@ export default function About() {
             <SectionLabel>About</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
               We engineer<br />
-              <span className="text-accent">leverage.</span>
+              <span className="text-gradient">leverage.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
               Fulcrum System is a full-stack digital partner for companies that treat
@@ -67,9 +67,9 @@ export default function About() {
       {/* Stats strip */}
       <section className="relative py-8">
         <div data-anim="stats-grid" className="mx-auto max-w-[1400px] px-6 lg:px-10">
-          <div className="grid grid-cols-2 gap-0 border-t border-l border-black lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
             {stats.map((stat) => (
-              <div key={stat.id} data-anim="stat-item" className="border-b border-r border-black bg-white p-8 text-center">
+              <div key={stat.id} data-anim="stat-item" className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-soft">
                 <div className="font-heading text-5xl font-extrabold text-black">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </div>
@@ -81,21 +81,21 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="relative py-32 border-t border-black">
+      <section className="relative py-32 border-t border-slate-200">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="mb-16 max-w-2xl">
             <SectionLabel>Principles</SectionLabel>
             <h2 className="mt-6 font-heading text-section uppercase text-black">
-              How we <span className="text-accent">think.</span>
+              How we <span className="text-gradient">think.</span>
             </h2>
           </div>
-          <div data-anim="values" className="grid gap-0 md:grid-cols-2 border-t border-l border-black">
+          <div data-anim="values" className="grid gap-5 md:grid-cols-2">
             {values.map((value) => {
               const Icon = value.icon;
               return (
-                <div key={value.title} data-anim="value-card" className="border-b border-r border-black">
-                  <TiltCard maxTilt={1} className="group h-full bg-white p-8 transition-colors hover:bg-secondary-panel">
-                    <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+                <div key={value.title} data-anim="value-card">
+                  <TiltCard maxTilt={1} className="group h-full rounded-2xl border border-slate-200 bg-white p-8 shadow-soft transition-colors hover:bg-slate-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Icon size={18} className="text-white" />
                     </div>
                     <h3 className="mt-6 font-heading text-xl font-extrabold uppercase text-black">{value.title}</h3>
@@ -109,24 +109,24 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="relative py-32 border-t border-black bg-white">
+      <section className="relative py-32 border-t border-slate-200 bg-white">
         <div className="grid-bg absolute inset-0 opacity-30" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="mb-16 max-w-2xl">
             <SectionLabel>Team</SectionLabel>
             <h2 className="mt-6 font-heading text-section uppercase text-black">
               Senior engineers.<br />
-              <span className="text-accent">No layers.</span>
+              <span className="text-gradient">No layers.</span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-text-secondary">
               You work directly with the people building your system. No project managers
               passing messages. No junior developers learning on your dime.
             </p>
           </div>
-          <div data-anim="team-grid" className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-black">
+          <div data-anim="team-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
-              <div key={member.id} data-anim="team-card" className="border-b border-r border-black bg-white p-6 transition-colors hover:bg-secondary-panel">
-                <div className="relative mb-6 h-32 overflow-hidden border border-black bg-secondary-panel">
+              <div key={member.id} data-anim="team-card" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition-colors hover:bg-slate-50">
+                <div className="relative mb-6 h-32 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
                   <div className="grid-bg absolute inset-0 opacity-50" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="font-heading text-4xl font-extrabold text-accent">
@@ -139,7 +139,7 @@ export default function About() {
                 <p className="mt-3 text-xs leading-relaxed text-text-secondary">{member.bio}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {member.specializations.map((s) => (
-                    <span key={s} className="border border-black px-2 py-0.5 font-mono text-[10px] text-black">
+                    <span key={s} className="rounded-md border border-slate-200 px-2 py-0.5 font-mono text-[10px] text-slate-700">
                       {s}
                     </span>
                   ))}

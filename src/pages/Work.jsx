@@ -37,7 +37,7 @@ export default function Work() {
             <SectionLabel>Selected Work</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
               Engineering that<br />
-              <span className="text-accent">compounds.</span>
+              <span className="text-gradient">compounds.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
               Six engagements. Six different challenges. One consistent outcome —
@@ -50,12 +50,12 @@ export default function Work() {
       {/* Full grid */}
       <section className="relative py-20">
         <div data-anim="work-grid" className="mx-auto max-w-[1400px] px-6 lg:px-10">
-          <div className="grid gap-0 md:grid-cols-2 border-t border-l border-black">
+          <div className="grid gap-5 md:grid-cols-2">
             {projects.map((project) => (
-              <div key={project.id} data-anim="work-card" className="border-b border-r border-black">
+              <div key={project.id} data-anim="work-card">
                 <Link to="/contact">
-                  <TiltCard maxTilt={2} className="group h-full bg-white">
-                    <div className="relative aspect-[16/10] overflow-hidden border-b border-black">
+                  <TiltCard maxTilt={2} className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
+                    <div className="relative aspect-[16/10] overflow-hidden">
                       <img
                         src={project.heroImage}
                         alt={project.title}
@@ -64,12 +64,12 @@ export default function Work() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       <div className="absolute left-4 top-4">
-                        <span className="border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">
                           {project.category}
                         </span>
                       </div>
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                        <div className="flex h-12 w-12 items-center justify-center border border-black bg-accent">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                           <ArrowUpRight size={18} className="text-white" />
                         </div>
                       </div>
@@ -82,7 +82,7 @@ export default function Work() {
                       <p className="mt-2 text-sm text-text-secondary">{project.impact}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {project.tech.slice(0, 4).map((t) => (
-                          <span key={t} className="border border-black px-2 py-1 font-mono text-xs text-black">
+                          <span key={t} className="rounded-md border border-slate-200 px-2 py-1 font-mono text-xs text-slate-700">
                             {t}
                           </span>
                         ))}

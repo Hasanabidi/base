@@ -31,7 +31,7 @@ export default function Contact() {
           <SectionLabel>Contact</SectionLabel>
           <h1 className="mt-6 font-heading text-hero uppercase text-black">
             Let's build<br />
-            <span className="text-accent">something.</span>
+            <span className="text-gradient">something.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
             Tell us about your systems, your goals, and the complexity you're navigating.
@@ -45,10 +45,10 @@ export default function Contact() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
             {/* Form */}
-            <div className="border border-black bg-white p-8 md:p-12">
+            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-soft md:p-12">
               {submitted ? (
                 <div className="flex h-full flex-col items-center justify-center py-20 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center border border-black bg-accent">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600 shadow-glow">
                     <Check size={28} className="text-white" />
                   </div>
                   <h3 className="mt-6 font-heading text-2xl font-extrabold uppercase text-black">Message received.</h3>
@@ -66,7 +66,7 @@ export default function Contact() {
                       <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Name</label>
                       <input
                         type="text" name="name" required value={form.name} onChange={handleChange}
-                        className="w-full border border-black bg-white px-4 py-3 text-sm text-black placeholder:text-text-secondary/40 outline-none transition-colors focus:bg-secondary-panel"
+                        className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                         placeholder="Jane Doe"
                       />
                     </div>
@@ -74,7 +74,7 @@ export default function Contact() {
                       <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Email</label>
                       <input
                         type="email" name="email" required value={form.email} onChange={handleChange}
-                        className="w-full border border-black bg-white px-4 py-3 text-sm text-black placeholder:text-text-secondary/40 outline-none transition-colors focus:bg-secondary-panel"
+                        className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                         placeholder="jane@company.com"
                       />
                     </div>
@@ -84,7 +84,7 @@ export default function Contact() {
                     <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Company</label>
                     <input
                       type="text" name="company" value={form.company} onChange={handleChange}
-                      className="w-full border border-black bg-white px-4 py-3 text-sm text-black placeholder:text-text-secondary/40 outline-none transition-colors focus:bg-secondary-panel"
+                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                       placeholder="Acme Inc."
                     />
                   </div>
@@ -97,10 +97,10 @@ export default function Contact() {
                         <button
                           key={s} type="button"
                           onClick={() => setForm({ ...form, serviceType: s })}
-                          className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-black transition-all duration-300 ${
+                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 ${
                             form.serviceType === s
-                              ? 'bg-accent text-white'
-                              : 'bg-white text-black hover:bg-secondary-panel'
+                              ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
+                              : 'bg-white text-slate-700 hover:bg-slate-50'
                           }`}
                         >
                           {s}
@@ -117,10 +117,10 @@ export default function Contact() {
                         <button
                           key={b} type="button"
                           onClick={() => setForm({ ...form, budget: b })}
-                          className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-black transition-all duration-300 ${
+                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 ${
                             form.budget === b
-                              ? 'bg-accent text-white'
-                              : 'bg-white text-black hover:bg-secondary-panel'
+                              ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
+                              : 'bg-white text-slate-700 hover:bg-slate-50'
                           }`}
                         >
                           {b}
@@ -133,14 +133,14 @@ export default function Contact() {
                     <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Message</label>
                     <textarea
                       name="message" required value={form.message} onChange={handleChange} rows={5}
-                      className="w-full border border-black bg-white px-4 py-3 text-sm text-black placeholder:text-text-secondary/40 outline-none transition-colors focus:bg-secondary-panel resize-none"
+                      className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10 resize-none"
                       placeholder="Tell us about your project, challenges, and goals..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="group inline-flex w-full items-center justify-center gap-2 bg-accent px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-black transition-all duration-300 hover:bg-black hover:text-white sm:w-auto"
+                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 sm:w-auto"
                   >
                     Send Message
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
@@ -151,23 +151,23 @@ export default function Contact() {
 
             {/* Contact info */}
             <div className="space-y-4">
-              <div className="border border-black bg-white p-8">
+              <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-soft">
                 <h3 className="font-heading text-lg font-extrabold uppercase text-black">Direct Contact</h3>
                 <div className="mt-6 space-y-4">
                   <a href="mailto:hello@fulcrumsystem.com" className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
-                    <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Mail size={16} className="text-white" />
                     </div>
                     hello@fulcrumsystem.com
                   </a>
                   <a href="tel:+15555550100" className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
-                    <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Phone size={16} className="text-white" />
                     </div>
                     +1 (555) 555-0100
                   </a>
                   <div className="flex items-center gap-3 text-sm text-text-secondary">
-                    <div className="flex h-10 w-10 items-center justify-center border border-black bg-accent">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <MapPin size={16} className="text-white" />
                     </div>
                     Remote · Global
@@ -175,7 +175,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="border border-black bg-white p-8">
+              <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-soft">
                 <h3 className="font-heading text-lg font-extrabold uppercase text-black">Response Time</h3>
                 <p className="mt-4 text-sm leading-relaxed text-text-secondary">
                   We respond to all inquiries within 24 hours. For urgent project consultations,
@@ -183,7 +183,7 @@ export default function Contact() {
                 </p>
               </div>
 
-              <div className="border border-accent bg-accent/5 p-8">
+              <div className="rounded-2xl border border-indigo-200 bg-indigo-50/50 p-8">
                 <h3 className="font-heading text-lg font-extrabold uppercase text-accent">Working with us</h3>
                 <ul className="mt-4 space-y-3">
                   {['Senior engineers only', 'Direct communication', 'Fixed-scope or retainer', 'NDA-friendly'].map((item) => (

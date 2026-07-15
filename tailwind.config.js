@@ -5,50 +5,50 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        lg: '0px',
-        md: '0px',
-        sm: '0px'
+        lg: '0.75rem',
+        md: '0.5rem',
+        sm: '0.375rem'
       },
       colors: {
-        background: '#F4F1ED',
-        foreground: '#000000',
+        background: '#F8FAFC',
+        foreground: '#0F172A',
         'core': '#FFFFFF',
-        'secondary-panel': '#EDE9E3',
-        'accent': '#0047FF',
-        'accent-glow': '#3366FF',
-        'text-secondary': '#555555',
+        'secondary-panel': '#F1F5F9',
+        'accent': '#6366F1',
+        'accent-glow': '#818CF8',
+        'text-secondary': '#64748B',
         card: {
           DEFAULT: '#FFFFFF',
-          foreground: '#000000'
+          foreground: '#0F172A'
         },
         popover: {
           DEFAULT: '#FFFFFF',
-          foreground: '#000000'
+          foreground: '#0F172A'
         },
         primary: {
-          DEFAULT: '#FFFFFF',
-          foreground: '#000000'
+          DEFAULT: '#6366F1',
+          foreground: '#FFFFFF'
         },
         secondary: {
-          DEFAULT: '#EDE9E3',
-          foreground: '#000000'
+          DEFAULT: '#F1F5F9',
+          foreground: '#0F172A'
         },
         muted: {
-          DEFAULT: '#EDE9E3',
-          foreground: '#555555'
+          DEFAULT: '#F1F5F9',
+          foreground: '#64748B'
         },
         accent: {
-          DEFAULT: '#0047FF',
+          DEFAULT: '#6366F1',
           foreground: '#FFFFFF',
-          glow: '#3366FF'
+          glow: '#818CF8'
         },
         destructive: {
           DEFAULT: '#ef4444',
           foreground: '#FFFFFF'
         },
-        border: '#000000',
-        input: '#000000',
-        ring: '#0047FF',
+        border: '#E2E8F0',
+        input: '#E2E8F0',
+        ring: '#6366F1',
       },
       fontFamily: {
         heading: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -66,6 +66,13 @@ module.exports = {
         'hero': ['clamp(3rem, 9vw, 8rem)', { lineHeight: '0.95', letterSpacing: '-0.03em', fontWeight: '800' }],
         'display': ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '800' }],
         'section': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
+      },
+      boxShadow: {
+        'soft': '0 1px 3px 0 rgb(15 23 42 / 0.04), 0 1px 2px -1px rgb(15 23 42 / 0.04)',
+        'card': '0 4px 6px -1px rgb(15 23 42 / 0.05), 0 2px 4px -2px rgb(15 23 42 / 0.05)',
+        'premium': '0 10px 40px -10px rgb(15 23 42 / 0.1)',
+        'glow': '0 0 30px -5px rgb(99 102 241 / 0.3)',
+        'glow-lg': '0 20px 50px -10px rgb(99 102 241 / 0.2)',
       },
       keyframes: {
         'accordion-down': {
