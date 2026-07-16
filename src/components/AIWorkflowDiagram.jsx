@@ -1,14 +1,10 @@
-import { Fragment, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Fragment } from 'react';
 import {
   Users, Mail, FileText, Code, Database, MessageSquare, LayoutGrid,
   Search, Brain, Layers, Cog, GitBranch, Network,
   BarChart3, Reply, LayoutDashboard, Lightbulb, Bell, TrendingUp,
   Activity, Zap, Gauge,
 } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const columns = [
   {
@@ -66,89 +62,81 @@ const metrics = [
   { icon: Gauge, label: 'Response Time', value: '0.3s', sub: 'avg' },
 ];
 
-function FlowConnector() {
+function FlowConnector(props) {
+  const isSourcesToAi = props.variant === 'sources-to-ai';
+  const hubFill = isSourcesToAi ? '#EEF2FF' : '#F5F3FF';
+  const hubStroke = isSourcesToAi ? '#C7D2FE' : '#DDD6FE';
+  const hubDot = isSourcesToAi ? '#6366F1' : '#8B5CF6';
+  const trackStroke = isSourcesToAi ? '#C7D2FE' : '#DDD6FE';
+  const inputPoints = [60, 120, 180, 240, 300, 360];
+  const outputPoints = [90, 150, 210, 270, 330, 390];
+
   return (
-    <>
-      {/* Horizontal (desktop) */}
-      <div className="hidden items-center justify-center lg:flex lg:w-12">
-        <svg width="48" height="80" viewBox="0 0 48 80" fill="none" className="overflow-visible">
-          <line x1="4" y1="40" x2="40" y2="40" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="3 4">
-            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite" />
-          </line>
-          <circle r="3" fill="#6366F1" opacity="0.8">
-            <animateMotion dur="1.8s" repeatCount="indefinite" path="M 4 40 L 40 40" />
-          </circle>
-          <circle r="2" fill="#8B5CF6" opacity="0.6">
-            <animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M 4 40 L 40 40" />
-          </circle>
-          <circle r="1.5" fill="#A78BFA" opacity="0.5">
-            <animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M 4 40 L 40 40" />
-          </circle>
-          <path d="M 34 35 L 40 40 L 34 45" stroke="#C7D2FE" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+    <div className="relative hidden lg:flex w-24 shrink-0 items-center justify-center py-4 z-10 self-center">
+      <svg viewBox="0 0 96 440" className="h-full min-h-[320px] w-full" preserveAspectRatio="none" fill="none">
+        <rect x="40" y="190" width="16" height="60" rx="8" fill={hubFill} stroke={hubStroke} strokeWidth="1.5" />
+        <circle cx="48" cy="220" r="4" fill={hubDot} className="animate-ping" />
+
+        {inputPoints.map((yVal) => (
+          <path
+            key={`in-${yVal}`}
+            d={`M 0 ${yVal} C 18 ${yVal} 28 220 40 220`}
+            stroke="#E2E8F0"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        ))}
+
+        {outputPoints.map((yVal) => (
+          <path
+            key={`out-${yVal}`}
+            d={`M 56 220 C 70 220 78 ${yVal} 96 ${yVal}`}
+            stroke={trackStroke}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray="4 4"
+          >
+            <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1.2s" repeatCount="indefinite" />
+          </path>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+// Helper component to render columns explicitly
+function PipelineColumn({ col }) {
+  return (
+    <div className="flex flex-1 flex-col z-20">
+      <div className={`mb-4 text-xs font-heading font-bold uppercase tracking-wider ${col.titleClass}`}>
+        {col.title}
       </div>
-      {/* Vertical (mobile) */}
-      <div className="flex items-center justify-center py-1 lg:hidden">
-        <svg width="80" height="32" viewBox="0 0 80 32" fill="none" className="overflow-visible">
-          <line x1="40" y1="4" x2="40" y2="24" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="3 4">
-            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite" />
-          </line>
-          <circle r="2.5" fill="#6366F1" opacity="0.7">
-            <animateMotion dur="1.8s" repeatCount="indefinite" path="M 40 4 L 40 24" />
-          </circle>
-          <circle r="2" fill="#8B5CF6" opacity="0.5">
-            <animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M 40 4 L 40 24" />
-          </circle>
-          <path d="M 35 19 L 40 25 L 45 19" stroke="#C7D2FE" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+      <div className="space-y-3">
+        {col.nodes.map((node) => {
+          const Icon = node.icon;
+          return (
+            <div
+              key={node.label}
+              className={`group/node flex h-[46px] items-center gap-2.5 rounded-lg border px-3 py-2 shadow-soft transition-all duration-300 hover:border-indigo-300 hover:shadow-card ${col.nodeClass} animate-in fade-in zoom-in-95 duration-500`}
+            >
+              <div className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md ${col.iconBg}`}>
+                <Icon size={13} className="text-white" />
+              </div>
+              <span className="flex-1 truncate text-xs font-medium text-slate-700">{node.label}</span>
+              <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${col.dotColor} animate-pulse`} />
+            </div>
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 }
 
 export default function AIWorkflowDiagram() {
-  const root = useRef(null);
-
-  useLayoutEffect(() => {
-    /*
-    const ctx = gsap.context(() => {
-      // 1. Animate the main outer frame in first
-      gsap.from('[data-wf="frame"]', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-      
-      // 2. Animate the pipeline nodes sequentially with a tiny delay
-      gsap.from('[data-wf="node"]', {
-        opacity: 0,
-        y: 16,
-        stagger: 0.04,
-        duration: 0.5,
-        delay: 0.2, // Starts right after the frame begins animating
-        ease: 'power3.out',
-      });
-      
-      // 3. Animate the bottom metric boxes
-      gsap.from('[data-wf="metric"]', {
-        opacity: 0,
-        y: 14,
-        stagger: 0.08,
-        duration: 0.5,
-        delay: 0.4, // Starts slightly later for a nice layered feel
-        ease: 'power3.out',
-      });
-    }, root);
-    
-    return () => ctx.revert();
-    */
-  }, []);
-
   return (
-    <div ref={root} className="mx-auto w-full max-w-5xl">
-      {/* Window frame */}
-      <div data-wf="frame" className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-premium">
+    <div className="mx-auto w-full max-w-5xl">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-premium animate-in fade-in slide-in-from-bottom-4 duration-700">
+        
         {/* Title bar */}
         <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/80 px-5 py-3">
           <div className="flex gap-1.5">
@@ -162,42 +150,21 @@ export default function AIWorkflowDiagram() {
           </div>
         </div>
 
-        {/* Pipeline */}
+        {/* Pipeline Container */}
         <div className="relative p-5 lg:p-8">
-          {/* Subtle animated background for AI Engine area */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="aurora-glow absolute left-1/3 top-0 h-full w-1/3" />
           </div>
 
-          <div className="relative flex flex-col lg:flex-row lg:items-start">
-            {columns.map((col, ci) => (
-              <Fragment key={col.title}>
-                {ci > 0 && <FlowConnector />}
-                <div className="flex flex-1 flex-col">
-                  <div className={`mb-3 text-xs font-heading font-bold uppercase tracking-wider ${col.titleClass}`}>
-                    {col.title}
-                  </div>
-                  <div className="space-y-1.5">
-                    {col.nodes.map((node) => {
-                      const Icon = node.icon;
-                      return (
-                        <div
-                          data-wf="node"
-                          key={node.label}
-                          className={`group/node flex items-center gap-2.5 rounded-lg border px-3 py-2 shadow-soft transition-all duration-300 hover:border-indigo-300 hover:shadow-card ${col.nodeClass}`}
-                        >
-                          <div className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md ${col.iconBg}`}>
-                            <Icon size={13} className="text-white" />
-                          </div>
-                          <span className="flex-1 truncate text-xs font-medium text-slate-700">{node.label}</span>
-                          <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${col.dotColor} animate-pulse`} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </Fragment>
-            ))}
+          {/* Clean explicit layout structures */}
+          <div className="relative flex flex-col lg:flex-row lg:items-stretch justify-between min-h-[460px]">
+            <PipelineColumn col={columns[0]} />
+            <FlowConnector variant="sources-to-ai" />
+            
+            <PipelineColumn col={columns[1]} />
+            <FlowConnector variant="ai-to-outputs" />
+            
+            <PipelineColumn col={columns[2]} />
           </div>
 
           {/* Metrics bar */}
@@ -205,7 +172,7 @@ export default function AIWorkflowDiagram() {
             {metrics.map((m) => {
               const Icon = m.icon;
               return (
-                <div data-wf="metric" key={m.label} className="flex items-center gap-3">
+                <div key={m.label} className="flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white">
                     <Icon size={14} className="text-indigo-500" />
                   </div>
@@ -223,7 +190,6 @@ export default function AIWorkflowDiagram() {
         </div>
       </div>
 
-      {/* Subtle glow underneath */}
       <div className="pointer-events-none mx-auto mt-1 h-16 max-w-3xl bg-gradient-to-t from-indigo-500/10 to-transparent blur-2xl" />
     </div>
   );
