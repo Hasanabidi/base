@@ -110,21 +110,39 @@ export default function AIWorkflowDiagram() {
   const root = useRef(null);
 
   useLayoutEffect(() => {
+    /*
     const ctx = gsap.context(() => {
+      // 1. Animate the main outer frame in first
       gsap.from('[data-wf="frame"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 85%' },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power3.out',
       });
+      
+      // 2. Animate the pipeline nodes sequentially with a tiny delay
       gsap.from('[data-wf="node"]', {
-        opacity: 0, y: 16, stagger: 0.04, duration: 0.4, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 78%' },
+        opacity: 0,
+        y: 16,
+        stagger: 0.04,
+        duration: 0.5,
+        delay: 0.2, // Starts right after the frame begins animating
+        ease: 'power3.out',
       });
+      
+      // 3. Animate the bottom metric boxes
       gsap.from('[data-wf="metric"]', {
-        opacity: 0, y: 14, stagger: 0.08, duration: 0.4, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 68%' },
+        opacity: 0,
+        y: 14,
+        stagger: 0.08,
+        duration: 0.5,
+        delay: 0.4, // Starts slightly later for a nice layered feel
+        ease: 'power3.out',
       });
     }, root);
+    
     return () => ctx.revert();
+    */
   }, []);
 
   return (
