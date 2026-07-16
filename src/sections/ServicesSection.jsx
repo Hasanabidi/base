@@ -59,14 +59,14 @@ export default function ServicesSection({ detailed = false }) {
             return (
               <div key={service.id} data-anim="service-card">
                 <TiltCard
-                  className={`group relative h-full overflow-hidden rounded-2xl border border-slate-200 p-8 shadow-soft transition-colors duration-300 ${isFirst ? 'bg-gradient-to-br from-indigo-500 to-violet-600' : 'hover-fill bg-white'}`}
+                  className={`group relative h-full overflow-hidden rounded-2xl border border-slate-200 p-8 shadow-soft transition-all duration-300 ${isFirst ? 'shimmer-overlay bg-gradient-to-br from-indigo-500 to-violet-600' : 'gradient-border-glow hover-fill bg-white'}`}
                   maxTilt={2}
                 >
                   {!isFirst && <div className="hover-fill__layer" />}
 
                   <div className="relative z-10">
                     <div className="relative mb-8 h-12 w-12">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 transition-colors duration-300 group-hover:border-white">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl border transition-colors duration-300 ${isFirst ? 'border-white/20' : 'border-slate-200 group-hover:border-white'}`}>
                         <Icon
                           size={20}
                           className={`${isFirst ? 'text-white' : 'text-accent'} transition-colors duration-300 group-hover:text-white`}
@@ -77,14 +77,14 @@ export default function ServicesSection({ detailed = false }) {
                     <span className={`font-mono text-xs transition-colors duration-300 ${isFirst ? 'text-white/60' : 'text-text-secondary/50 group-hover:text-white/60'}`}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="mt-2 font-heading text-2xl font-extrabold uppercase text-black transition-colors duration-300 group-hover:text-white">
+                    <h3 className={`mt-2 font-heading text-2xl font-extrabold uppercase transition-colors duration-300 ${isFirst ? 'text-white' : 'text-black group-hover:text-white'}`}>
                       {service.title}
                     </h3>
                     <p className={`mt-1 text-xs uppercase tracking-[0.15em] transition-colors duration-300 ${isFirst ? 'text-white' : 'text-accent group-hover:text-white'}`}>
                       {service.tagline}
                     </p>
 
-                    <p className="mt-6 text-sm leading-relaxed text-text-secondary transition-colors duration-300 group-hover:text-white/80">
+                    <p className={`mt-6 text-sm leading-relaxed transition-colors duration-300 ${isFirst ? 'text-white/80' : 'text-text-secondary group-hover:text-white/80'}`}>
                       {service.description}
                     </p>
 
@@ -93,9 +93,9 @@ export default function ServicesSection({ detailed = false }) {
                         {service.features.map((feature) => (
                           <li
                             key={feature}
-                            className="flex items-start gap-2 text-sm text-text-secondary transition-colors duration-300 group-hover:text-white/80"
+                            className={`flex items-start gap-2 text-sm transition-colors duration-300 ${isFirst ? 'text-white/80' : 'text-text-secondary group-hover:text-white/80'}`}
                           >
-                            <Plus size={14} className="mt-1 flex-shrink-0 text-accent transition-colors duration-300 group-hover:text-white" />
+                            <Plus size={14} className={`mt-1 flex-shrink-0 transition-colors duration-300 ${isFirst ? 'text-white' : 'text-accent group-hover:text-white'}`} />
                             {feature}
                           </li>
                         ))}
@@ -104,7 +104,7 @@ export default function ServicesSection({ detailed = false }) {
 
                     <Link
                       to="/contact"
-                      className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors duration-300 group-hover:text-white"
+                      className={`mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-colors duration-300 ${isFirst ? 'text-white' : 'text-black group-hover:text-white'}`}
                     >
                       Learn more
                       <ArrowUpRight size={14} />

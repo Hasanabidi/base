@@ -2,9 +2,10 @@ import { Fragment, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  Database, Code, Server, Cpu, Bot, Zap,
-  LayoutDashboard, GitBranch, Lightbulb,
-  Activity, Gauge,
+  Users, Mail, FileText, Code, Database, MessageSquare, LayoutGrid,
+  Search, Brain, Layers, Cog, GitBranch, Network,
+  BarChart3, Reply, LayoutDashboard, Lightbulb, Bell, TrendingUp,
+  Activity, Zap, Gauge,
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,30 +15,47 @@ const columns = [
     title: 'Data Sources',
     titleClass: 'text-slate-400',
     iconBg: 'bg-slate-900',
+    nodeClass: 'border-slate-200 bg-white',
+    dotColor: 'bg-emerald-400',
     nodes: [
-      { icon: Database, label: 'CRM Data', status: 'Synced' },
-      { icon: Code, label: 'API Streams', status: 'Active' },
-      { icon: Server, label: 'Databases', status: 'Synced' },
+      { icon: Users, label: 'CRM' },
+      { icon: Mail, label: 'Email' },
+      { icon: FileText, label: 'Documents' },
+      { icon: Code, label: 'APIs' },
+      { icon: Database, label: 'Databases' },
+      { icon: MessageSquare, label: 'Slack' },
+      { icon: LayoutGrid, label: 'Notion' },
     ],
   },
   {
     title: 'AI Engine',
-    titleClass: 'text-indigo-500',
+    titleClass: 'text-indigo-600',
     iconBg: 'bg-gradient-to-br from-indigo-500 to-violet-600',
+    nodeClass: 'border-indigo-200 bg-indigo-50/50',
+    dotColor: 'bg-indigo-500',
+    isCenter: true,
     nodes: [
-      { icon: Cpu, label: 'AI Agents', status: 'Processing' },
-      { icon: Bot, label: 'ML Models', status: 'Analyzing' },
-      { icon: Zap, label: 'Automation', status: 'Running' },
+      { icon: Search, label: 'Retrieval' },
+      { icon: Brain, label: 'Reasoning' },
+      { icon: Layers, label: 'Classification' },
+      { icon: Cog, label: 'Automation' },
+      { icon: GitBranch, label: 'Decision Making' },
+      { icon: Network, label: 'Workflow Orchestration' },
     ],
   },
   {
     title: 'Outputs',
-    titleClass: 'text-violet-500',
+    titleClass: 'text-violet-600',
     iconBg: 'bg-gradient-to-br from-violet-500 to-fuchsia-600',
+    nodeClass: 'border-slate-200 bg-white',
+    dotColor: 'bg-violet-400',
     nodes: [
-      { icon: LayoutDashboard, label: 'Dashboards', status: 'Live' },
-      { icon: GitBranch, label: 'Workflows', status: 'Active' },
-      { icon: Lightbulb, label: 'Insights', status: 'Ready' },
+      { icon: BarChart3, label: 'Automated Reports' },
+      { icon: Reply, label: 'Customer Responses' },
+      { icon: LayoutDashboard, label: 'Dashboards' },
+      { icon: Lightbulb, label: 'Insights' },
+      { icon: Bell, label: 'Notifications' },
+      { icon: TrendingUp, label: 'Business Actions' },
     ],
   },
 ];
@@ -48,17 +66,43 @@ const metrics = [
   { icon: Gauge, label: 'Response Time', value: '0.3s', sub: 'avg' },
 ];
 
-function FlowArrow() {
+function FlowConnector() {
   return (
-    <div className="hidden items-center justify-center self-center lg:flex lg:w-10">
-      <svg width="36" height="60" viewBox="0 0 36 60" fill="none">
-        <path d="M 4 30 L 28 30" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="3 4" />
-        <circle r="2.5" fill="#6366F1">
-          <animateMotion dur="2s" repeatCount="indefinite" path="M 4 30 L 28 30" />
-        </circle>
-        <path d="M 22 24 L 28 30 L 22 36" stroke="#C7D2FE" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
+    <>
+      {/* Horizontal (desktop) */}
+      <div className="hidden items-center justify-center lg:flex lg:w-12">
+        <svg width="48" height="80" viewBox="0 0 48 80" fill="none" className="overflow-visible">
+          <line x1="4" y1="40" x2="40" y2="40" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="3 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite" />
+          </line>
+          <circle r="3" fill="#6366F1" opacity="0.8">
+            <animateMotion dur="1.8s" repeatCount="indefinite" path="M 4 40 L 40 40" />
+          </circle>
+          <circle r="2" fill="#8B5CF6" opacity="0.6">
+            <animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M 4 40 L 40 40" />
+          </circle>
+          <circle r="1.5" fill="#A78BFA" opacity="0.5">
+            <animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M 4 40 L 40 40" />
+          </circle>
+          <path d="M 34 35 L 40 40 L 34 45" stroke="#C7D2FE" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+      {/* Vertical (mobile) */}
+      <div className="flex items-center justify-center py-1 lg:hidden">
+        <svg width="80" height="32" viewBox="0 0 80 32" fill="none" className="overflow-visible">
+          <line x1="40" y1="4" x2="40" y2="24" stroke="#C7D2FE" strokeWidth="1.5" strokeDasharray="3 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite" />
+          </line>
+          <circle r="2.5" fill="#6366F1" opacity="0.7">
+            <animateMotion dur="1.8s" repeatCount="indefinite" path="M 40 4 L 40 24" />
+          </circle>
+          <circle r="2" fill="#8B5CF6" opacity="0.5">
+            <animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M 40 4 L 40 24" />
+          </circle>
+          <path d="M 35 19 L 40 25 L 45 19" stroke="#C7D2FE" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+    </>
   );
 }
 
@@ -72,7 +116,7 @@ export default function AIWorkflowDiagram() {
         scrollTrigger: { trigger: root.current, start: 'top 85%' },
       });
       gsap.from('[data-wf="node"]', {
-        opacity: 0, y: 20, stagger: 0.06, duration: 0.5, ease: 'power3.out',
+        opacity: 0, y: 16, stagger: 0.04, duration: 0.4, ease: 'power3.out',
         scrollTrigger: { trigger: root.current, start: 'top 78%' },
       });
       gsap.from('[data-wf="metric"]', {
@@ -101,34 +145,34 @@ export default function AIWorkflowDiagram() {
         </div>
 
         {/* Pipeline */}
-        <div className="p-5 lg:p-8">
-          <div className="flex flex-col lg:flex-row lg:items-start">
+        <div className="relative p-5 lg:p-8">
+          {/* Subtle animated background for AI Engine area */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="aurora-glow absolute left-1/3 top-0 h-full w-1/3" />
+          </div>
+
+          <div className="relative flex flex-col lg:flex-row lg:items-start">
             {columns.map((col, ci) => (
               <Fragment key={col.title}>
-                {ci > 0 && <FlowArrow />}
+                {ci > 0 && <FlowConnector />}
                 <div className="flex flex-1 flex-col">
                   <div className={`mb-3 text-xs font-heading font-bold uppercase tracking-wider ${col.titleClass}`}>
                     {col.title}
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     {col.nodes.map((node) => {
                       const Icon = node.icon;
                       return (
                         <div
                           data-wf="node"
                           key={node.label}
-                          className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-2.5 shadow-soft transition-all duration-300 hover:border-indigo-300 hover:shadow-card"
+                          className={`group/node flex items-center gap-2.5 rounded-lg border px-3 py-2 shadow-soft transition-all duration-300 hover:border-indigo-300 hover:shadow-card ${col.nodeClass}`}
                         >
-                          <div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${col.iconBg}`}>
-                            <Icon size={15} className="text-white" />
+                          <div className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md ${col.iconBg}`}>
+                            <Icon size={13} className="text-white" />
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-xs font-semibold text-slate-900">{node.label}</div>
-                            <div className="flex items-center gap-1">
-                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              <span className="text-[10px] text-slate-500">{node.status}</span>
-                            </div>
-                          </div>
+                          <span className="flex-1 truncate text-xs font-medium text-slate-700">{node.label}</span>
+                          <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${col.dotColor} animate-pulse`} />
                         </div>
                       );
                     })}

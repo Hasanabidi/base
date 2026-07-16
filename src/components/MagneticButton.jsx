@@ -34,12 +34,12 @@ export default function MagneticButton({
 
   const variantClass = {
     primary: cn(
-      'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border border-transparent shadow-lg shadow-indigo-500/25',
-      'hover:shadow-xl hover:-translate-y-0.5'
+      'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border border-transparent shadow-lg shadow-indigo-500/30',
+      'hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5'
     ),
     secondary: cn(
       'bg-white text-slate-900 border border-slate-200 shadow-soft',
-      'hover:border-indigo-300 hover:text-indigo-600 hover:-translate-y-0.5'
+      'hover:border-indigo-300 hover:text-indigo-600 hover:-translate-y-0.5 hover:shadow-glow'
     ),
     ghost: 'text-slate-500 hover:text-slate-900',
   };

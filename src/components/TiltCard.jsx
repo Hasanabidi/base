@@ -3,10 +3,8 @@ import { cn } from '@/utils/cn';
 
 export default function TiltCard({ children, className, maxTilt = 3 }) {
   const ref = useRef(null);
-  const [style, setStyle] = useState({
-    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
-  });
-  const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
+  const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
 
   const handleMouseMove = (e) => {
     const el = ref.current;
@@ -15,33 +13,34 @@ export default function TiltCard({ children, className, maxTilt = 3 }) {
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
 
-    const tiltX = (0.5 - y) * maxTilt * 2;
-    const tiltY = (x - 0.5) * maxTilt * 2;
-
-    setStyle({
-      transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
-    });
-    setGlarePos({ x: x * 100, y: y * 100 });
+    setTransform(
+      `perspective(1000px) rotateX(${(0.5 - y) * maxTilt * 2}deg) rotateY(${(x - 0.5) * maxTilt * 2}deg) scale(1.01)`
+    );
+    setGlare({ x: x * 100, y: y * 100, opacity: 1 });
   };
 
   const handleMouseLeave = () => {
-    setStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)',
-    });
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+    setGlare((g) => ({ ...g, opacity: 0 }));
   };
 
   return (
     <div
       ref={ref}
-      className={cn('relative transition-transform duration-200 ease-out', className)}
-      style={style}
+      className={cn('relative', className)}
+      style={{
+        transform,
+        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        willChange: 'transform',
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(99, 102, 241, 0.06) 0%, transparent 50%)`,
+          opacity: glare.opacity,
+          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(99, 102, 241, 0.1) 0%, transparent 45%)`,
         }}
       />
       {children}
