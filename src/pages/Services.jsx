@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Plus, Code2, Smartphone, Cloud, CreditCard, Calculator, Shield } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
@@ -92,6 +93,11 @@ export default function Services() {
                         </div>
                       ))}
                     </div>
+
+                    <Link to={`/services/${service.id}`} className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:text-accent">
+                      Learn more
+                      <ArrowRight size={14} />
+                    </Link>
                   </div>
 
                   <div className={reversed ? 'md:order-1' : ''}>

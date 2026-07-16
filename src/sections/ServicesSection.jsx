@@ -103,7 +103,7 @@ export default function ServicesSection({ detailed = false }) {
                     )}
 
                     <Link
-                      to="/contact"
+                      to={`/services/${service.id}`}
                       className={`mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-colors duration-300 ${isFirst ? 'text-white' : 'text-black group-hover:text-white'}`}
                     >
                       Learn more

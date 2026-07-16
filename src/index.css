@@ -322,6 +322,53 @@
   transform: translateY(-3px);
 }
 
+/* ---- Premium: Gradient hero background ---- */
+.gradient-hero-bg {
+  background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 40%, #F5F3FF 70%, #F8FAFC 100%);
+}
+
+/* ---- Premium: Gradient section background ---- */
+.gradient-section-bg {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%);
+}
+
+/* ---- Premium: Animated gradient orbs ---- */
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 25px) scale(0.92); }
+}
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: orb-drift 15s ease-in-out infinite;
+}
+
+/* ---- Premium: Interactive gradient card ---- */
+.gradient-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.gradient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.15);
+}
+
+/* ---- Premium: Gradient text shine ---- */
+@keyframes text-shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.text-gradient-shine {
+  background: linear-gradient(90deg, #6366F1, #8B5CF6, #6366F1);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 4s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
