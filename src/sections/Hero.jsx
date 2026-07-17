@@ -72,7 +72,7 @@ export default function Hero() {
       });
       scrollTl
         .to('[data-hero="content"]', { y: -80, opacity: 0.15, ease: 'none' }, 0)
-        .to('[data-hero="art"]', { y: 120, scale: 0.92, ease: 'none' }, 0)
+        .to('[data-hero="art"]', { y: 120, ease: 'none' }, 0)
         .to('[data-hero="grid"]', { y: 60, ease: 'none' }, 0);
     }
 

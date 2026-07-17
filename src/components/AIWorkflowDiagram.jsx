@@ -393,8 +393,6 @@ export default function AIWorkflowDiagram() {
           </div>
         </div>
       </div>
-
-      <div className="pointer-events-none mx-auto mt-1 h-16 max-w-3xl bg-gradient-to-t from-indigo-500/10 to-transparent blur-2xl" />
     </div>
   );
 }
