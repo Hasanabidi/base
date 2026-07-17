@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import ThemeToggle from '@/components/ThemeToggle';
+import Logo from '@/components/Logo';
 
 const navLinks = [
   { label: 'Services', to: '/services' },
@@ -44,9 +45,7 @@ export default function Navbar() {
         <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 lg:px-10">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2" aria-label="Fulcrum System home">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600">
-              <span className="h-2 w-2 rounded-full bg-white" />
-            </span>
+            <Logo size={28} className="transition-transform duration-300 group-hover:-rotate-6" />
             <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-slate-900">
               Fulcrum
             </span>
