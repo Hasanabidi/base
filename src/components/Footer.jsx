@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
 
 const footerLinks = {
   Company: [
@@ -23,9 +23,9 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Facebook, href: 'https://www.facebook.com/fulcrumsystem', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/fulcrumsystems/', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/78707068', label: 'LinkedIn' },
 ];
 
 export default function Footer() {
