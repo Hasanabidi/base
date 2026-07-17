@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Stars, Trail } from '@react-three/drei';
 import * as THREE from 'three';
 import { computeCurl } from '@/utils/curlNoise';
 
-const MAX_PARTICLES = 7000;
-const PARTICLE_LIFETIME = 3.5;
+const MAX_PARTICLES = 10000;
+const PARTICLE_LIFETIME = 2.8;
 
 // Theme-matched palettes (indigo / violet accents from the design system).
 const PALETTES = {
-  dark: ['#6366F1', '#8B5CF6', '#818CF8'],
-  light: ['#6366F1', '#7C3AED', '#8B5CF6'],
+  dark: ['#818CF8', '#A78BFA', '#6366F1', '#C4B5FD'],
+  light: ['#4F46E5', '#7C3AED', '#6366F1', '#8B5CF6'],
 };
+const CURSOR_COLOR = { dark: '#A78BFA', light: '#6D28D9' };
 
 function makeSprite() {
   const canvas = document.createElement('canvas');
@@ -27,11 +29,26 @@ function makeSprite() {
   return new THREE.CanvasTexture(canvas);
 }
 
-function ParticleSystem({ theme }) {
-  const meshRef = useRef(null);
-  const { viewport, gl } = useThree();
+function RotatingStars() {
+  const group = useRef(null);
+  useFrame((_, delta) => {
+    if (group.current) {
+      group.current.rotation.y += delta * 0.02;
+      group.current.rotation.x += delta * 0.01;
+    }
+  });
+  return (
+    <group ref={group}>
+      <Stars radius={120} depth={60} count={4000} factor={4} saturation={0} fade speed={1} />
+    </group>
+  );
+}
 
+function Particles({ theme, mouseWorld }) {
+  const meshRef = useRef(null);
+  const { viewport } = useThree();
   const isDark = theme === 'dark';
+
   const sprite = useMemo(makeSprite, []);
   const palette = useMemo(
     () => (isDark ? PALETTES.dark : PALETTES.light).map((c) => new THREE.Color(c)),
@@ -54,30 +71,6 @@ function ParticleSystem({ theme }) {
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const spawnIndex = useRef(0);
-  // Cursor position in normalised device coords (-1..1); null until first move.
-  const pointer = useRef(null);
-  const prevPointer = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const el = gl.domElement;
-    const onMove = (e) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
-      pointer.current = {
-        x: ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        y: -((e.clientY - rect.top) / rect.height) * 2 + 1,
-      };
-    };
-    const onLeave = () => {
-      pointer.current = null;
-    };
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerleave', onLeave);
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerleave', onLeave);
-    };
-  }, [gl]);
 
   const spawn = (x, y, z, spread) => {
     const p = particles[spawnIndex.current];
@@ -101,30 +94,20 @@ function ParticleSystem({ theme }) {
     const mesh = meshRef.current;
     if (!mesh) return;
     const dt = Math.min(delta, 1 / 30);
-    const halfW = viewport.width / 2;
-    const halfH = viewport.height / 2;
 
-    // Ambient emission keeps the field alive without any interaction.
-    for (let i = 0; i < 6; i++) {
+    // Dense emission from the cursor (constant stream + a burst while moving).
+    if (mouseWorld.current) {
+      const m = mouseWorld.current;
+      for (let i = 0; i < 45; i++) spawn(m.x, m.y, m.z, 1.4);
+    }
+    // A little ambient life across the scene.
+    for (let i = 0; i < 4; i++) {
       spawn(
         (Math.random() - 0.5) * viewport.width,
         (Math.random() - 0.5) * viewport.height,
         (Math.random() - 0.5) * 6,
         0.5
       );
-    }
-
-    // Cursor trail — emission scales with how fast the pointer moves.
-    if (pointer.current) {
-      const dx = pointer.current.x - prevPointer.current.x;
-      const dy = pointer.current.y - prevPointer.current.y;
-      const moved = Math.hypot(dx, dy);
-      const count = Math.min(40, Math.round(moved * 260));
-      const cx = pointer.current.x * halfW;
-      const cy = pointer.current.y * halfH;
-      for (let i = 0; i < count; i++) spawn(cx, cy, 0, 1.4);
-      prevPointer.current.x = pointer.current.x;
-      prevPointer.current.y = pointer.current.y;
     }
 
     const up = new THREE.Vector3(0, 1, 0);
@@ -153,10 +136,8 @@ function ParticleSystem({ theme }) {
       p.velocity.multiplyScalar(0.96);
       p.position.addScaledVector(p.velocity, dt);
 
-      // Grow-then-shrink envelope so particles fade in and out smoothly.
-      const ageRatio = 1 - p.life / PARTICLE_LIFETIME;
-      const envelope = Math.sin(Math.min(1, ageRatio) * Math.PI);
-      const scale = envelope * (isDark ? 0.09 : 0.11);
+      const lifeRatio = p.life / PARTICLE_LIFETIME;
+      const scale = lifeRatio * (isDark ? 0.09 : 0.1);
       const speed = p.velocity.length();
       const stretch = Math.min(4, Math.max(1, speed * 0.1));
 
@@ -181,12 +162,92 @@ function ParticleSystem({ theme }) {
       <meshBasicMaterial
         map={sprite}
         transparent
-        opacity={isDark ? 0.9 : 0.6}
+        opacity={isDark ? 0.9 : 0.75}
         blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
         depthWrite={false}
         toneMapped={false}
       />
     </instancedMesh>
+  );
+}
+
+// Glowing cursor dot with a fading motion trail (drei <Trail/>).
+function Cursor({ theme, mouseWorld }) {
+  const meshRef = useRef(null);
+  const color = CURSOR_COLOR[theme] || CURSOR_COLOR.dark;
+
+  useFrame((state) => {
+    if (meshRef.current && mouseWorld.current) {
+      meshRef.current.position.lerp(mouseWorld.current, 0.5);
+      const s = 1 + Math.sin(state.clock.elapsedTime * 8) * 0.2;
+      meshRef.current.scale.set(s, s, s);
+    }
+  });
+
+  return (
+    <Trail width={0.6} length={16} color={new THREE.Color(color)} attenuation={(t) => t * t}>
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[0.18, 24, 24]} />
+        <meshBasicMaterial color={color} transparent opacity={0.9} toneMapped={false} />
+        <mesh>
+          <sphereGeometry args={[0.5, 24, 24]} />
+          <meshBasicMaterial
+            color={color}
+            transparent
+            opacity={0.25}
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+            toneMapped={false}
+          />
+        </mesh>
+      </mesh>
+    </Trail>
+  );
+}
+
+function Scene({ theme }) {
+  const { gl, viewport } = useThree();
+  const isDark = theme === 'dark';
+  const pointerNorm = useRef(null);
+  const mouseWorld = useRef(null);
+
+  useEffect(() => {
+    const el = gl.domElement;
+    const onMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      pointerNorm.current = {
+        x: ((e.clientX - rect.left) / rect.width) * 2 - 1,
+        y: -((e.clientY - rect.top) / rect.height) * 2 + 1,
+      };
+    };
+    const onLeave = () => {
+      pointerNorm.current = null;
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerleave', onLeave);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerleave', onLeave);
+    };
+  }, [gl]);
+
+  // Convert the normalised pointer to a world position on the z=0 plane.
+  useFrame(() => {
+    if (pointerNorm.current) {
+      const wx = pointerNorm.current.x * (viewport.width / 2);
+      const wy = pointerNorm.current.y * (viewport.height / 2);
+      if (mouseWorld.current) mouseWorld.current.set(wx, wy, 0);
+      else mouseWorld.current = new THREE.Vector3(wx, wy, 0);
+    }
+  });
+
+  return (
+    <>
+      {isDark && <RotatingStars />}
+      <Particles theme={theme} mouseWorld={mouseWorld} />
+      <Cursor theme={theme} mouseWorld={mouseWorld} />
+    </>
   );
 }
 
@@ -200,7 +261,8 @@ export default function CosmicParticles({ theme = 'dark', className = '' }) {
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
-        <ParticleSystem theme={theme} />
+        <ambientLight intensity={0.2} />
+        <Scene theme={theme} />
       </Canvas>
     </div>
   );
