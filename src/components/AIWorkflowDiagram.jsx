@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import {
   Users, Mail, FileText, Code, Database, MessageSquare, LayoutGrid,
-  Search, Brain, Layers, Cog, GitBranch, Network,
+  Search, Brain, Layers, Cog, GitBranch, Network, Cpu,
   BarChart3, Reply, LayoutDashboard, Lightbulb, Bell, TrendingUp,
   Activity, Zap, Gauge,
 } from 'lucide-react';
@@ -27,7 +27,7 @@ const columns = [
     title: 'AI Engine',
     titleClass: 'text-indigo-600',
     iconBg: 'bg-gradient-to-br from-indigo-500 to-violet-600',
-    nodeClass: 'border-indigo-200 bg-indigo-50/50',
+    nodeClass: 'border-indigo-200 bg-indigo-50 dark:border-indigo-500/30 dark:bg-indigo-500/10',
     dotColor: 'bg-indigo-500',
     nodes: [
       { icon: Search, label: 'Retrieval' },
@@ -129,8 +129,8 @@ function FlowConnector({ uid, variant, data, setRef }) {
 
   const accentFrom = isSourcesToAi ? '#818CF8' : '#A78BFA';
   const accentTo = isSourcesToAi ? '#6366F1' : '#8B5CF6';
-  const hubStroke = isSourcesToAi ? '#C7D2FE' : '#DDD6FE';
   const hubGlow = isSourcesToAi ? '#818CF8' : '#A78BFA';
+  const HubIcon = isSourcesToAi ? Cpu : Network;
   const particlesIn = isSourcesToAi
     ? ['#93C5FD', '#818CF8', '#6366F1']
     : ['#C4B5FD', '#A78BFA', '#7C3AED'];
@@ -144,29 +144,32 @@ function FlowConnector({ uid, variant, data, setRef }) {
       className="relative hidden lg:flex w-28 shrink-0 items-stretch justify-center z-10 self-stretch"
     >
       {data ? (
-        <ConnectorSvg
-          uid={uid}
-          data={data}
-          accentFrom={accentFrom}
-          accentTo={accentTo}
-          hubStroke={hubStroke}
-          hubGlow={hubGlow}
-          particlesIn={particlesIn}
-          particlesOut={particlesOut}
-        />
+        <>
+          <ConnectorSvg
+            uid={uid}
+            data={data}
+            accentFrom={accentFrom}
+            accentTo={accentTo}
+            hubGlow={hubGlow}
+            particlesIn={particlesIn}
+            particlesOut={particlesOut}
+          />
+          {/* Orchestration hub — matches the "Chaos to Intelligence" gradient logo */}
+          <div className="absolute left-1/2 top-1/2 z-20 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600 shadow-glow">
+            <HubIcon size={18} className="text-white" />
+          </div>
+        </>
       ) : null}
     </div>
   );
 }
 
-function ConnectorSvg({ uid, data, accentFrom, accentTo, hubStroke, hubGlow, particlesIn, particlesOut }) {
+function ConnectorSvg({ uid, data, accentFrom, accentTo, hubGlow, particlesIn, particlesOut }) {
   const { width, height, inputYs, outputYs } = data;
   const hubCenterX = width / 2;
   const hubCenterY = height / 2;
-  const hubWidth = Math.min(46, width * 0.42);
-  const hubHeight = Math.min(120, Math.max(64, height * 0.32));
-  const hubX = hubCenterX - hubWidth / 2;
-  const hubY = hubCenterY - hubHeight / 2;
+  const hubRadius = 24;
+  const ambientR = Math.min(46, width * 0.42) * 1.5;
 
   const inId = (i) => `${uid}-in-${i}`;
   const outId = (i) => `${uid}-out-${i}`;
@@ -180,10 +183,6 @@ function ConnectorSvg({ uid, data, accentFrom, accentTo, hubStroke, hubGlow, par
       fill="none"
     >
       <defs>
-        <linearGradient id={`${uid}-hubFill`} x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#F3F0FF" stopOpacity="0.55" />
-        </linearGradient>
         <radialGradient id={`${uid}-hubAmbient`}>
           <stop offset="0%" stopColor={hubGlow} stopOpacity="0.35" />
           <stop offset="100%" stopColor={hubGlow} stopOpacity="0" />
@@ -198,21 +197,19 @@ function ConnectorSvg({ uid, data, accentFrom, accentTo, hubStroke, hubGlow, par
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-        <clipPath id={`${uid}-hubClip`}>
-          <rect x={hubX} y={hubY} width={hubWidth} height={hubHeight} rx="14" />
-        </clipPath>
       </defs>
 
       {/* ambient glow behind the hub — static size, always centered, never drifts */}
-      <circle cx={hubCenterX} cy={hubCenterY} r={hubWidth * 1.4} fill={`url(#${uid}-hubAmbient)`} filter={`url(#${uid}-softBlur)`} />
+      <circle cx={hubCenterX} cy={hubCenterY} r={ambientR} fill={`url(#${uid}-hubAmbient)`} filter={`url(#${uid}-softBlur)`} />
 
       {/* ---- converging input cables ---- */}
       {inputYs.map((yVal, idx) => {
         const id = inId(idx);
-        const d = `M 0 ${yVal} C ${hubX * 0.45} ${yVal}, ${hubX - 18} ${hubCenterY}, ${hubX - 2} ${hubCenterY}`;
+        const endX = hubCenterX - hubRadius;
+        const d = `M 0 ${yVal} C ${endX * 0.45} ${yVal}, ${endX - 18} ${hubCenterY}, ${endX} ${hubCenterY}`;
         return (
           <g key={id}>
-            <linearGradient id={`${id}-grad`} gradientUnits="userSpaceOnUse" x1="0" y1={yVal} x2={hubX} y2={hubCenterY}>
+            <linearGradient id={`${id}-grad`} gradientUnits="userSpaceOnUse" x1="0" y1={yVal} x2={endX} y2={hubCenterY}>
               <stop offset="0%" stopColor={accentFrom} stopOpacity="0.15" />
               <stop offset="100%" stopColor={accentTo} stopOpacity="0.55" />
             </linearGradient>
@@ -233,36 +230,10 @@ function ConnectorSvg({ uid, data, accentFrom, accentTo, hubStroke, hubGlow, par
         );
       })}
 
-      {/* ---- orchestration gateway (glassmorphic hub) ---- */}
-      <rect x={hubX} y={hubY} width={hubWidth} height={hubHeight} rx="14" fill={`url(#${uid}-hubFill)`} stroke={hubStroke} strokeWidth="1.5" />
-      <rect x={hubX + 4} y={hubY + 4} width={hubWidth - 8} height={hubHeight * 0.4} rx="9" fill="#FFFFFF" opacity="0.35" />
-
-      {/* vertical scan line — stays fully within the hub at every animation frame */}
-      <g clipPath={`url(#${uid}-hubClip)`}>
-        <rect x={hubX} y={hubY + hubHeight * 0.5 - 2} width={hubWidth} height="4" fill={accentTo} opacity="0">
-          <animate
-            attributeName="y"
-            values={`${hubY + 4};${hubY + hubHeight - 8};${hubY + 4}`}
-            dur="2.6s"
-            repeatCount="indefinite"
-          />
-          <animate attributeName="opacity" values="0;0.55;0" dur="2.6s" repeatCount="indefinite" />
-        </rect>
-      </g>
-
-      {/* pulsing processor core */}
-      <circle cx={hubCenterX} cy={hubCenterY} r="4" fill={accentTo}>
-        <animate attributeName="r" values="4;6;4" dur="2.2s" repeatCount="indefinite" />
-      </circle>
-      <circle cx={hubCenterX} cy={hubCenterY} r="4" fill="none" stroke={accentTo} strokeWidth="1">
-        <animate attributeName="r" values="4;13" dur="2.2s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.5;0" dur="2.2s" repeatCount="indefinite" />
-      </circle>
-
       {/* ---- branching output cables ---- */}
       {outputYs.map((yVal, idx) => {
         const id = outId(idx);
-        const startX = hubX + hubWidth + 2;
+        const startX = hubCenterX + hubRadius;
         const d = `M ${startX} ${hubCenterY} C ${startX + 18} ${hubCenterY}, ${width - (width - startX) * 0.45} ${yVal}, ${width} ${yVal}`;
         return (
           <g key={id}>
@@ -370,7 +341,7 @@ export default function AIWorkflowDiagram() {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-premium animate-in fade-in slide-in-from-bottom-4 duration-700">
 
         {/* Title bar */}
-        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/80 px-5 py-3">
+        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 dark:bg-slate-800 px-5 py-3">
           <div className="flex gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
             <div className="h-2.5 w-2.5 rounded-full bg-amber-400" />
@@ -401,7 +372,7 @@ export default function AIWorkflowDiagram() {
           </div>
 
           {/* Metrics bar */}
-          <div className="mt-6 grid grid-cols-1 gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-4 sm:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-3 rounded-xl border border-slate-100 bg-slate-50 dark:bg-slate-800/60 p-4 sm:grid-cols-3">
             {metrics.map((m) => {
               const Icon = m.icon;
               return (

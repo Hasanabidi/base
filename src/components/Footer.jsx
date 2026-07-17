@@ -16,9 +16,9 @@ const footerLinks = {
     { label: 'Cybersecurity', to: '/services' },
   ],
   Legal: [
-    { label: 'Privacy Policy', to: '/contact' },
-    { label: 'Terms of Service', to: '/contact' },
-    { label: 'Cookie Policy', to: '/contact' },
+    { label: 'Privacy Policy', to: '/privacy' },
+    { label: 'Terms of Service', to: '/terms' },
+    { label: 'Cookie Policy', to: '/cookies' },
   ],
 };
 
