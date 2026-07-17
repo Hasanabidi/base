@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
+/* 1. Tell Tailwind v4 to toggle dark mode when the .dark class is on the html element */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  /* Existing Tailwind variables */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* New Theme Variables (Light Mode) */
+  --color-bg: #FAF9FC;
+  --color-bg-elevated: #FFFFFF;
+  --color-text: #1A1523;
+  --color-text-muted: #6B6478;
+  --color-border: rgba(20, 10, 40, 0.08);
+}
+
+/* 2. New Theme Variables (Dark Mode) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  
+  --color-bg: #0A0710;
+  --color-bg-elevated: #14101E;
+  --color-text: #F5F3FA;
+  --color-text-muted: #A79FBD;
+  --color-border: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -10,17 +33,23 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* 3. Register your new variables with Tailwind's @theme */
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-border: var(--color-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* We can remove the @media (prefers-color-scheme: dark) block because  */
+/* our layout.tsx blocking script is now handling the initial system   */
+/* preference check and applying the .dark class to the document!      */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  /* Use the new smooth transition-ready color variables */
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
