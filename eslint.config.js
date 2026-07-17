@@ -68,6 +68,7 @@ export default [
             "vertexShader",
             "fragmentShader",
             "uniforms",
+            "vertexColors",
             "intensity",
           ],
         },
