@@ -31,8 +31,8 @@ export default function Home() {
           "name": "Fulcrum System",
           "description": "Web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity solutions.",
           "url": "https://fulcrumsystem.com",
-          "telephone": "+1-555-555-0100",
-          "email": "hello@fulcrumsystem.com",
+          "telephone": "+92-303-2422542",
+          "email": "abidi113@gmail.com",
           "areaServed": "Worldwide"
         }}
       />
