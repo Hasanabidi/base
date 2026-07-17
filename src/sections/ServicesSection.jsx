@@ -1,40 +1,20 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Smartphone, Cloud, CreditCard, Calculator, Shield, ArrowUpRight, Plus } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import { useParallax } from '@/hooks/useParallax';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { services } from '@/data/services';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
 
 export default function ServicesSection({ detailed = false }) {
-  const root = useRef(null);
   const headerRef = useParallax(0.08);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="service-card"]', {
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 70%' },
-      });
-      gsap.from('[data-anim="service-header"]', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="service-card"]', { trigger: el, start: 'top 70%', y: 40, stagger: 0.15, duration: 0.8 });
+    revealOnScroll('[data-anim="service-header"]', { trigger: el, y: 30, duration: 0.8 });
   }, []);
 
   return (

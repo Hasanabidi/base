@@ -1,52 +1,43 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
 import SectionLabel from '@/components/SectionLabel';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
+import { revealOnScroll } from '@/lib/animations';
 import { processSteps } from '@/data/processSteps';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function ProcessSection() {
-  const root = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="process-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
-      });
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="process-header"]', { trigger: el, y: 30, duration: 0.8 });
 
-      const st = ScrollTrigger.create({
-        trigger: root.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-          const step = Math.min(
-            Math.floor(self.progress * processSteps.length),
-            processSteps.length - 1
-          );
-          setActiveStep(step);
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: (self) => {
+        const step = Math.min(
+          Math.floor(self.progress * processSteps.length),
+          processSteps.length - 1
+        );
+        setActiveStep(step);
+      },
+    });
+
+    gsap.fromTo(
+      '[data-anim="progress-line"]',
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 50%',
+          end: 'bottom 80%',
+          scrub: 0.5,
         },
-      });
-
-      gsap.fromTo(
-        '[data-anim="progress-line"]',
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top 50%',
-            end: 'bottom 80%',
-            scrub: 0.5,
-          },
-        }
-      );
-    }, root);
-
-    return () => ctx.revert();
+      }
+    );
   }, []);
 
   return (

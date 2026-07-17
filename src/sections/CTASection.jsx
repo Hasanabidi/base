@@ -1,39 +1,30 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { gsap } from '@/lib/gsap';
+import { revealOnScroll } from '@/lib/animations';
 
 export default function CTASection() {
-  const root = useRef(null);
   const reducedMotion = useReducedMotion();
 
-  useLayoutEffect(() => {
+  const root = useGsapContext((el) => {
     if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="cta-line"]', {
-        opacity: 0, y: 40, stagger: 0.15, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 70%' },
+    revealOnScroll('[data-anim="cta-line"]', { trigger: el, start: 'top 70%', y: 40, stagger: 0.15, duration: 0.8 });
+    // Floating shapes parallax
+    gsap.utils.toArray('[data-float]').forEach((shape, i) => {
+      gsap.to(shape, {
+        y: (i + 1) * 60 * (i % 2 === 0 ? 1 : -1),
+        rotation: (i + 1) * 15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
       });
-      // Floating shapes parallax
-      gsap.utils.toArray('[data-float]').forEach((el, i) => {
-        gsap.to(el, {
-          y: (i + 1) * 60 * (i % 2 === 0 ? 1 : -1),
-          rotation: (i + 1) * 15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      });
-    }, root);
-    return () => ctx.revert();
+    });
   }, [reducedMotion]);
 
   return (

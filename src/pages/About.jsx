@@ -1,16 +1,13 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { team } from '@/data/team';
 import { stats } from '@/data/stats';
 import { Target, Layers, Zap, GitBranch } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const values = [
   { icon: Target, title: 'Precision Over Volume', description: 'We take fewer projects and go deeper. Every engagement gets senior engineering attention from blueprint to growth.' },
@@ -20,28 +17,11 @@ const values = [
 ];
 
 export default function About() {
-  const root = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="about-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-      gsap.from('[data-anim="value-card"]', {
-        opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: '[data-anim="values"]', start: 'top 70%' },
-      });
-      gsap.from('[data-anim="team-card"]', {
-        opacity: 0, y: 40, stagger: 0.1, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: '[data-anim="team-grid"]', start: 'top 70%' },
-      });
-      gsap.from('[data-anim="stat-item"]', {
-        opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: '[data-anim="stats-grid"]', start: 'top 75%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="about-header"]', { trigger: el, start: 'top 75%', y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="value-card"]', { trigger: '[data-anim="values"]', start: 'top 70%', y: 40, stagger: 0.12, duration: 0.8 });
+    revealOnScroll('[data-anim="team-card"]', { trigger: '[data-anim="team-grid"]', start: 'top 70%', y: 40, stagger: 0.1, duration: 0.8 });
+    revealOnScroll('[data-anim="stat-item"]', { trigger: '[data-anim="stats-grid"]', start: 'top 75%', y: 40, stagger: 0.12, duration: 0.8 });
   }, []);
 
   return (

@@ -1,27 +1,13 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionLabel from '@/components/SectionLabel';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { stats } from '@/data/stats';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function StatisticsSection() {
-  const root = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="stat-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
-      });
-      gsap.from('[data-anim="stat-item"]', {
-        opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 70%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="stat-header"]', { trigger: el, y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="stat-item"]', { trigger: el, start: 'top 70%', y: 40, stagger: 0.12, duration: 0.8 });
   }, []);
 
   return (

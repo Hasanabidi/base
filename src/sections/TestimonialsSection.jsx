@@ -1,27 +1,13 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Star, Quote } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { testimonials } from '@/data/testimonials';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function TestimonialsSection() {
-  const root = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="test-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
-      });
-      gsap.from('[data-anim="test-card"]', {
-        opacity: 0, y: 20, stagger: 0.05, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="test-header"]', { trigger: el, y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="test-card"]', { trigger: el, start: 'top 75%', y: 20, stagger: 0.05, duration: 0.6 });
   }, []);
 
   const doubled = [...testimonials, ...testimonials];
