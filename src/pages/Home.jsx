@@ -33,6 +33,13 @@ export default function Home() {
           "url": "https://fulcrumsystem.com",
           "telephone": "+92-303-2422542",
           "email": "abidi113@gmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "A-113, Adnan Khalil St, Block 4, Gulshan-e-Iqbal",
+            "addressLocality": "Karachi",
+            "postalCode": "75300",
+            "addressCountry": "PK"
+          },
           "areaServed": "Worldwide"
         }}
       />
