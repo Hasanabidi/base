@@ -5,7 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import AIWorkflowDiagram from '@/components/AIWorkflowDiagram';
+import CosmicParticles from '@/components/CosmicParticles';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useTheme } from '@/lib/ThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +16,7 @@ const headlineWords = ['Engineering', 'Leverage', 'from', 'Complexity.'];
 export default function Hero() {
   const root = useRef(null);
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
 
   useLayoutEffect(() => {
     if (reducedMotion) {
@@ -84,6 +87,11 @@ export default function Hero() {
       {/* Grid background */}
       <div data-hero="grid" className="absolute inset-0 bg-gradient-mesh" />
       <div className="grid-bg absolute inset-0 opacity-40" />
+
+      {/* Curl-noise particle field */}
+      {!reducedMotion && (
+        <CosmicParticles theme={theme} className="absolute inset-0 z-10" />
+      )}
 
       {/* Content */}
       <div data-hero="content" className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
