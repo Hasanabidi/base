@@ -72,7 +72,7 @@ export default function AISection() {
                 <div
                   key={point.label}
                   data-anim="pain-node"
-                  className="group flex items-center gap-3 border-b border-slate-200 px-4 py-3 transition-colors hover:bg-slate-50 last:border-b-0"
+                  className="group flex items-center gap-3 border-b border-slate-200 px-4 py-3 transition-colors hover:bg-slate-50 dark:hover:bg-white/5 last:border-b-0"
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200">
                     <Icon size={14} className="text-slate-700" />
@@ -83,29 +83,59 @@ export default function AISection() {
             })}
           </div>
 
-          {/* Center: Animated particle flow */}
+          {/* Center: pain points converge into the hub, then branch out to solutions */}
           <div className="relative hidden lg:flex w-32 items-center justify-center">
             <svg className="absolute inset-0 h-full w-full" viewBox="0 0 128 400" preserveAspectRatio="none">
+              {/* converging cables: pain points -> logo */}
               {[60, 150, 240, 330].map((y, i) => (
                 <path
-                  key={i}
-                  d={`M 0 ${y} C 40 ${y}, 80 ${100 + i * 80}, 128 ${100 + i * 80}`}
-                  stroke="rgba(99, 102, 241, 0.2)"
-                  strokeWidth="1"
+                  key={`in-${i}`}
+                  d={`M 0 ${y} C 30 ${y}, 40 200, 56 200`}
+                  stroke="rgba(99, 102, 241, 0.22)"
+                  strokeWidth="1.25"
                   fill="none"
                 />
               ))}
+              {/* branching cables: logo -> solutions */}
               {[60, 150, 240, 330].map((y, i) => (
-                <circle key={`particle-${i}`} r="3" fill="#6366F1">
+                <path
+                  key={`out-${i}`}
+                  d={`M 72 200 C 88 200, 98 ${y}, 128 ${y}`}
+                  stroke="rgba(139, 92, 246, 0.22)"
+                  strokeWidth="1.25"
+                  fill="none"
+                />
+              ))}
+              {/* particles flowing IN to the logo */}
+              {[60, 150, 240, 330].map((y, i) => (
+                <circle key={`pin-${i}`} r="2.5" fill="#6366F1">
                   <animateMotion
-                    dur={`${2 + i * 0.3}s`}
+                    dur={`${1.8 + i * 0.25}s`}
                     repeatCount="indefinite"
-                    path={`M 0 ${y} C 40 ${y}, 80 ${100 + i * 80}, 128 ${100 + i * 80}`}
+                    path={`M 0 ${y} C 30 ${y}, 40 200, 56 200`}
                   />
                   <animate
                     attributeName="opacity"
                     values="0;1;1;0"
-                    dur={`${2 + i * 0.3}s`}
+                    dur={`${1.8 + i * 0.25}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              ))}
+              {/* particles flowing OUT to solutions (staggered so they read as "through" the hub) */}
+              {[60, 150, 240, 330].map((y, i) => (
+                <circle key={`pout-${i}`} r="2.5" fill="#8B5CF6">
+                  <animateMotion
+                    dur={`${1.8 + i * 0.25}s`}
+                    begin="0.9s"
+                    repeatCount="indefinite"
+                    path={`M 72 200 C 88 200, 98 ${y}, 128 ${y}`}
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;1;1;0"
+                    dur={`${1.8 + i * 0.25}s`}
+                    begin="0.9s"
                     repeatCount="indefinite"
                   />
                 </circle>
@@ -129,7 +159,7 @@ export default function AISection() {
                 <div
                   key={sol.label}
                   data-anim="solution-node"
-                  className="group flex items-center gap-3 border-b border-slate-200 px-4 py-3 transition-colors hover:bg-slate-50 last:border-b-0"
+                  className="group flex items-center gap-3 border-b border-slate-200 px-4 py-3 transition-colors hover:bg-slate-50 dark:hover:bg-white/5 last:border-b-0"
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                     <Icon size={14} className="text-white" />
