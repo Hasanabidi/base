@@ -10,45 +10,44 @@ module.exports = {
         sm: '0.375rem'
       },
       colors: {
-        background: '#F8FAFC',
-        foreground: '#0F172A',
-        'core': '#FFFFFF',
-        'secondary-panel': '#F1F5F9',
-        'accent': '#6366F1',
-        'accent-glow': '#818CF8',
-        'text-secondary': '#64748B',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        'core': 'hsl(var(--card))',
+        'secondary-panel': 'hsl(var(--secondary))',
+        'accent-glow': 'hsl(var(--accent-glow))',
+        'text-secondary': 'hsl(var(--muted-foreground))',
         card: {
-          DEFAULT: '#FFFFFF',
-          foreground: '#0F172A'
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
         },
         popover: {
-          DEFAULT: '#FFFFFF',
-          foreground: '#0F172A'
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))'
         },
         primary: {
-          DEFAULT: '#6366F1',
-          foreground: '#FFFFFF'
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: '#F1F5F9',
-          foreground: '#0F172A'
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
         },
         muted: {
-          DEFAULT: '#F1F5F9',
-          foreground: '#64748B'
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
         },
         accent: {
-          DEFAULT: '#6366F1',
-          foreground: '#FFFFFF',
-          glow: '#818CF8'
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+          glow: 'hsl(var(--accent-glow))'
         },
         destructive: {
-          DEFAULT: '#ef4444',
-          foreground: '#FFFFFF'
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))'
         },
-        border: '#E2E8F0',
-        input: '#E2E8F0',
-        ring: '#6366F1',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
       },
       fontFamily: {
         heading: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
