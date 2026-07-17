@@ -52,7 +52,25 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/no-unknown-property": [
         "error",
-        { ignore: ["cmdk-input-wrapper", "toast-close"] },
+        {
+          ignore: [
+            "cmdk-input-wrapper",
+            "toast-close",
+            // react-three-fiber intrinsic props
+            "attach",
+            "args",
+            "map",
+            "transparent",
+            "opacity",
+            "blending",
+            "depthWrite",
+            "toneMapped",
+            "vertexShader",
+            "fragmentShader",
+            "uniforms",
+            "intensity",
+          ],
+        },
       ],
       "react-hooks/rules-of-hooks": "error",
     },
