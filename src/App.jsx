@@ -1,10 +1,9 @@
-import { Toaster } from "@/components/ui/toaster"
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClientInstance } from '@/lib/query-client'
+import { Toaster } from '@/components/ui/toaster';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClientInstance } from '@/lib/query-client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from '@/lib/ThemeContext';
 import PageNotFound from './lib/PageNotFound';
-import { AuthProvider, useAuth } from '@/lib/AuthContext';
-import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
@@ -16,7 +15,7 @@ import BlogPost from '@/pages/BlogPost';
 import Contact from '@/pages/Contact';
 import ServiceDetail from '@/pages/ServiceDetail';
 
-function App() {
+function AuthenticatedApp() {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -32,13 +31,11 @@ function App() {
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
-};
-
+}
 
 function App() {
-
   return (
-    <AuthProvider>
+    <ThemeProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <ScrollToTop />
@@ -46,8 +43,8 @@ function App() {
         </Router>
         <Toaster />
       </QueryClientProvider>
-    </AuthProvider>
-  )
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
