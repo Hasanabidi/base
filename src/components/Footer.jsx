@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 const footerLinks = {
   Company: [
@@ -38,9 +39,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <Link to="/" className="group flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600">
-                <span className="h-2 w-2 rounded-full bg-white" />
-              </span>
+              <Logo size={28} className="transition-transform duration-300 group-hover:-rotate-6" />
               <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-slate-900">
                 Fulcrum
               </span>
