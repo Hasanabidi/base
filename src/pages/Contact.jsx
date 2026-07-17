@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Mail, Phone, MapPin } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import MagneticButton from '@/components/MagneticButton';
@@ -157,6 +158,14 @@ export default function Contact() {
                     Send Message
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                   </button>
+
+                  <p className="text-xs leading-relaxed text-text-secondary">
+                    By submitting this form, you agree to our{' '}
+                    <Link to="/privacy" className="text-accent underline-offset-2 hover:underline">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </p>
                 </form>
               )}
             </div>
