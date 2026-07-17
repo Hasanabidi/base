@@ -4,30 +4,70 @@ import { Stars, Trail } from '@react-three/drei';
 import * as THREE from 'three';
 import { computeCurl } from '@/utils/curlNoise';
 
-const MAX_PARTICLES = 10000;
-const PARTICLE_LIFETIME = 2.8;
+const MAX_PARTICLES = 16000;
+const PARTICLE_LIFETIME = 3.0;
 
 // Theme-matched palettes (indigo / violet accents from the design system).
 const PALETTES = {
-  dark: ['#818CF8', '#A78BFA', '#6366F1', '#C4B5FD'],
+  dark: ['#818CF8', '#A78BFA', '#6366F1', '#C4B5FD', '#E0E7FF'],
   light: ['#4F46E5', '#7C3AED', '#6366F1', '#8B5CF6'],
 };
-const CURSOR_COLOR = { dark: '#A78BFA', light: '#6D28D9' };
+const CURSOR_COLOR = { dark: '#C4B5FD', light: '#6D28D9' };
 
+// Soft gaussian point sprite — a smooth glow with no hard rim, so particles
+// read as fine dust rather than bubbles.
 function makeSprite() {
+  const size = 64;
   const canvas = document.createElement('canvas');
-  canvas.width = 64;
-  canvas.height = 64;
+  canvas.width = size;
+  canvas.height = size;
   const ctx = canvas.getContext('2d');
-  const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  g.addColorStop(0, 'rgba(255,255,255,1)');
-  g.addColorStop(0.2, 'rgba(255,255,255,0.85)');
-  g.addColorStop(0.5, 'rgba(255,255,255,0.25)');
-  g.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 64, 64);
-  return new THREE.CanvasTexture(canvas);
+  const img = ctx.createImageData(size, size);
+  const c = (size - 1) / 2;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const dx = (x - c) / c;
+      const dy = (y - c) / c;
+      const r2 = dx * dx + dy * dy;
+      const a = Math.exp(-r2 * 6.0); // gaussian falloff
+      const i = (y * size + x) * 4;
+      img.data[i] = 255;
+      img.data[i + 1] = 255;
+      img.data[i + 2] = 255;
+      img.data[i + 3] = Math.round(Math.min(1, a) * 255);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.needsUpdate = true;
+  return tex;
 }
+
+const vertexShader = `
+  attribute float aScale;
+  attribute float aAlpha;
+  uniform float uSize;
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    vColor = color;
+    vAlpha = aAlpha;
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_PointSize = aScale * uSize * (1.0 / -mv.z);
+    gl_Position = projectionMatrix * mv;
+  }
+`;
+
+const fragmentShader = `
+  uniform sampler2D uTexture;
+  uniform float uOpacity;
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    float a = texture2D(uTexture, gl_PointCoord).a;
+    gl_FragColor = vec4(vColor, a * vAlpha * uOpacity);
+  }
+`;
 
 function RotatingStars() {
   const group = useRef(null);
@@ -45,7 +85,7 @@ function RotatingStars() {
 }
 
 function Particles({ theme, mouseWorld }) {
-  const meshRef = useRef(null);
+  const pointsRef = useRef(null);
   const { viewport } = useThree();
   const isDark = theme === 'dark';
 
@@ -55,21 +95,40 @@ function Particles({ theme, mouseWorld }) {
     [isDark]
   );
 
+  const { positions, colors, scales, alphas } = useMemo(
+    () => ({
+      positions: new Float32Array(MAX_PARTICLES * 3),
+      colors: new Float32Array(MAX_PARTICLES * 3),
+      scales: new Float32Array(MAX_PARTICLES),
+      alphas: new Float32Array(MAX_PARTICLES),
+    }),
+    []
+  );
+
   const particles = useMemo(() => {
     const arr = [];
     for (let i = 0; i < MAX_PARTICLES; i++) {
       arr.push({
         active: false,
-        position: new THREE.Vector3(),
+        position: new THREE.Vector3(1e6, 1e6, 1e6),
         velocity: new THREE.Vector3(),
         color: new THREE.Color(),
+        size: 1,
         life: 0,
       });
     }
     return arr;
   }, []);
 
-  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const uniforms = useMemo(
+    () => ({
+      uTexture: { value: sprite },
+      uSize: { value: isDark ? 34 : 36 },
+      uOpacity: { value: isDark ? 1.0 : 0.9 },
+    }),
+    [sprite, isDark]
+  );
+
   const spawnIndex = useRef(0);
 
   const spawn = (x, y, z, spread) => {
@@ -86,22 +145,21 @@ function Particles({ theme, mouseWorld }) {
       (Math.random() - 0.5) * 2
     );
     p.color.copy(palette[(Math.random() * palette.length) | 0]);
+    p.size = 0.5 + Math.random() * 1.2;
     p.life = PARTICLE_LIFETIME * (0.7 + Math.random() * 0.3);
     spawnIndex.current = (spawnIndex.current + 1) % MAX_PARTICLES;
   };
 
   useFrame((_, delta) => {
-    const mesh = meshRef.current;
-    if (!mesh) return;
+    const points = pointsRef.current;
+    if (!points) return;
     const dt = Math.min(delta, 1 / 30);
 
-    // Dense emission from the cursor (constant stream + a burst while moving).
     if (mouseWorld.current) {
       const m = mouseWorld.current;
-      for (let i = 0; i < 45; i++) spawn(m.x, m.y, m.z, 1.4);
+      for (let i = 0; i < 85; i++) spawn(m.x, m.y, m.z, 1.6);
     }
-    // A little ambient life across the scene.
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       spawn(
         (Math.random() - 0.5) * viewport.width,
         (Math.random() - 0.5) * viewport.height,
@@ -110,24 +168,24 @@ function Particles({ theme, mouseWorld }) {
       );
     }
 
-    const up = new THREE.Vector3(0, 1, 0);
-    const q = new THREE.Quaternion();
-
     for (let i = 0; i < MAX_PARTICLES; i++) {
       const p = particles[i];
+      const i3 = i * 3;
       if (!p.active) {
-        dummy.scale.set(0, 0, 0);
-        dummy.updateMatrix();
-        mesh.setMatrixAt(i, dummy.matrix);
+        alphas[i] = 0;
+        positions[i3] = 1e6;
+        positions[i3 + 1] = 1e6;
+        positions[i3 + 2] = 1e6;
         continue;
       }
 
       p.life -= dt;
       if (p.life <= 0) {
         p.active = false;
-        dummy.scale.set(0, 0, 0);
-        dummy.updateMatrix();
-        mesh.setMatrixAt(i, dummy.matrix);
+        alphas[i] = 0;
+        positions[i3] = 1e6;
+        positions[i3 + 1] = 1e6;
+        positions[i3 + 2] = 1e6;
         continue;
       }
 
@@ -136,38 +194,44 @@ function Particles({ theme, mouseWorld }) {
       p.velocity.multiplyScalar(0.96);
       p.position.addScaledVector(p.velocity, dt);
 
-      const lifeRatio = p.life / PARTICLE_LIFETIME;
-      const scale = lifeRatio * (isDark ? 0.09 : 0.1);
-      const speed = p.velocity.length();
-      const stretch = Math.min(4, Math.max(1, speed * 0.1));
+      const ageRatio = 1 - p.life / PARTICLE_LIFETIME;
+      const envelope = Math.sin(Math.min(1, ageRatio) * Math.PI);
 
-      dummy.position.copy(p.position);
-      dummy.scale.set(scale, scale, scale * stretch);
-      if (speed > 0.01) {
-        q.setFromUnitVectors(up, p.velocity.clone().normalize());
-        dummy.quaternion.copy(q);
-      }
-      dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
-      mesh.setColorAt(i, p.color);
+      positions[i3] = p.position.x;
+      positions[i3 + 1] = p.position.y;
+      positions[i3 + 2] = p.position.z;
+      colors[i3] = p.color.r;
+      colors[i3 + 1] = p.color.g;
+      colors[i3 + 2] = p.color.b;
+      scales[i] = p.size;
+      alphas[i] = envelope;
     }
 
-    mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    const geo = points.geometry;
+    geo.attributes.position.needsUpdate = true;
+    geo.attributes.color.needsUpdate = true;
+    geo.attributes.aScale.needsUpdate = true;
+    geo.attributes.aAlpha.needsUpdate = true;
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, MAX_PARTICLES]}>
-      <sphereGeometry args={[1, 12, 12]} />
-      <meshBasicMaterial
-        map={sprite}
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
+        <bufferAttribute attach="attributes-aScale" args={[scales, 1]} />
+        <bufferAttribute attach="attributes-aAlpha" args={[alphas, 1]} />
+      </bufferGeometry>
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+        vertexColors
         transparent
-        opacity={isDark ? 0.9 : 0.75}
-        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
         depthWrite={false}
-        toneMapped={false}
+        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
       />
-    </instancedMesh>
+    </points>
   );
 }
 
@@ -185,12 +249,12 @@ function Cursor({ theme, mouseWorld }) {
   });
 
   return (
-    <Trail width={0.6} length={16} color={new THREE.Color(color)} attenuation={(t) => t * t}>
+    <Trail width={0.4} length={9} color={new THREE.Color(color)} attenuation={(t) => t * t}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[0.18, 24, 24]} />
+        <sphereGeometry args={[0.12, 20, 20]} />
         <meshBasicMaterial color={color} transparent opacity={0.9} toneMapped={false} />
         <mesh>
-          <sphereGeometry args={[0.5, 24, 24]} />
+          <sphereGeometry args={[0.34, 20, 20]} />
           <meshBasicMaterial
             color={color}
             transparent
@@ -232,7 +296,6 @@ function Scene({ theme }) {
     };
   }, [gl]);
 
-  // Convert the normalised pointer to a world position on the z=0 plane.
   useFrame(() => {
     if (pointerNorm.current) {
       const wx = pointerNorm.current.x * (viewport.width / 2);
