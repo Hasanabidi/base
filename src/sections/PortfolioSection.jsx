@@ -1,46 +1,35 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import { useParallax } from '@/hooks/useParallax';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { gsap } from '@/lib/gsap';
+import { revealOnScroll } from '@/lib/animations';
 import { projects } from '@/data/projects';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function PortfolioSection({ limit }) {
-  const root = useRef(null);
   const featured = limit ? projects.slice(0, limit) : projects;
   const imgRefs = useRef([]);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="portfolio-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="portfolio-header"]', { trigger: el, y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="portfolio-card"]', { trigger: el, start: 'top 65%', y: 40, stagger: 0.12, duration: 0.8 });
+    // Parallax on project images
+    imgRefs.current.forEach((img) => {
+      if (!img) return;
+      gsap.fromTo(img, { y: -30 }, {
+        y: 30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: img.parentElement,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
       });
-      gsap.from('[data-anim="portfolio-card"]', {
-        opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 65%' },
-      });
-      // Parallax on project images
-      imgRefs.current.forEach((img) => {
-        if (!img) return;
-        gsap.fromTo(img, { y: -30 }, {
-          y: 30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: img.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      });
-    }, root);
-    return () => ctx.revert();
+    });
   }, []);
 
   return (

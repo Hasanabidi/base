@@ -1,43 +1,36 @@
-import { useRef, useLayoutEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { gsap } from '@/lib/gsap';
 
 export default function GeometricArt() {
-  const root = useRef(null);
   const reducedMotion = useReducedMotion();
 
-  useLayoutEffect(() => {
+  const root = useGsapContext((el) => {
     if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-art="line"]', {
-        strokeDashoffset: (i, el) => el.getTotalLength?.() || 800,
-        duration: 1.5,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: root.current, start: 'top 85%' },
-      });
-      gsap.from('[data-art="shape"]', {
-        opacity: 0,
-        scale: 0.85,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 85%' },
-      });
-      gsap.from('[data-art="dot"]', {
-        opacity: 0,
-        scale: 0,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: 'power2.out',
-        delay: 0.8,
-        scrollTrigger: { trigger: root.current, start: 'top 85%' },
-      });
-    }, root);
-    return () => ctx.revert();
+    gsap.from('[data-art="line"]', {
+      strokeDashoffset: (i, target) => target.getTotalLength?.() || 800,
+      duration: 1.5,
+      stagger: 0.08,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
+    gsap.from('[data-art="shape"]', {
+      opacity: 0,
+      scale: 0.85,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
+    gsap.from('[data-art="dot"]', {
+      opacity: 0,
+      scale: 0,
+      duration: 0.5,
+      stagger: 0.05,
+      ease: 'power2.out',
+      delay: 0.8,
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
   }, [reducedMotion]);
 
   return (

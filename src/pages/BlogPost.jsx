@@ -1,35 +1,22 @@
-import { useLayoutEffect, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { blogPosts } from '@/data/blogPosts';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const root = useRef(null);
 
   const post = blogPosts.find((p) => p.slug === slug);
   const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
   const nextPost = blogPosts[currentIndex + 1] || blogPosts[0];
 
-  useLayoutEffect(() => {
+  const root = useGsapContext((el) => {
     if (!post) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="post-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-      gsap.from('[data-anim="post-content"] > *', {
-        opacity: 0, y: 20, stagger: 0.08, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: '[data-anim="post-content"]', start: 'top 80%' },
-      });
-    }, root);
-    return () => ctx.revert();
+    revealOnScroll('[data-anim="post-header"]', { trigger: el, start: 'top 75%', y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="post-content"] > *', { trigger: '[data-anim="post-content"]', y: 20, stagger: 0.08, duration: 0.6 });
   }, [slug]);
 
   if (!post) return <Navigate to="/blog" replace />;

@@ -1,7 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowRight, ArrowLeft, Plus, Check,
   Code2, Smartphone, Cloud, CreditCard, Calculator, Shield,
@@ -20,8 +17,8 @@ import { serviceDetails } from '@/data/serviceDetails';
 import SEO from '@/components/SEO';
 import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 
 const serviceIconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
 
@@ -36,19 +33,15 @@ const capIconMap = {
 
 export default function ServiceDetail() {
   const { slug } = useParams();
-  const root = useRef(null);
   const service = services.find((s) => s.id === slug);
 
-  useLayoutEffect(() => {
+  const root = useGsapContext((el) => {
     if (!service) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="sd-hero"]', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 80%' } });
-      gsap.from('[data-anim="sd-cap"]', { opacity: 0, y: 30, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-cap-grid"]', start: 'top 75%' } });
-      gsap.from('[data-anim="sd-feat"]', { opacity: 0, x: -20, stagger: 0.06, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-feat-list"]', start: 'top 80%' } });
-      gsap.from('[data-anim="sd-tech"]', { opacity: 0, y: 16, stagger: 0.04, duration: 0.4, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-tech-grid"]', start: 'top 85%' } });
-      gsap.from('[data-anim="sd-other"]', { opacity: 0, y: 20, stagger: 0.06, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-other-grid"]', start: 'top 85%' } });
-    }, root);
-    return () => ctx.revert();
+    revealOnScroll('[data-anim="sd-hero"]', { trigger: el, y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="sd-cap"]', { trigger: '[data-anim="sd-cap-grid"]', start: 'top 75%', y: 30, stagger: 0.08, duration: 0.6 });
+    revealOnScroll('[data-anim="sd-feat"]', { trigger: '[data-anim="sd-feat-list"]', x: -20, stagger: 0.06, duration: 0.5 });
+    revealOnScroll('[data-anim="sd-tech"]', { trigger: '[data-anim="sd-tech-grid"]', start: 'top 85%', y: 16, stagger: 0.04, duration: 0.4 });
+    revealOnScroll('[data-anim="sd-other"]', { trigger: '[data-anim="sd-other-grid"]', start: 'top 85%', y: 20, stagger: 0.06, duration: 0.5 });
   }, [slug]);
 
   if (!service) return <Navigate to="/services" replace />;

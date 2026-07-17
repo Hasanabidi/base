@@ -1,31 +1,22 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { blogPosts, blogCategories } from '@/data/blogPosts';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Blog() {
-  const root = useRef(null);
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filtered = activeCategory === 'All'
     ? blogPosts
     : blogPosts.filter((p) => p.category === activeCategory);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="blog-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="blog-header"]', { trigger: el, start: 'top 75%', y: 30, duration: 0.8 });
   }, []);
 
   const featured = filtered[0];

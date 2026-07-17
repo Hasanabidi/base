@@ -1,34 +1,22 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
 import SectionLabel from '@/components/SectionLabel';
 import ProjectCard from '@/components/ProjectCard';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 import { projects } from '@/data/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const categories = ['All', ...new Set(projects.map((p) => p.category))];
 
 export default function Work() {
-  const root = useRef(null);
   const [filter, setFilter] = useState('All');
 
   const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="work-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-      gsap.from('[data-anim="project-card"]', {
-        opacity: 0, y: 30, stagger: 0.08, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: '[data-anim="work-grid"]', start: 'top 85%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="work-header"]', { trigger: el, start: 'top 75%', y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="project-card"]', { trigger: '[data-anim="work-grid"]', start: 'top 85%', y: 30, stagger: 0.08, duration: 0.6 });
   }, [filter]);
 
   return (

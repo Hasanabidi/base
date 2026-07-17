@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from '@/lib/gsap';
 import Hero from '@/sections/Hero';
 import ServicesSection from '@/sections/ServicesSection';
 import AISection from '@/sections/AISection';
@@ -10,8 +9,6 @@ import PortfolioSection from '@/sections/PortfolioSection';
 import TestimonialsSection from '@/sections/TestimonialsSection';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const root = useRef(null);

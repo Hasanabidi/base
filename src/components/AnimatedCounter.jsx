@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap';
 import { useInView } from '@/hooks/useInView';
 
 export default function AnimatedCounter({ value, suffix = '', duration = 2 }) {

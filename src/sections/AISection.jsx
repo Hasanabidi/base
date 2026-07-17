@@ -1,10 +1,7 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AlertCircle, Cpu, Zap, BarChart3, LayoutDashboard } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapContext } from '@/hooks/useGsapContext';
+import { revealOnScroll } from '@/lib/animations';
 
 const painPoints = [
   { label: 'Manual Work', icon: AlertCircle },
@@ -21,24 +18,10 @@ const solutions = [
 ];
 
 export default function AISection() {
-  const root = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('[data-anim="ai-header"]', {
-        opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 75%' },
-      });
-      gsap.from('[data-anim="pain-node"]', {
-        opacity: 0, x: -40, stagger: 0.1, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 60%' },
-      });
-      gsap.from('[data-anim="solution-node"]', {
-        opacity: 0, x: 40, stagger: 0.1, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 60%' },
-      });
-    }, root);
-    return () => ctx.revert();
+  const root = useGsapContext((el) => {
+    revealOnScroll('[data-anim="ai-header"]', { trigger: el, start: 'top 75%', y: 30, duration: 0.8 });
+    revealOnScroll('[data-anim="pain-node"]', { trigger: el, start: 'top 60%', x: -40, stagger: 0.1, duration: 0.6 });
+    revealOnScroll('[data-anim="solution-node"]', { trigger: el, start: 'top 60%', x: 40, stagger: 0.1, duration: 0.6 });
   }, []);
 
   return (

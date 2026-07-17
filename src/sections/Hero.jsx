@@ -1,13 +1,10 @@
 import { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
 import AIWorkflowDiagram from '@/components/AIWorkflowDiagram';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from '@/lib/gsap';
 
 const headlineWords = ['Engineering', 'Leverage', 'from', 'Complexity.'];
 
