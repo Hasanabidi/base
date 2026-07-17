@@ -8,21 +8,61 @@ import SEO from '@/components/SEO';
 const budgetRanges = ['< $10K', '$10K – $50K', '$50K – $100K', '$100K+'];
 const serviceTypes = ['Web Development', 'Mobile Apps', 'SaaS / POS', 'Financial Services', 'Cybersecurity', 'Full Project'];
 
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mzdnewak';
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: '', email: '', company: '', message: '',
     budget: '', serviceType: '',
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    if (!FORMSPREE_ENDPOINT) {
+      setErrorMsg('The contact form is not configured yet. Please email us directly at hello@fulcrumsystem.com.');
+      setStatus('error');
+      return;
+    }
+
+    setStatus('submitting');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          service: form.serviceType,
+          budget: form.budget,
+          message: form.message,
+          _subject: `New inquiry from ${form.name || 'website'}`,
+        }),
+      });
+
+      if (res.ok) {
+        setStatus('success');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data?.errors?.[0]?.message || 'Something went wrong. Please try again or email us directly.');
+        setStatus('error');
+      }
+    } catch {
+      setErrorMsg('Network error. Please try again or email us directly.');
+      setStatus('error');
+    }
   };
+
+  const submitting = status === 'submitting';
 
   return (
     <div className="pt-32">
@@ -59,7 +99,7 @@ export default function Contact() {
           <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
             {/* Form */}
             <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-soft md:p-12">
-              {submitted ? (
+              {status === 'success' ? (
                 <div className="flex h-full flex-col items-center justify-center py-20 text-center">
                   <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600 shadow-glow">
                     <Check size={28} className="text-white" />
@@ -151,12 +191,19 @@ export default function Contact() {
                     />
                   </div>
 
+                  {status === 'error' && (
+                    <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+                      {errorMsg}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 sm:w-auto"
+                    disabled={submitting}
+                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-lg sm:w-auto"
                   >
-                    Send Message
-                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                    {submitting ? 'Sending…' : 'Send Message'}
+                    {!submitting && <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />}
                   </button>
 
                   <p className="text-xs leading-relaxed text-text-secondary">
