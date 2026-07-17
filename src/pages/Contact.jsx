@@ -234,12 +234,17 @@ export default function Contact() {
                     </div>
                     +92 303 2422542
                   </a>
-                  <div className="flex items-center gap-3 text-sm text-text-secondary">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
+                  <a
+                    href="https://maps.app.goo.gl/8UhhzSLtn5k6W3QW8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent"
+                  >
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <MapPin size={16} className="text-white" />
                     </div>
-                    Remote · Global
-                  </div>
+                    A-113, Adnan Khalil St, Block 4, Gulshan-e-Iqbal, Karachi 75300, Pakistan
+                  </a>
                 </div>
               </div>
 
