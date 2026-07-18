@@ -16,7 +16,7 @@ export default function ThemeToggle({ className = '' }) {
     >
       <Sun
         size={16}
-        className={`absolute text-amber-500 transition-all duration-300 ${
+        className={`absolute text-indigo-500 transition-all duration-300 ${
           isDark ? 'scale-0 -rotate-90 opacity-0' : 'scale-100 rotate-0 opacity-100'
         }`}
       />
