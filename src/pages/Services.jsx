@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Plus, Code2, Smartphone, Cloud, CreditCard, Calculator, Shield } from 'lucide-react';
+import { ArrowRight, Plus, Code2, Smartphone, Cloud, CreditCard, Calculator, Shield, Bot, MessagesSquare, LineChart } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import CTASection from '@/sections/CTASection';
@@ -13,7 +13,7 @@ import { servicesPageJsonLd } from '@/data/seoData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
+const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield, ai: Bot, chat: MessagesSquare, seo: LineChart };
 
 export default function Services() {
   const root = useRef(null);
@@ -36,7 +36,7 @@ export default function Services() {
     <div ref={root} className="pt-32">
       <SEO
         title="Services"
-        description="Web development (Shopify, Wix, Framer, GoHighLevel, Next.js, React), mobile apps, Android games, SaaS platforms, POS software, financial services, tax filing, and cybersecurity."
+        description="Web development (Shopify, Wix, Framer, GoHighLevel, Next.js, React), mobile apps, Android games, SaaS platforms, POS software, financial services, tax filing, cybersecurity, AI automation & agents, conversational AI chatbots, and SEO/GEO/AEO optimization."
         path="/services"
         jsonLd={servicesPageJsonLd}
       />
@@ -47,13 +47,13 @@ export default function Services() {
           <div data-anim="srv-header">
             <SectionLabel>Services</SectionLabel>
             <h1 className="mt-6 font-heading text-hero uppercase text-black">
-              Six disciplines.<br />
+              Nine disciplines.<br />
               <span className="text-gradient">One partner.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-text-secondary">
-              From web development and mobile apps to SaaS platforms, POS software, financial
-              services, and cybersecurity — we deliver end-to-end solutions for businesses that
-              need more than just a website.
+              From web development, mobile apps, and SaaS platforms to POS software, financial
+              services, cybersecurity, AI automation, conversational AI, and SEO/GEO/AEO — we
+              deliver end-to-end solutions for businesses that need more than just a website.
             </p>
           </div>
         </div>

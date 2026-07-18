@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Code2, Smartphone, Cloud, CreditCard, Calculator, Shield, ArrowUpRight, Plus } from 'lucide-react';
+import { Code2, Smartphone, Cloud, CreditCard, Calculator, Shield, ArrowUpRight, Plus, Bot, MessagesSquare, LineChart } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import TiltCard from '@/components/TiltCard';
 import { useParallax } from '@/hooks/useParallax';
@@ -10,7 +10,7 @@ import { services } from '@/data/services';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
+const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield, ai: Bot, chat: MessagesSquare, seo: LineChart };
 
 export default function ServicesSection({ detailed = false }) {
   const root = useRef(null);
@@ -43,12 +43,13 @@ export default function ServicesSection({ detailed = false }) {
         <div data-anim="service-header" ref={headerRef} className="mb-16 max-w-2xl">
           <SectionLabel>Services</SectionLabel>
           <h2 className="mt-6 font-heading text-section uppercase text-black">
-            Six disciplines.{' '}
+            Nine disciplines.{' '}
             <span className="text-gradient">One partner.</span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-text-secondary">
-            From Shopify stores and mobile apps to SaaS platforms, POS systems, financial services,
-            and cybersecurity — we cover the full spectrum of your digital and business needs.
+            From web, mobile, and SaaS to POS, financial services, cybersecurity, AI automation,
+            conversational AI, and SEO/GEO/AEO — we cover the full spectrum of your digital and
+            business needs.
           </p>
         </div>
 

@@ -56,6 +56,30 @@ export const servicesPageJsonLd = [
             "name": "Cyber Security",
             "description": "Penetration testing, vulnerability assessments, security audits, and monitoring."
           }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Automation & Agents",
+            "description": "Custom AI integrations, autonomous agents, workflow automation, and LLM-powered enterprise data search."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Intelligent Chatbots & Conversational AI",
+            "description": "Custom-trained AI chat agents, voice automation, and support funnels embedded across web and mobile."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Technical SEO, GEO & AEO Optimization",
+            "description": "Technical SEO, Core Web Vitals speed tuning, CRO, and visibility across search, generative, and answer engines."
+          }
         }
       ]
     }

@@ -112,5 +112,62 @@ export const services = [
     accent: "#6366F1",
     icon: "security",
     sequence: ["Assess", "Secure", "Monitor"]
+  },
+  {
+    id: "ai-automation",
+    title: "AI Automation & Agents",
+    tagline: "Workflows, Automated",
+    description: "Custom AI integrations, autonomous business agents, internal workflow automations, and LLM-powered enterprise data search tools. We connect your systems and put repetitive work on autopilot — with humans in control where it matters.",
+    features: [
+      "Custom AI Integrations",
+      "Autonomous Business Agents",
+      "Internal Workflow Automation",
+      "LLM-Powered Data Search (RAG)",
+      "Document & Email Automation",
+      "CRM & Tool Connectors",
+      "Human-in-the-Loop Controls",
+      "Monitoring & Guardrails"
+    ],
+    accent: "#6366F1",
+    icon: "ai",
+    sequence: ["Map", "Build", "Automate"]
+  },
+  {
+    id: "ai-chatbots",
+    title: "Intelligent Chatbots & Conversational AI",
+    tagline: "Engage, Instantly",
+    description: "Smart customer support funnels, voice automation, and custom-trained AI chat agents seamlessly embedded into your web and mobile platforms. Answer instantly, qualify leads, and hand off to a human the moment it's needed.",
+    features: [
+      "Custom-Trained Chat Agents",
+      "AI Customer Support Funnels",
+      "Voice Automation & IVR",
+      "SMS & WhatsApp Bots",
+      "Website & In-App Widgets",
+      "Lead Qualification Flows",
+      "Live Handoff to Humans",
+      "Multilingual Conversations"
+    ],
+    accent: "#6366F1",
+    icon: "chat",
+    sequence: ["Train", "Embed", "Engage"]
+  },
+  {
+    id: "seo-optimization",
+    title: "Technical SEO, GEO & AEO Optimization",
+    tagline: "Built to Convert",
+    description: "Advanced speed tuning, conversion rate optimization (CRO), and multi-dimensional visibility engineering. We optimize your presence across traditional search (SEO), AI & generative engines like Perplexity and Gemini (GEO), and answer engines & voice assistants (AEO) — so your brand becomes the definitive source.",
+    features: [
+      "Technical SEO Audits",
+      "Core Web Vitals & Speed Tuning",
+      "Conversion Rate Optimization (CRO)",
+      "Generative Engine Optimization (GEO)",
+      "Answer Engine Optimization (AEO)",
+      "Structured Data & Schema",
+      "LLM Citation Tracking",
+      "Analytics & A/B Testing"
+    ],
+    accent: "#6366F1",
+    icon: "seo",
+    sequence: ["Audit", "Optimize", "Rank"]
   }
 ];
