@@ -228,6 +228,20 @@
 }
 .hover-fill:hover > .hover-fill__layer { transform: scaleY(1); }
 
+/* ---- Animated logo (lever rocks around the fulcrum) ---- */
+.logo-lever {
+  transform-box: view-box;
+  transform-origin: 32px 29px;
+  animation: logo-balance 3.6s ease-in-out infinite;
+}
+@keyframes logo-balance {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-lever { animation: none; }
+}
+
 /* ---- Draggable marquee ---- */
 .marquee-track {
   will-change: transform;

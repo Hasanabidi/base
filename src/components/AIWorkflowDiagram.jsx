@@ -355,10 +355,6 @@ export default function AIWorkflowDiagram() {
 
         {/* Pipeline container */}
         <div className="relative p-5 lg:p-8">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="aurora-glow absolute left-1/3 top-0 h-full w-1/3" />
-          </div>
-
           <div ref={pipelineRef} className="relative flex flex-col lg:flex-row lg:items-stretch justify-between">
             <PipelineColumn col={columns[0]} colIdx={0} registerRow={registerRow} />
             <FlowConnector uid="c1" variant="sources-to-ai" data={layout.c1} setRef={registerConnector('c1')} />

@@ -1,6 +1,6 @@
 import { useId } from 'react';
 
-export default function Logo({ size = 28, className = '' }) {
+export default function Logo({ size = 28, className = '', animated = true }) {
   const gradId = useId();
   return (
     <svg
@@ -20,10 +20,14 @@ export default function Logo({ size = 28, className = '' }) {
         </linearGradient>
       </defs>
       <rect width="64" height="64" rx="16" fill={`url(#${gradId})`} />
-      <rect x="15" y="25.5" width="34" height="5" rx="2.5" fill="#fff" transform="rotate(-11 32 28)" />
-      <circle cx="47" cy="20.5" r="3.4" fill="#fff" />
+      {/* Fulcrum (static) */}
       <path d="M32 29 L41.5 46 H22.5 Z" fill="#fff" />
       <rect x="19" y="48" width="26" height="3.6" rx="1.8" fill="#fff" fillOpacity="0.9" />
+      {/* Lever + weight — rocks around the fulcrum apex to "find balance" */}
+      <g className={animated ? 'logo-lever' : ''}>
+        <rect x="15" y="25.5" width="34" height="5" rx="2.5" fill="#fff" transform="rotate(-11 32 28)" />
+        <circle cx="47" cy="20.5" r="3.4" fill="#fff" />
+      </g>
     </svg>
   );
 }

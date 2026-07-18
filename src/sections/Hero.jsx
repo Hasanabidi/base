@@ -71,8 +71,7 @@ export default function Hero() {
         },
       });
       scrollTl
-        .to('[data-hero="content"]', { y: -80, opacity: 0.15, ease: 'none' }, 0)
-        .to('[data-hero="art"]', { y: 120, ease: 'none' }, 0)
+        .to('[data-hero="text"]', { y: -80, opacity: 0.15, ease: 'none' }, 0)
         .to('[data-hero="grid"]', { y: 60, ease: 'none' }, 0);
     }
 
@@ -95,6 +94,7 @@ export default function Hero() {
 
       {/* Content */}
       <div data-hero="content" className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
+        <div data-hero="text">
         <div
           data-anim="badge"
           className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft"
@@ -139,6 +139,7 @@ export default function Hero() {
               View Our Work
             </MagneticButton>
           </div>
+        </div>
         </div>
 
         {/* AI workflow pipeline */}
