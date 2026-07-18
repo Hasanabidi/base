@@ -213,7 +213,7 @@ export default function ServiceDetail() {
               const Icon = serviceIconMap[s.icon] || Code2;
               return (
                 <Link to={`/services/${s.id}`} key={s.id} data-anim="sd-other" className="gradient-card group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-soft">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-slate-900 transition-transform duration-300 group-hover:scale-110">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 transition-transform duration-300 group-hover:scale-110">
                     <Icon size={16} className="text-white" />
                   </div>
                   <span className="text-sm font-heading font-bold text-black transition-colors group-hover:text-accent">{s.title}</span>

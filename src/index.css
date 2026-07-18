@@ -119,6 +119,28 @@
   background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
 }
 
+/* Hero x-ray cursor reveal: a second copy of the headline in a bright
+   "scan" gradient, shown only inside a circle that follows the cursor. */
+.hero-xray {
+  filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.55));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  -webkit-mask-image: radial-gradient(circle 46px at var(--xray-x, -1000px) var(--xray-y, -1000px), #000 0%, #000 38%, transparent 72%);
+  mask-image: radial-gradient(circle 46px at var(--xray-x, -1000px) var(--xray-y, -1000px), #000 0%, #000 38%, transparent 72%);
+}
+
+.hero-xray.is-active {
+  opacity: 1;
+}
+
+.hero-xray-word {
+  background: linear-gradient(90deg, #22D3EE 0%, #FFFFFF 50%, #E879F9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 .bg-gradient-mesh {
   background-color: #F8FAFC;
   background-image:
