@@ -51,7 +51,7 @@ export default function ServiceDetail() {
       gsap.from('[data-anim="sd-hero"]', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 80%' } });
       gsap.from('[data-anim="sd-cap"]', { opacity: 0, y: 30, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-cap-grid"]', start: 'top 75%' } });
       gsap.from('[data-anim="sd-feat"]', { opacity: 0, x: -20, stagger: 0.06, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-feat-list"]', start: 'top 80%' } });
-      gsap.from('[data-anim="sd-tech"]', { opacity: 0, y: 16, stagger: 0.04, duration: 0.4, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-tech-grid"]', start: 'top 85%' } });
+      gsap.from('[data-anim="sd-tech"]', { y: 12, stagger: 0.03, duration: 0.4, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-tech-grid"]', start: 'top 92%' } });
       gsap.from('[data-anim="sd-other"]', { opacity: 0, y: 20, stagger: 0.06, duration: 0.5, ease: 'power3.out', scrollTrigger: { trigger: '[data-anim="sd-other-grid"]', start: 'top 85%' } });
     }, root);
     return () => ctx.revert();

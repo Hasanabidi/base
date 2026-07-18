@@ -94,7 +94,7 @@ export default function Services() {
                       ))}
                     </div>
 
-                    <Link to={`/services/${service.id}`} className="mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-black transition-colors hover:text-accent">
+                    <Link to={`/services/${service.id}`} className="btn-sweep mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-6 py-3 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/40">
                       Learn more
                       <ArrowRight size={14} />
                     </Link>
