@@ -3,7 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  ArrowRight, ArrowLeft, Plus, Check,
+  ArrowRight, ArrowLeft, Check,
   Code2, Smartphone, Cloud, CreditCard, Calculator, Shield,
   ShoppingBag, Layers, PenTool, Rocket, Globe,
   Gamepad2, Store, Search, Bell, Download,
@@ -11,6 +11,9 @@ import {
   Package, Receipt, Users, BarChart3, HardDrive, MapPin,
   FileText, BookOpen, ShieldCheck, TrendingUp, Scale,
   Bug, ScanLine, Network, Eye, AlertTriangle,
+  Bot, MessagesSquare, LineChart, Workflow, Brain, FileSearch, Plug, Zap,
+  MessageSquare, Mic, Phone, Headset, Share2, GraduationCap,
+  Sparkles, HelpCircle, Gauge, MousePointerClick,
 } from 'lucide-react';
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
@@ -23,7 +26,7 @@ import CTASection from '@/sections/CTASection';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const serviceIconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield };
+const serviceIconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard, finance: Calculator, security: Shield, ai: Bot, chat: MessagesSquare, seo: LineChart };
 
 const capIconMap = {
   'shopping-bag': ShoppingBag, 'layers': Layers, 'pen-tool': PenTool, 'rocket': Rocket, 'code': Code2, 'globe': Globe,
@@ -32,6 +35,9 @@ const capIconMap = {
   'package': Package, 'receipt': Receipt, 'users': Users, 'bar-chart3': BarChart3, 'hard-drive': HardDrive, 'map-pin': MapPin,
   'file-text': FileText, 'calculator': Calculator, 'book-open': BookOpen, 'shield-check': ShieldCheck, 'trending-up': TrendingUp, 'scale': Scale,
   'bug': Bug, 'scan-line': ScanLine, 'network': Network, 'eye': Eye, 'alert-triangle': AlertTriangle,
+  'workflow': Workflow, 'bot': Bot, 'brain': Brain, 'file-search': FileSearch, 'plug': Plug, 'zap': Zap,
+  'message-square': MessageSquare, 'mic': Mic, 'phone': Phone, 'headset': Headset, 'share2': Share2, 'graduation-cap': GraduationCap,
+  'sparkles': Sparkles, 'help-circle': HelpCircle, 'gauge': Gauge, 'mouse-pointer-click': MousePointerClick, 'line-chart': LineChart,
 };
 
 export default function ServiceDetail() {

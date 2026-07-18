@@ -18,7 +18,7 @@ export const serviceDetails = {
       { question: "Do you provide ongoing maintenance?", answer: "Yes. We offer maintenance packages that include security updates, performance monitoring, content updates, and technical support for all websites we build." },
       { question: "Will my website be SEO-optimized?", answer: "Absolutely. Every site we build follows SEO best practices — semantic HTML, optimized meta tags, fast load times, mobile responsiveness, and structured data. We also offer ongoing SEO services for continued growth." },
     ],
-    techStack: ["Next.js", "React", "Shopify", "Wix Studio", "Framer", "GoHighLevel", "Tailwind CSS", "Vercel", "TypeScript"],
+    techStack: ["Figma", "Next.js", "React", "Astro", "Vite", "Tailwind CSS", "Wix Studio", "Wix Velo", "WordPress (Elementor)", "Shopify", "Squarespace", "Framer", "GoHighLevel", "TypeScript", "Vercel"],
   },
   "mobile-apps": {
     overview: [
@@ -39,7 +39,7 @@ export const serviceDetails = {
       { question: "How do you handle app store submissions?", answer: "We manage the entire submission process — preparing store listings, screenshots, descriptions, privacy policies, and handling the review process for both the App Store and Google Play." },
       { question: "What's the typical cost of a mobile app?", answer: "App costs vary widely based on complexity. A simple MVP might start at $15K-$25K, while a full-featured app with backend infrastructure can range from $50K-$150K+. We provide detailed estimates after understanding your requirements." },
     ],
-    techStack: ["React Native", "Swift", "Kotlin", "Firebase", "Redux", "Expo", "Fastlane"],
+    techStack: ["React Native", "Flutter", "Swift", "Kotlin", "Unity", "C#", "Firebase", "Expo", "Redux", "App Store Connect", "Google Play Console", "Fastlane"],
   },
   "saas-applications": {
     overview: [
@@ -60,7 +60,7 @@ export const serviceDetails = {
       { question: "Do you handle payment integration?", answer: "Yes. We integrate Stripe, PayPal, and other payment gateways with full subscription management, invoicing, tax handling, and dunning workflows." },
       { question: "How do you ensure the platform scales?", answer: "We design for scale from the start — multi-tenant architecture, horizontal scaling, caching strategies, database optimization, and cloud infrastructure with auto-scaling. We also set up monitoring and alerting to catch issues before users do." },
     ],
-    techStack: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "AWS", "Docker", "GraphQL", "Redis", "Terraform"],
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "MongoDB", "Prisma", "Stripe", "Auth0", "Clerk", "AWS", "Vercel", "Docker", "GraphQL", "Redis", "Terraform"],
   },
   "pos-software": {
     overview: [
@@ -81,7 +81,7 @@ export const serviceDetails = {
       { question: "Can you integrate with my existing accounting software?", answer: "Yes. We build integrations with QuickBooks, Xero, Sage, and other accounting platforms so your sales data flows directly into your books without manual entry." },
       { question: "Do you build POS for specific industries?", answer: "We build POS systems for retail, restaurants, cafes, salons, and service businesses. Each system is customized for the specific workflows, reporting needs, and compliance requirements of your industry." },
     ],
-    techStack: ["Electron", "React", "Node.js", "PostgreSQL", "SQLite", "Stripe Terminal", "WebSocket"],
+    techStack: ["Electron", "React", "Node.js", "SQLite", "PostgreSQL", "GraphQL", "WebSockets", "Stripe Terminal", "Star Micronics SDK", "Pax Terminal API"],
   },
   "financial-services": {
     overview: [
@@ -102,7 +102,7 @@ export const serviceDetails = {
       { question: "How does your bookkeeping service work?", answer: "We provide monthly bookkeeping with transaction categorization, bank reconciliation, and financial statement preparation. You'll receive monthly reports showing your profit & loss, balance sheet, and cash flow position." },
       { question: "Can you help with tax planning before year-end?", answer: "Absolutely. Tax planning is most effective when done proactively. We offer year-round tax strategy sessions to identify deductions, timing opportunities, and structural changes that minimize your tax liability." },
     ],
-    techStack: ["QuickBooks", "Xero", "Sage", "TurboTax Pro", "Excel", "Gusto"],
+    techStack: ["QuickBooks Online", "Xero", "Wave", "FreshBooks", "Sage", "TurboTax Business", "TaxAct", "Excel (Advanced VBA)", "Gusto"],
   },
   "cyber-security": {
     overview: [
@@ -123,6 +123,69 @@ export const serviceDetails = {
       { question: "Do you provide ongoing security monitoring?", answer: "Yes. We offer 24/7 security monitoring services with real-time threat detection, alerting, and incident response. Our monitoring covers network traffic, application security, access patterns, and system integrity." },
       { question: "Can you help with compliance requirements?", answer: "Absolutely. We help businesses achieve and maintain compliance with SOC 2, GDPR, HIPAA, PCI DSS, and other regulatory frameworks. Our audits identify gaps, and we provide remediation guidance to close them." },
     ],
-    techStack: ["Burp Suite", "Metasploit", "Nmap", "Wireshark", "OWASP ZAP", "Splunk", "Cloudflare"],
+    techStack: ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit", "Nmap", "OWASP ZAP", "Splunk", "AWS GuardDuty", "Cloudflare Enterprise"],
+  },
+  "ai-automation": {
+    overview: [
+      "We build AI systems that do real work — not demos. From autonomous agents that handle multi-step tasks to workflow automations that connect your existing tools, we turn repetitive, manual processes into reliable, self-running pipelines.",
+      "Every build is grounded in your data. Using retrieval-augmented generation (RAG), we give models secure access to your knowledge base so answers are accurate and cited — with human-in-the-loop checkpoints and guardrails wherever decisions carry risk.",
+    ],
+    capabilities: [
+      { icon: "workflow", title: "Workflow Automation", description: "Automate multi-step business processes across your tools with Make.com, n8n, and custom Python pipelines." },
+      { icon: "bot", title: "Autonomous Agents", description: "Goal-driven AI agents that plan, call tools, and complete tasks with oversight and audit trails." },
+      { icon: "brain", title: "LLM Integrations", description: "OpenAI and Claude integrations wired into your apps, CRMs, and internal systems." },
+      { icon: "file-search", title: "Enterprise Data Search", description: "RAG-powered search over your documents and databases using vector stores like Pinecone and ChromaDB." },
+      { icon: "plug", title: "Tool & API Connectors", description: "Secure connectors to your CRM, email, docs, and third-party APIs so agents can act on live data." },
+      { icon: "zap", title: "Process Optimization", description: "Identify high-leverage manual workflows and replace them with fast, dependable automation." },
+    ],
+    faq: [
+      { question: "What can an AI agent actually automate?", answer: "Anything rules-based or research-heavy: triaging inbox and support tickets, generating reports, enriching CRM records, drafting responses, reconciling data across systems, and running multi-step research. We scope tasks where automation is reliable and keep humans in the loop for judgment calls." },
+      { question: "Is my data safe with LLMs?", answer: "Yes. We use enterprise API tiers that don't train on your data, keep sensitive data in your own vector store, and apply access controls, redaction, and logging. On request we can run fully on private or self-hosted models." },
+      { question: "What is RAG and why does it matter?", answer: "Retrieval-augmented generation grounds the model in your actual documents instead of relying on its training data, which dramatically reduces hallucinations and lets answers cite their sources — essential for accurate internal knowledge tools." },
+      { question: "How do you prevent the AI from making mistakes?", answer: "We add guardrails: validation steps, confidence thresholds, human approval for high-impact actions, and full audit logging. You stay in control and can review or roll back any automated decision." },
+    ],
+    techStack: ["OpenAI API", "Claude API (Anthropic)", "LangChain", "LlamaIndex", "Python", "FastAPI", "Make.com", "n8n", "Zapier", "Pinecone", "ChromaDB"],
+  },
+  "ai-chatbots": {
+    overview: [
+      "We design conversational AI that feels effortless for your customers and profitable for your business. Custom-trained chat agents answer instantly, qualify leads, book meetings, and resolve support questions around the clock — embedded right into your website, app, or messaging channels.",
+      "Beyond text, we build voice automation and phone flows that sound natural and route intelligently. Every bot is trained on your content, brand voice, and rules, with seamless handoff to a human the moment a conversation needs one.",
+    ],
+    capabilities: [
+      { icon: "message-square", title: "AI Chat Agents", description: "Custom-trained assistants that answer questions, qualify leads, and take action inside your product." },
+      { icon: "mic", title: "Voice Automation", description: "Natural-sounding voice agents and IVR flows powered by ElevenLabs and LiveKit." },
+      { icon: "phone", title: "SMS & Voice Funnels", description: "Twilio-powered SMS, WhatsApp, and phone journeys that nurture and convert leads." },
+      { icon: "headset", title: "Support Deflection", description: "Resolve common tickets automatically and escalate complex ones with full context." },
+      { icon: "share2", title: "Omnichannel Embed", description: "Deploy one agent across web, mobile, WhatsApp, Instagram, and Messenger." },
+      { icon: "graduation-cap", title: "Custom Training", description: "Trained on your docs, FAQs, and tone so answers stay accurate and on-brand." },
+    ],
+    faq: [
+      { question: "Can the chatbot be trained on my own content?", answer: "Yes. We train agents on your website, help docs, product data, and FAQs so responses are specific to your business and stay on-brand — not generic AI answers." },
+      { question: "Will it hand off to a human when needed?", answer: "Always. We configure escalation rules so the bot passes conversations (with full context) to your team via live chat, email, or your helpdesk whenever it detects frustration, high-value intent, or a request it shouldn't handle alone." },
+      { question: "Which channels can the bot run on?", answer: "Website widgets, in-app chat, WhatsApp, Instagram, Facebook Messenger, SMS, and voice/phone. We can deploy a single trained agent across multiple channels at once." },
+      { question: "Do you build voice and phone agents?", answer: "Yes. Using Twilio, ElevenLabs, and LiveKit we build natural voice agents that answer calls, handle IVR menus, capture information, and route to the right person." },
+    ],
+    techStack: ["Voiceflow", "Botpress", "ManyChat", "OpenAI Assistants API", "Dialogflow", "Rasa", "Twilio (SMS/Voice API)", "ElevenLabs", "LiveKit"],
+  },
+  "seo-optimization": {
+    overview: [
+      "Visibility today means more than ranking on Google. We engineer your presence across three fronts: traditional search engines (SEO), AI and generative engines like Perplexity and Gemini (GEO), and answer engines and voice assistants (AEO) — so your brand is the source that gets found, cited, and quoted.",
+      "Underpinning all of it is performance. We tune Core Web Vitals for ultra-low Total Blocking Time, implement structured data, and run conversion rate optimization so the traffic you earn actually converts.",
+    ],
+    capabilities: [
+      { icon: "search", title: "Technical SEO", description: "Crawlability, indexation, internal linking, and on-page fixes that move rankings." },
+      { icon: "sparkles", title: "Generative Engine Opt (GEO)", description: "Optimize content and entities so AI engines like Perplexity and Gemini surface your brand." },
+      { icon: "help-circle", title: "Answer Engine Opt (AEO)", description: "Structured answers and schema that win voice assistants and featured answers." },
+      { icon: "gauge", title: "Core Web Vitals", description: "Speed tuning for ultra-low Total Blocking Time, LCP, and CLS across devices." },
+      { icon: "mouse-pointer-click", title: "Conversion Rate Optimization", description: "A/B testing and funnel refinement with Optimizely and Hotjar to lift conversions." },
+      { icon: "line-chart", title: "Analytics & Reporting", description: "GA4, Search Console, and LLM citation tracking with clear, actionable reporting." },
+    ],
+    faq: [
+      { question: "What's the difference between SEO, GEO, and AEO?", answer: "SEO optimizes for traditional search engines (Google, Bing). GEO (Generative Engine Optimization) makes your brand more likely to be surfaced and cited by AI engines like Perplexity, Gemini, and ChatGPT. AEO (Answer Engine Optimization) targets direct-answer surfaces and voice assistants. We work across all three so you're visible wherever people search." },
+      { question: "How do you improve site speed?", answer: "We audit with PageSpeed Insights and Lighthouse, then reduce Total Blocking Time and improve LCP/CLS through code splitting, image optimization, caching, font strategy, and removing render-blocking scripts." },
+      { question: "Can you get my brand cited by AI tools like Perplexity?", answer: "That's the core of GEO. We structure content, strengthen entity signals and authoritative sources, add schema, and track LLM citations so AI engines are more likely to reference your brand as a source." },
+      { question: "How do you measure results?", answer: "We report on rankings, organic traffic, Core Web Vitals, conversion rate, and AI-engine citations using GA4, Search Console, Hotjar, and LLM citation trackers — tied back to business outcomes, not vanity metrics." },
+    ],
+    techStack: ["SEMrush", "Ahrefs", "Screaming Frog", "Google Search Console", "Google Analytics 4 (GA4)", "Hotjar", "Google PageSpeed Insights", "Lighthouse", "Optimizely", "Schema.org Structured Data", "LLM Citation Trackers", "RAG Optimizers"],
   },
 };
