@@ -105,7 +105,11 @@ export default function ServicesSection({ detailed = false }) {
 
                     <Link
                       to={`/services/${service.id}`}
-                      className={`mt-8 inline-flex items-center gap-1 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-colors duration-300 ${isFirst ? 'text-white' : 'text-black group-hover:text-white'}`}
+                      className={`btn-sweep mt-8 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs uppercase tracking-[0.15em] font-heading font-bold shadow-lg transition-all duration-300 hover:-translate-y-0.5 ${
+                        isFirst
+                          ? 'bg-white text-indigo-600 shadow-black/10'
+                          : 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-indigo-500/25 group-hover:bg-white group-hover:from-white group-hover:to-white group-hover:text-indigo-600'
+                      }`}
                     >
                       Learn more
                       <ArrowUpRight size={14} />

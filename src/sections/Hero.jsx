@@ -15,8 +15,38 @@ const headlineWords = ['Engineering', 'Leverage', 'from', 'Complexity.'];
 
 export default function Hero() {
   const root = useRef(null);
+  const headlineRef = useRef(null);
+  const xrayRef = useRef(null);
   const reducedMotion = useReducedMotion();
   const { theme } = useTheme();
+
+  const handleHeadlineMove = (e) => {
+    const wrap = headlineRef.current;
+    const overlay = xrayRef.current;
+    if (!wrap || !overlay) return;
+    const rect = wrap.getBoundingClientRect();
+    overlay.style.setProperty('--xray-x', `${e.clientX - rect.left}px`);
+    overlay.style.setProperty('--xray-y', `${e.clientY - rect.top}px`);
+    overlay.classList.add('is-active');
+  };
+
+  const handleHeadlineLeave = () => {
+    xrayRef.current?.classList.remove('is-active');
+  };
+
+  const renderWords = (animated, wordClass) =>
+    headlineWords.map((word, i) => (
+      <span key={i} className="inline-block overflow-hidden align-bottom">
+        <span
+          {...(animated ? { 'data-anim': 'word' } : {})}
+          className={`inline-block ${wordClass}`}
+          style={{ paddingBottom: '0.1em', marginBottom: '-0.1em' }}
+        >
+          {word}
+          {i < headlineWords.length - 1 ? '\u00A0' : ''}
+        </span>
+      </span>
+    ));
 
   useLayoutEffect(() => {
     if (reducedMotion) {
@@ -103,20 +133,25 @@ export default function Hero() {
           Full-Service Digital Agency
         </div>
 
-        <h1 className="font-heading text-hero font-extrabold uppercase text-black">
-          {headlineWords.map((word, i) => (
-            <span key={i} className="inline-block overflow-hidden">
-              <span
-                data-anim="word"
-                className="inline-block"
-                style={{ paddingBottom: '0.1em', marginBottom: '-0.1em' }}
-              >
-                {word}
-                {i < headlineWords.length - 1 ? '\u00A0' : ''}
-              </span>
-            </span>
-          ))}
-        </h1>
+        <div
+          ref={headlineRef}
+          onMouseMove={reducedMotion ? undefined : handleHeadlineMove}
+          onMouseLeave={reducedMotion ? undefined : handleHeadlineLeave}
+          className="relative"
+        >
+          <h1 className="font-heading text-hero font-extrabold uppercase text-black">
+            {renderWords(true, 'text-gradient')}
+          </h1>
+          {!reducedMotion && (
+            <div
+              ref={xrayRef}
+              aria-hidden="true"
+              className="hero-xray pointer-events-none absolute inset-0 font-heading text-hero font-extrabold uppercase"
+            >
+              {renderWords(false, 'hero-xray-word')}
+            </div>
+          )}
+        </div>
 
         <p
           data-anim="subhead"
