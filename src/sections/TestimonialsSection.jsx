@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Star, Quote } from 'lucide-react';
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TestimonialsSection() {
   const root = useRef(null);
+  const trackRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,6 +23,96 @@ export default function TestimonialsSection() {
       });
     }, root);
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const speed = 0.5; // px per frame for auto-scroll
+    let offset = 0;
+    let half = track.scrollWidth / 2;
+    let paused = false;
+    let dragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    let moved = false;
+    let raf = 0;
+
+    const measure = () => { half = track.scrollWidth / 2; };
+    measure();
+    window.addEventListener('resize', measure);
+
+    const wrap = () => {
+      if (half <= 0) return;
+      while (offset <= -half) offset += half;
+      while (offset > 0) offset -= half;
+    };
+
+    const apply = () => { track.style.transform = `translate3d(${offset}px,0,0)`; };
+
+    const tick = () => {
+      if (!paused && !dragging && !reduced) {
+        offset -= speed;
+        wrap();
+        apply();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    const onEnter = () => { paused = true; };
+    const onLeave = () => { if (!dragging) paused = false; };
+
+    const onDown = (e) => {
+      dragging = true;
+      moved = false;
+      paused = true;
+      startX = e.clientX;
+      startOffset = offset;
+      track.setPointerCapture?.(e.pointerId);
+      track.classList.add('is-grabbing');
+    };
+    const onMove = (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      offset = startOffset + dx;
+      wrap();
+      apply();
+    };
+    const onUp = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      paused = false;
+      track.releasePointerCapture?.(e.pointerId);
+      track.classList.remove('is-grabbing');
+    };
+    // Prevent click navigation right after a drag
+    const onClick = (e) => {
+      if (moved) { e.preventDefault(); e.stopPropagation(); }
+    };
+
+    track.addEventListener('mouseenter', onEnter);
+    track.addEventListener('mouseleave', onLeave);
+    track.addEventListener('pointerdown', onDown);
+    track.addEventListener('pointermove', onMove);
+    track.addEventListener('pointerup', onUp);
+    track.addEventListener('pointercancel', onUp);
+    track.addEventListener('click', onClick, true);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', measure);
+      track.removeEventListener('mouseenter', onEnter);
+      track.removeEventListener('mouseleave', onLeave);
+      track.removeEventListener('pointerdown', onDown);
+      track.removeEventListener('pointermove', onMove);
+      track.removeEventListener('pointerup', onUp);
+      track.removeEventListener('pointercancel', onUp);
+      track.removeEventListener('click', onClick, true);
+    };
   }, []);
 
   const doubled = [...testimonials, ...testimonials];
@@ -43,7 +134,7 @@ export default function TestimonialsSection() {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-background to-transparent" />
 
-        <div className="marquee-track flex gap-4 w-max">
+        <div ref={trackRef} className="marquee-track flex gap-4 w-max cursor-grab select-none touch-pan-y">
           {doubled.map((t, i) => (
             <div key={i} data-anim="test-card" className="w-[420px] flex-shrink-0">
               <div className="hover-fill group rounded-2xl border border-slate-200 bg-white p-8 shadow-soft h-full">
@@ -54,7 +145,7 @@ export default function TestimonialsSection() {
                 <div className="mt-6 flex items-center justify-between border-t border-black pt-4 transition-colors duration-300 group-hover:border-white/30">
                   <div>
                     <div className="text-sm font-heading font-bold text-black transition-colors duration-300 group-hover:text-white">{t.name}</div>
-                    <div className="text-xs text-text-secondary transition-colors duration-300 group-hover:text-white/70">{t.role}, {t.company}</div>
+                    <div className="text-xs text-text-secondary transition-colors duration-300 group-hover:text-white/70">{[t.role, t.company].filter(Boolean).join(', ')}</div>
                   </div>
                   <div className="flex gap-0.5">
                     {Array.from({ length: t.rating }).map((_, j) => (

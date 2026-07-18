@@ -228,15 +228,12 @@
 }
 .hover-fill:hover > .hover-fill__layer { transform: scaleY(1); }
 
-/* ---- Continuous marquee ---- */
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+/* ---- Draggable marquee ---- */
 .marquee-track {
-  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+  cursor: grab;
 }
-.marquee-track:hover { animation-play-state: paused; }
+.marquee-track.is-grabbing { cursor: grabbing; }
 
 /* ---- Image hover zoom ---- */
 .img-zoom { overflow: hidden; border-radius: 12px 12px 0 0; }
