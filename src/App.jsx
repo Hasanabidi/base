@@ -15,7 +15,7 @@ const About = lazy(() => import('@/pages/About'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
 const Contact = lazy(() => import('@/pages/Contact'));
-const ServiceDetail = lazy(() => import('@/pages/ServiceDetail'));
+const ServicePage = lazy(() => import('@/pages/ServicePage'));
 const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('@/pages/CookiePolicy'));
@@ -36,7 +36,7 @@ function AuthenticatedApp() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/services/:slug" element={<ServicePage />} />
           <Route path="/work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
