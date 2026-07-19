@@ -4,7 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClientInstance } from '@/lib/query-client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@/lib/ThemeContext';
-import PageNotFound from './lib/PageNotFound';
+const NotFound = lazy(() => import('@/pages/NotFound'));
 import ScrollToTop from './components/ScrollToTop';
 import Layout from '@/components/Layout';
 
@@ -15,7 +15,7 @@ const About = lazy(() => import('@/pages/About'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
 const Contact = lazy(() => import('@/pages/Contact'));
-const ServiceDetail = lazy(() => import('@/pages/ServiceDetail'));
+const ServicePage = lazy(() => import('@/pages/ServicePage'));
 const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('@/pages/CookiePolicy'));
@@ -36,7 +36,7 @@ function AuthenticatedApp() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/services/:slug" element={<ServicePage />} />
           <Route path="/work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
@@ -46,7 +46,7 @@ function AuthenticatedApp() {
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/cookies" element={<CookiePolicy />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

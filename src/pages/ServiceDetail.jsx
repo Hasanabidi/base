@@ -40,8 +40,9 @@ const capIconMap = {
   'sparkles': Sparkles, 'help-circle': HelpCircle, 'gauge': Gauge, 'mouse-pointer-click': MousePointerClick, 'line-chart': LineChart,
 };
 
-export default function ServiceDetail() {
-  const { slug } = useParams();
+export default function ServiceDetail({ overrideSlug } = {}) {
+  const params = useParams();
+  const slug = overrideSlug || params.slug;
   const root = useRef(null);
   const service = services.find((s) => s.id === slug);
 
