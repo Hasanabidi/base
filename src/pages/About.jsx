@@ -6,6 +6,7 @@ import TiltCard from '@/components/TiltCard';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { team } from '@/data/team';
 import { stats } from '@/data/stats';
 import { Target, Layers, Zap, GitBranch } from 'lucide-react';
 
@@ -30,6 +31,10 @@ export default function About() {
       gsap.from('[data-anim="value-card"]', {
         opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: '[data-anim="values"]', start: 'top 70%' },
+      });
+      gsap.from('[data-anim="team-card"]', {
+        opacity: 0, y: 40, stagger: 0.1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '[data-anim="team-grid"]', start: 'top 70%' },
       });
       gsap.from('[data-anim="stat-item"]', {
         opacity: 0, y: 40, stagger: 0.12, duration: 0.8, ease: 'power3.out',
@@ -109,8 +114,47 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team (hidden temporarily) */}
-      {/* Team section is hidden. Re-enable by restoring the JSX block here when needed. */}
+      {/* Team */}
+      <section className="relative py-32 border-t border-slate-200 bg-white">
+        <div className="grid-bg absolute inset-0 opacity-30" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-16 max-w-2xl">
+            <SectionLabel>Team</SectionLabel>
+            <h2 className="mt-6 font-heading text-section uppercase text-black">
+              Senior engineers.<br />
+              <span className="text-gradient">No layers.</span>
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-text-secondary">
+              You work directly with the people building your system. No project managers
+              passing messages. No junior developers learning on your dime.
+            </p>
+          </div>
+          <div data-anim="team-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {team.map((member) => (
+              <div key={member.id} data-anim="team-card" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition-colors hover:bg-slate-50">
+                <div className="relative mb-6 h-32 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                  <div className="grid-bg absolute inset-0 opacity-50" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="font-heading text-4xl font-extrabold text-accent">
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="font-heading text-lg font-extrabold uppercase text-black">{member.name}</h3>
+                <p className="text-xs uppercase tracking-[0.1em] text-accent">{member.role}</p>
+                <p className="mt-3 text-xs leading-relaxed text-text-secondary">{member.bio}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {member.specializations.map((s) => (
+                    <span key={s} className="rounded-md border border-slate-200 px-2 py-0.5 font-mono text-[10px] text-slate-700">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <CTASection />
     </div>
