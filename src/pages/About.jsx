@@ -44,6 +44,8 @@ export default function About() {
     return () => ctx.revert();
   }, []);
 
+  const showTeam = false; // toggle to true to re-enable team section
+
   return (
     <div ref={root} className="pt-32">
       <SEO
@@ -115,6 +117,7 @@ export default function About() {
       </section>
 
       {/* Team */}
+      {showTeam && (
       <section className="relative py-32 border-t border-slate-200 bg-white">
         <div className="grid-bg absolute inset-0 opacity-30" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
@@ -155,6 +158,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      )}
 
       <CTASection />
     </div>
