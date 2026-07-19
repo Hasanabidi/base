@@ -4,7 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClientInstance } from '@/lib/query-client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@/lib/ThemeContext';
-import PageNotFound from './lib/PageNotFound';
+const NotFound = lazy(() => import('@/pages/NotFound'));
 import ScrollToTop from './components/ScrollToTop';
 import Layout from '@/components/Layout';
 
@@ -46,7 +46,7 @@ function AuthenticatedApp() {
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/cookies" element={<CookiePolicy />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
