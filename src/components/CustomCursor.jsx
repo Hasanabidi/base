@@ -51,11 +51,13 @@ export default function CustomCursor() {
     <>
       <div
         ref={dotRef}
+        aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 z-[9999] h-1.5 w-1.5 rounded-full bg-accent"
         style={{ marginLeft: '-3px', marginTop: '-3px', willChange: 'transform' }}
       />
       <div
         ref={ringRef}
+        aria-hidden="true"
         className={cn(
           'cursor-ring pointer-events-none fixed left-0 top-0 z-[9998] h-8 w-8 rounded-full border border-accent/40 transition-[width,height,margin,border-color,background] duration-300 ease-out'
         )}

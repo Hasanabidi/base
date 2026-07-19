@@ -113,20 +113,26 @@ export default function Contact() {
                   </MagneticButton>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact inquiry form">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div>
-                      <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Name</label>
+                      <label htmlFor="contact-name" className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Name</label>
                       <input
+                        id="contact-name"
                         type="text" name="name" required value={form.name} onChange={handleChange}
+                        autoComplete="name"
+                        aria-required="true"
                         className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                         placeholder="Jane Doe"
                       />
                     </div>
                     <div>
-                      <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Email</label>
+                      <label htmlFor="contact-email" className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Email</label>
                       <input
+                        id="contact-email"
                         type="email" name="email" required value={form.email} onChange={handleChange}
+                        autoComplete="email"
+                        aria-required="true"
                         className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                         placeholder="jane@company.com"
                       />
@@ -134,9 +140,11 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Company</label>
+                    <label htmlFor="contact-company" className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Company</label>
                     <input
+                      id="contact-company"
                       type="text" name="company" value={form.company} onChange={handleChange}
+                      autoComplete="organization"
                       className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10"
                       placeholder="Acme Inc."
                     />
@@ -144,13 +152,16 @@ export default function Contact() {
 
                   {/* Service type */}
                   <div>
-                    <label className="mb-3 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Service</label>
-                    <div className="flex flex-wrap gap-2">
+                    <fieldset>
+                      <legend className="mb-3 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Service</legend>
+                      <div className="flex flex-wrap gap-2" role="group" aria-label="Select service type">
                       {serviceTypes.map((s) => (
                         <button
                           key={s} type="button"
+                          aria-pressed={form.serviceType === s}
+                          aria-label={`Service: ${s}`}
                           onClick={() => setForm({ ...form, serviceType: s })}
-                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 ${
+                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                             form.serviceType === s
                               ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
                               : 'bg-white text-slate-700 hover:bg-slate-50'
@@ -159,18 +170,22 @@ export default function Contact() {
                           {s}
                         </button>
                       ))}
-                    </div>
+                      </div>
+                    </fieldset>
                   </div>
 
                   {/* Budget */}
                   <div>
-                    <label className="mb-3 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Budget</label>
-                    <div className="flex flex-wrap gap-2">
+                    <fieldset>
+                      <legend className="mb-3 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Budget</legend>
+                      <div className="flex flex-wrap gap-2" role="group" aria-label="Select budget range">
                       {budgetRanges.map((b) => (
                         <button
                           key={b} type="button"
+                          aria-pressed={form.budget === b}
+                          aria-label={`Budget: ${b}`}
                           onClick={() => setForm({ ...form, budget: b })}
-                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 ${
+                          className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold border border-slate-200 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                             form.budget === b
                               ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
                               : 'bg-white text-slate-700 hover:bg-slate-50'
@@ -179,13 +194,16 @@ export default function Contact() {
                           {b}
                         </button>
                       ))}
-                    </div>
+                      </div>
+                    </fieldset>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Message</label>
+                    <label htmlFor="contact-message" className="mb-2 block text-xs uppercase tracking-[0.15em] font-heading font-bold text-black">Message</label>
                     <textarea
+                      id="contact-message"
                       name="message" required value={form.message} onChange={handleChange} rows={5}
+                      aria-required="true"
                       className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/10 resize-none"
                       placeholder="Tell us about your project, challenges, and goals..."
                     />
@@ -200,7 +218,8 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-lg sm:w-auto"
+                    aria-label={submitting ? 'Sending message' : 'Send contact message'}
+                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-lg sm:w-auto"
                   >
                     {submitting ? 'Sending…' : 'Send Message'}
                     {!submitting && <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />}

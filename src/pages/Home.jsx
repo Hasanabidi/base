@@ -1,17 +1,23 @@
-import { useLayoutEffect, useRef } from 'react';
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from '@/sections/Hero';
-import ServicesSection from '@/sections/ServicesSection';
-import AISection from '@/sections/AISection';
-import ProcessSection from '@/sections/ProcessSection';
-import StatisticsSection from '@/sections/StatisticsSection';
-import PortfolioSection from '@/sections/PortfolioSection';
-import TestimonialsSection from '@/sections/TestimonialsSection';
-import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import { organizationJsonLd } from '@/config/siteConfig';
+
+const ServicesSection = lazy(() => import('@/sections/ServicesSection'));
+const AISection = lazy(() => import('@/sections/AISection'));
+const ProcessSection = lazy(() => import('@/sections/ProcessSection'));
+const StatisticsSection = lazy(() => import('@/sections/StatisticsSection'));
+const PortfolioSection = lazy(() => import('@/sections/PortfolioSection'));
+const TestimonialsSection = lazy(() => import('@/sections/TestimonialsSection'));
+const CTASection = lazy(() => import('@/sections/CTASection'));
 
 gsap.registerPlugin(ScrollTrigger);
+
+function SectionFallback() {
+  return <div className="min-h-[12rem]" aria-hidden="true" />;
+}
 
 export default function Home() {
   const root = useRef(null);
@@ -23,34 +29,17 @@ export default function Home() {
 
   return (
     <div ref={root}>
-      <SEO
-        path="/"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Fulcrum System",
-          "description": "Web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity solutions.",
-          "url": "https://fulcrumsystem.com",
-          "telephone": "+92-303-2422542",
-          "email": "abidi113@gmail.com",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "A-113, Adnan Khalil St, Block 4, Gulshan-e-Iqbal",
-            "addressLocality": "Karachi",
-            "postalCode": "75300",
-            "addressCountry": "PK"
-          },
-          "areaServed": "Worldwide"
-        }}
-      />
+      <SEO path="/" jsonLd={organizationJsonLd} />
       <Hero />
-      <ServicesSection />
-      <AISection />
-      <ProcessSection />
-      <StatisticsSection />
-      <PortfolioSection limit={4} />
-      <TestimonialsSection />
-      <CTASection />
+      <Suspense fallback={<SectionFallback />}>
+        <ServicesSection />
+        <AISection />
+        <ProcessSection />
+        <StatisticsSection />
+        <PortfolioSection limit={4} />
+        <TestimonialsSection />
+        <CTASection />
+      </Suspense>
     </div>
   );
 }

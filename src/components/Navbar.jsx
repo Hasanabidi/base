@@ -42,7 +42,7 @@ export default function Navbar() {
             : 'py-5 bg-transparent border-b border-transparent'
         )}
       >
-        <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 lg:px-10">
+        <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 lg:px-10" aria-label="Primary">
           {/* Logo */}
           <Link to="/" className="group flex items-center gap-2" aria-label="Fulcrum System home">
             <Logo size={28} className="transition-transform duration-300 group-hover:-rotate-6" />
@@ -58,7 +58,8 @@ export default function Navbar() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className="rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-600 transition-colors hover:bg-accent hover:text-white"
+                  aria-current={location.pathname === link.to ? 'page' : undefined}
+                  className="rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-600 transition-colors hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
                 >
                   {link.label}
                 </Link>
@@ -67,7 +68,8 @@ export default function Navbar() {
             <ThemeToggle className="ml-3" />
             <Link
               to="/contact"
-              className="ml-3 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 px-5 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:-translate-y-0.5"
+              aria-label="Contact Fulcrum System"
+              className="ml-3 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 px-5 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
             >
               Contact
             </Link>
@@ -77,9 +79,12 @@ export default function Navbar() {
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-900 shadow-soft"
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-900 shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav-menu"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -89,6 +94,10 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
+        id="mobile-nav-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         className={cn(
           'fixed inset-0 z-[99] bg-background transition-all duration-500 md:hidden',
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'

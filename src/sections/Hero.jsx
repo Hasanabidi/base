@@ -1,13 +1,13 @@
-import { useRef, useLayoutEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { lazy, Suspense, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import MagneticButton from '@/components/MagneticButton';
-import AIWorkflowDiagram from '@/components/AIWorkflowDiagram';
-import CosmicParticles from '@/components/CosmicParticles';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useTheme } from '@/lib/ThemeContext';
+
+const CosmicParticles = lazy(() => import('@/components/CosmicParticles'));
+const AIWorkflowDiagram = lazy(() => import('@/components/AIWorkflowDiagram'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,7 +90,6 @@ export default function Hero() {
         );
     }, root);
 
-    // Scroll-driven: content fades & lifts, art parallaxes away
     if (!reducedMotion) {
       const scrollTl = gsap.timeline({
         scrollTrigger: {
@@ -112,86 +111,92 @@ export default function Hero() {
     <section
       ref={root}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      aria-labelledby="hero-heading"
     >
-      {/* Grid background */}
-      <div data-hero="grid" className="absolute inset-0 bg-gradient-mesh" />
-      <div className="grid-bg absolute inset-0 opacity-40" />
+      <div data-hero="grid" className="absolute inset-0 bg-gradient-mesh" aria-hidden="true" />
+      <div className="grid-bg absolute inset-0 opacity-40" aria-hidden="true" />
 
-      {/* Curl-noise particle field */}
       {!reducedMotion && (
-        <CosmicParticles theme={theme} className="absolute inset-0 z-10" />
+        <Suspense fallback={null}>
+          <CosmicParticles theme={theme} className="absolute inset-0 z-10" />
+        </Suspense>
       )}
 
-      {/* Content */}
       <div data-hero="content" className="relative z-20 mx-auto max-w-[1400px] px-6 py-32 text-center lg:px-10">
         <div data-hero="text">
-        <div
-          data-anim="badge"
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft"
-        >
-          <span className="h-1.5 w-1.5 bg-accent" />
-          Full-Service Digital Agency
-        </div>
+          <div
+            data-anim="badge"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft"
+          >
+            <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
+            Full-Service Digital Agency
+          </div>
 
-        <div
-          ref={headlineRef}
-          onMouseMove={reducedMotion ? undefined : handleHeadlineMove}
-          onMouseLeave={reducedMotion ? undefined : handleHeadlineLeave}
-          className="relative"
-        >
-          <h1 className="font-heading text-hero font-extrabold uppercase text-black">
-            {renderWords(true, 'text-gradient')}
-          </h1>
-          {!reducedMotion && (
-            <div
-              ref={xrayRef}
-              aria-hidden="true"
-              className="hero-xray pointer-events-none absolute inset-0 font-heading text-hero font-extrabold uppercase"
-            >
-              {renderWords(false, 'hero-xray-word')}
+          <div
+            ref={headlineRef}
+            onMouseMove={reducedMotion ? undefined : handleHeadlineMove}
+            onMouseLeave={reducedMotion ? undefined : handleHeadlineLeave}
+            className="relative"
+          >
+            <h1 id="hero-heading" className="font-heading text-hero font-extrabold uppercase text-black">
+              {renderWords(true, 'text-gradient')}
+            </h1>
+            {!reducedMotion && (
+              <div
+                ref={xrayRef}
+                aria-hidden="true"
+                className="hero-xray pointer-events-none absolute inset-0 font-heading text-hero font-extrabold uppercase"
+              >
+                {renderWords(false, 'hero-xray-word')}
+              </div>
+            )}
+          </div>
+
+          <p
+            data-anim="subhead"
+            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg"
+          >
+            Web development, mobile apps, SaaS platforms, POS software, financial services,
+            and cybersecurity — all under one roof.{' '}
+            <span className="text-black font-medium">Built to perform.</span>
+          </p>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div data-anim="cta">
+              <MagneticButton to="/contact" variant="primary" aria-label="Start your transformation — contact us">
+                Start Your Transformation
+                <ArrowRight size={14} aria-hidden="true" />
+              </MagneticButton>
             </div>
-          )}
-        </div>
-
-        <p
-          data-anim="subhead"
-          className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg"
-        >
-          Web development, mobile apps, SaaS platforms, POS software, financial services,
-          and cybersecurity — all under one roof.{' '}
-          <span className="text-black font-medium">Built to perform.</span>
-        </p>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <div data-anim="cta">
-            <MagneticButton to="/contact" variant="primary">
-              Start Your Transformation
-              <ArrowRight size={14} />
-            </MagneticButton>
-          </div>
-          <div data-anim="cta">
-            <MagneticButton to="/work" variant="secondary">
-              View Our Work
-            </MagneticButton>
+            <div data-anim="cta">
+              <MagneticButton to="/work" variant="secondary" aria-label="View our portfolio work">
+                View Our Work
+              </MagneticButton>
+            </div>
           </div>
         </div>
-        </div>
 
-        {/* AI workflow pipeline */}
         <div data-anim="art" data-hero="art" className="mx-auto mt-16 max-w-5xl">
-          <AIWorkflowDiagram />
+          <Suspense
+            fallback={
+              <div
+                className="mx-auto h-64 max-w-5xl animate-pulse rounded-2xl border border-slate-200 bg-slate-100"
+                aria-hidden="true"
+              />
+            }
+          >
+            <AIWorkflowDiagram />
+          </Suspense>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div
         data-anim="scroll"
         className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2"
+        aria-hidden="true"
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-[0.2em] text-text-secondary">
-            Scroll
-          </span>
+          <span className="text-xs uppercase tracking-[0.2em] text-text-secondary">Scroll</span>
           <ChevronDown size={16} className="animate-breathe text-accent" />
         </div>
       </div>

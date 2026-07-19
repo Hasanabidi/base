@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import OptimizedImage from '@/components/OptimizedImage';
 import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
@@ -63,8 +64,11 @@ export default function Blog() {
             {blogCategories.map((cat) => (
               <button
                 key={cat}
+                type="button"
+                aria-pressed={activeCategory === cat}
+                aria-label={`Filter articles by ${cat}`}
                 onClick={() => setActiveCategory(cat)}
-                className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300 border border-slate-200 ${
+                className={`rounded-lg px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                   activeCategory === cat
                     ? 'bg-gradient-to-br from-indigo-500 to-violet-600 text-white border-transparent shadow-sm'
                     : 'bg-white text-slate-700 hover:bg-slate-50'
@@ -84,11 +88,13 @@ export default function Blog() {
             <Link to={`/blog/${featured.slug}`}>
               <div className="group grid gap-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft md:grid-cols-2">
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={featured.heroImage}
-                    alt={featured.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    alt={`Featured article: ${featured.title}`}
+                    width={800}
+                    height={500}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute left-4 top-4">
                     <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">
@@ -124,11 +130,13 @@ export default function Blog() {
               <Link key={post.slug} to={`/blog/${post.slug}`}>
                 <div className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition-colors hover:bg-slate-50">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
+                    <OptimizedImage
                       src={post.heroImage}
-                      alt={post.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt={`Article cover: ${post.title}`}
+                      width={600}
+                      height={375}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute left-3 top-3">
                       <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-900 shadow-soft">

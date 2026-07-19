@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <Link to="/" className="group flex items-center gap-2">
+            <Link to="/" className="group flex items-center gap-2" aria-label="Fulcrum System home">
               <Logo size={28} className="transition-transform duration-300 group-hover:-rotate-6" />
               <span className="font-heading text-lg font-extrabold uppercase tracking-tight text-slate-900">
                 Fulcrum

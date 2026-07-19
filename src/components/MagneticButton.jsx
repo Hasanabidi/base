@@ -28,7 +28,7 @@ export default function MagneticButton({
   };
 
   const baseClass = cn(
-    'btn-sweep group relative inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300',
+    'btn-sweep group relative inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
     className
   );
 

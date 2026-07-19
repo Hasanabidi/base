@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-
-const SITE_URL = 'https://fulcrumsystem.com';
-const SITE_NAME = 'Fulcrum System';
-const DEFAULT_DESC =
-  'Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions.';
-const DEFAULT_OG_IMAGE =
-  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop&q=80';
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+} from '@/config/siteConfig';
 
 function upsertMeta(attr, key, content) {
   if (!content) return;
@@ -34,19 +34,24 @@ export default function SEO({ title, description, path = '/', image, jsonLd }) {
   useEffect(() => {
     const fullTitle = title
       ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} | Web Development, Mobile Apps, SaaS, POS & Cybersecurity`;
+      : `${SITE_NAME} | ${SITE_TAGLINE}`;
     const canonical = `${SITE_URL}${path}`;
-    const desc = description || DEFAULT_DESC;
+    const desc = description || DEFAULT_DESCRIPTION;
     const ogImage = image || DEFAULT_OG_IMAGE;
 
     document.title = fullTitle;
     upsertMeta('name', 'description', desc);
+    upsertMeta('name', 'robots', 'index, follow, max-image-preview:large');
     upsertMeta('property', 'og:title', fullTitle);
     upsertMeta('property', 'og:description', desc);
     upsertMeta('property', 'og:url', canonical);
     upsertMeta('property', 'og:image', ogImage);
+    upsertMeta('property', 'og:image:width', '1200');
+    upsertMeta('property', 'og:image:height', '630');
     upsertMeta('property', 'og:type', 'website');
     upsertMeta('property', 'og:site_name', SITE_NAME);
+    upsertMeta('property', 'og:locale', 'en_US');
+    upsertMeta('name', 'twitter:card', 'summary_large_image');
     upsertMeta('name', 'twitter:title', fullTitle);
     upsertMeta('name', 'twitter:description', desc);
     upsertMeta('name', 'twitter:image', ogImage);

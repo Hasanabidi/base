@@ -46,14 +46,16 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={() => decide('rejected')}
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-700 transition-colors hover:bg-slate-50 dark:hover:bg-white/5"
+            aria-label="Reject non-essential cookies"
+            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-slate-700 transition-colors hover:bg-slate-50 dark:hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
           >
             Reject
           </button>
           <button
             type="button"
             onClick={() => decide('accepted')}
-            className="rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-sm transition-all duration-300 hover:-translate-y-0.5"
+            aria-label="Accept cookies"
+            className="rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 px-4 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white border border-transparent shadow-sm transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
           >
             Accept
           </button>

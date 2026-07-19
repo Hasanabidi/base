@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
+import OptimizedImage from '@/components/OptimizedImage';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
 import { blogPosts } from '@/data/blogPosts';
@@ -97,7 +98,15 @@ export default function BlogPost() {
         <section className="relative">
           <div className="mx-auto max-w-5xl px-6 lg:px-10">
             <div className="relative aspect-[21/9] overflow-hidden rounded-2xl border border-slate-200 shadow-soft">
-              <img src={post.heroImage} alt={post.title} className="h-full w-full object-cover" />
+              <OptimizedImage
+                src={post.heroImage}
+                alt={`Hero image for ${post.title}`}
+                width={1280}
+                height={549}
+                sizes="(max-width: 768px) 100vw, 80vw"
+                fetchPriority="high"
+                loading="eager"
+              />
             </div>
           </div>
         </section>

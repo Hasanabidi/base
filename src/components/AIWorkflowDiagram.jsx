@@ -9,7 +9,7 @@ import {
 const columns = [
   {
     title: 'Data Sources',
-    titleClass: 'text-slate-400',
+    titleClass: 'text-slate-500',
     iconBg: 'bg-slate-900',
     nodeClass: 'border-slate-200 bg-white',
     dotColor: 'bg-emerald-400',
@@ -379,9 +379,9 @@ export default function AIWorkflowDiagram() {
                   <div>
                     <div className="flex items-baseline gap-1.5">
                       <span className="font-heading text-lg font-bold text-slate-900">{m.value}</span>
-                      <span className="text-[10px] text-slate-400">{m.sub}</span>
+                      <span className="text-[10px] text-slate-500">{m.sub}</span>
                     </div>
-                    <div className="text-[10px] uppercase tracking-wider text-slate-400">{m.label}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-slate-500">{m.label}</div>
                   </div>
                 </div>
               );

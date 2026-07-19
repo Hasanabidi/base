@@ -1,24 +1,32 @@
+import { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useLenis } from '@/hooks/useLenis';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import CustomCursor from '@/components/CustomCursor';
 import ScrollProgress from '@/components/ScrollProgress';
 import CookieConsent from '@/components/CookieConsent';
+import SkipLink from '@/components/SkipLink';
+import FloatingChatWidget from '@/components/FloatingChatWidget';
+
+const CustomCursor = lazy(() => import('@/components/CustomCursor'));
 
 export default function Layout() {
   useLenis();
 
   return (
     <div className="noise-overlay relative min-h-screen bg-background">
-      <CustomCursor />
+      <SkipLink />
+      <Suspense fallback={null}>
+        <CustomCursor />
+      </Suspense>
       <ScrollProgress />
       <Navbar />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />
       <CookieConsent />
+      <FloatingChatWidget />
     </div>
   );
 }

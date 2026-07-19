@@ -12,7 +12,7 @@ export default function ThemeToggle({ className = '' }) {
       type="button"
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-      className={`relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-black/5 backdrop-blur-md transition-colors duration-300 hover:border-violet-400/40 hover:bg-violet-400/10 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 ${className}`}
+      className={`relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-black/5 backdrop-blur-md transition-colors duration-300 hover:border-violet-400/40 hover:bg-violet-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 ${className}`}
     >
       <Sun
         size={16}

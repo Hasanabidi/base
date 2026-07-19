@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
+import OptimizedImage from '@/components/OptimizedImage';
 import TiltCard from '@/components/TiltCard';
+
+const CARD_IMAGE = { width: 800, height: 500 };
+const CARD_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px';
 
 export default function ProjectCard({ project }) {
   return (
@@ -8,11 +12,13 @@ export default function ProjectCard({ project }) {
       <TiltCard maxTilt={2} className="gradient-card group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
         {/* Image */}
         <div className="relative aspect-[16/10] overflow-hidden">
-          <img
+          <OptimizedImage
             src={project.heroImage}
-            alt={project.title}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            alt={`${project.title} — ${project.category} project showcase`}
+            width={CARD_IMAGE.width}
+            height={CARD_IMAGE.height}
+            sizes={CARD_SIZES}
+            className="transition-transform duration-700 group-hover:scale-105"
           />
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

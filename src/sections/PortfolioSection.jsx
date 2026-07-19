@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
+import OptimizedImage from '@/components/OptimizedImage';
 import TiltCard from '@/components/TiltCard';
 import { useParallax } from '@/hooks/useParallax';
 import { projects } from '@/data/projects';
@@ -72,11 +73,13 @@ export default function PortfolioSection({ limit }) {
               <TiltCard className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft" maxTilt={2}>
                 {/* Image */}
                 <div className="img-zoom relative aspect-[16/10] overflow-hidden">
-                  <img
+                  <OptimizedImage
                     ref={(el) => (imgRefs.current[project.id] = el)}
                     src={project.heroImage}
-                    alt={project.title}
-                    loading="lazy"
+                    alt={`${project.title} — ${project.category} portfolio project`}
+                    width={800}
+                    height={500}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="h-[120%] w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
