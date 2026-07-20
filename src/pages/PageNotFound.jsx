@@ -56,8 +56,57 @@ export default function PageNotFound() {
         ease: 'power3.out',
         scrollTrigger: { trigger: root.current, start: 'top 80%' },
       });
+
+      // Continuous floating animation for the 404 number
+      gsap.to('.number-float', {
+        y: -15,
+        duration: 2.5,
+        yoyo: true,
+        repeat: -1,
+        ease: 'sine.inOut',
+      });
+
+      // Continuous floating animation for shapes
+      gsap.utils.toArray('[data-anim="404-shape"]').forEach((shape, i) => {
+        gsap.to(shape, {
+          y: i % 2 === 0 ? -20 : 20,
+          rotation: i % 2 === 0 ? 10 : -10,
+          duration: 3 + i * 0.5,
+          yoyo: true,
+          repeat: -1,
+          ease: 'sine.inOut',
+        });
+      });
     }, root);
-    return () => ctx.revert();
+
+    // Mouse Parallax Effect
+    const handleMouseMove = (e) => {
+      if (!root.current) return;
+      const { clientX, clientY } = e;
+      const xPos = (clientX / window.innerWidth - 0.5) * 20;
+      const yPos = (clientY / window.innerHeight - 0.5) * 20;
+
+      gsap.to('[data-anim="404-number"]', {
+        x: xPos,
+        y: yPos,
+        duration: 1,
+        ease: 'power3.out',
+      });
+      
+      gsap.to('[data-anim="404-shape"]', {
+        x: -xPos * 2,
+        y: -yPos * 2,
+        duration: 1,
+        ease: 'power3.out',
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
@@ -98,7 +147,7 @@ export default function PageNotFound() {
 
             {/* 404 Number */}
             <div data-anim="404-number" className="relative mt-8 inline-block">
-              <h1 className="font-heading text-[10rem] md:text-[14rem] lg:text-[18rem] font-extrabold leading-none tracking-tight text-black select-none">
+              <h1 className="number-float font-heading text-[10rem] md:text-[14rem] lg:text-[18rem] font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-violet-500 select-none drop-shadow-2xl">
                 404
               </h1>
               {/* Decorative line */}
