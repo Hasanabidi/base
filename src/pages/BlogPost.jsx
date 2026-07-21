@@ -6,6 +6,7 @@ import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
 import { blogPosts } from '@/data/blogPosts';
+import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemaGenerators';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,15 @@ export default function BlogPost() {
 
   if (!post) return <Navigate to="/blog" replace />;
 
+  // Generate enhanced JSON-LD schemas for blog post
+  const blogPostingSchema = generateBlogPostingSchema(post);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: post.title, path: `/blog/${post.slug}` }
+  ]);
+  const jsonLd = [blogPostingSchema, breadcrumbSchema];
+
   return (
     <div ref={root} className="pt-32">
       <SEO
@@ -41,15 +51,11 @@ export default function BlogPost() {
         description={post.excerpt}
         path={`/blog/${post.slug}`}
         image={post.heroImage}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "headline": post.title,
-          "description": post.excerpt,
-          "datePublished": post.date,
-          "author": { "@type": "Person", "name": post.author },
-          "image": post.heroImage,
-          "publisher": { "@type": "Organization", "name": "Fulcrum System" }
+        jsonLd={jsonLd}
+        article={{
+          author: post.author,
+          datePublished: post.date,
+          dateModified: post.date
         }}
       />
       <article>
