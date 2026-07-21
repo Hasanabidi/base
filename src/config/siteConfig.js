@@ -11,9 +11,9 @@ export const DEFAULT_OG_IMAGE =
 
 export const CONTACT = {
   email: 'abidi113@gmail.com',
-  phone: '+92-303-2422542',
-  phoneDisplay: '+92 303 2422542',
-  whatsapp: '923032422542',
+  phone: '+92-337-5766888',
+  phoneDisplay: '+92 337 5766888',
+  whatsapp: '923375766888',
   address: {
     street: 'A-113, Adnan Khalil St, Block 4, Gulshan-e-Iqbal',
     locality: 'Karachi',

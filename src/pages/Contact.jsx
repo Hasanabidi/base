@@ -4,6 +4,7 @@ import { ArrowRight, Check, Mail, Phone, MapPin } from 'lucide-react';
 import SectionLabel from '@/components/SectionLabel';
 import MagneticButton from '@/components/MagneticButton';
 import SEO from '@/components/SEO';
+import { CONTACT } from '@/config/siteConfig';
 
 const budgetRanges = ['< $10K', '$10K – $50K', '$50K – $100K', '$100K+'];
 const serviceTypes = ['Web Development', 'Mobile Apps', 'SaaS / POS', 'Financial Services', 'Cybersecurity', 'Full Project'];
@@ -247,11 +248,11 @@ export default function Contact() {
                     </div>
                     abidi113@gmail.com
                   </a>
-                  <a href="tel:+923032422542" className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
+                  <a href={`tel:${CONTACT.phone.replace(/-/g, '')}`} className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Phone size={16} className="text-white" />
                     </div>
-                    +92 303 2422542
+                    {CONTACT.phoneDisplay}
                   </a>
                   <a
                     href="https://maps.app.goo.gl/8UhhzSLtn5k6W3QW8"
