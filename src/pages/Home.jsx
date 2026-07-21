@@ -10,6 +10,8 @@ import PortfolioSection from '@/sections/PortfolioSection';
 import TestimonialsSection from '@/sections/TestimonialsSection';
 import CTASection from '@/sections/CTASection';
 import SEO from '@/components/SEO';
+import siteConfig from '@/data/siteConfig';
+import { localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from '@/lib/schemaGenerators';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,16 +27,21 @@ export default function Home() {
     <div ref={root}>
       <SEO
         path="/"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Fulcrum System",
-          "description": "Web development, mobile apps, SaaS platforms, POS software, financial services, and cybersecurity solutions.",
-          "url": "https://fulcrumsystem.com",
-          "telephone": "+1-555-555-0100",
-          "email": "hello@fulcrumsystem.com",
-          "areaServed": "Worldwide"
-        }}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": siteConfig.name,
+            "description": siteConfig.description,
+            "url": siteConfig.url,
+            "telephone": siteConfig.contact.phone,
+            "email": siteConfig.contact.email,
+            "areaServed": "Worldwide"
+          },
+          localBusinessJsonLd,
+          organizationJsonLd,
+          websiteJsonLd
+        ]}
       />
       <Hero />
       <ServicesSection />

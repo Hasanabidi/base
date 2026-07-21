@@ -20,6 +20,7 @@ import { serviceDetails } from '@/data/serviceDetails';
 import SEO from '@/components/SEO';
 import SectionLabel from '@/components/SectionLabel';
 import CTASection from '@/sections/CTASection';
+import { generateServiceSchema, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/schemaGenerators';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,10 +56,16 @@ export default function ServiceDetail() {
   const detail = serviceDetails[slug] || { overview: [service.description], capabilities: [], faq: [], techStack: [] };
   const MainIcon = serviceIconMap[service.icon] || Code2;
 
-  const jsonLd = [
-    { '@context': 'https://schema.org', '@type': 'Service', name: service.title, description: service.description, provider: { '@type': 'Organization', name: 'Fulcrum System' }, areaServed: 'Worldwide' },
-    ...(detail.faq.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: detail.faq.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) }] : []),
-  ];
+  // Generate enhanced JSON-LD schemas
+  const serviceSchema = generateServiceSchema(service);
+  const faqSchema = detail.faq.length ? generateFAQSchema(detail.faq) : null;
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: service.title, path: `/services/${service.id}` }
+  ]);
+  
+  const jsonLd = [serviceSchema, breadcrumbSchema, faqSchema].filter(Boolean);
 
   return (
     <div ref={root} className="pt-32">
