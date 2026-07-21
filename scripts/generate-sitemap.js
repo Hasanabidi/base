@@ -28,8 +28,8 @@ const staticRoutes = [
 // Generate service routes
 const serviceRoutes = services.map(service => `/services/${service.id}`);
 
-// Generate blog routes
-const blogRoutes = blogPosts.map(post => `/blog/${post.id}`);
+// Generate blog routes - use slug instead of id
+const blogRoutes = blogPosts.map(post => `/blog/${post.slug}`);
 
 // Combine all routes
 const allRoutes = [...staticRoutes, ...serviceRoutes, ...blogRoutes];
