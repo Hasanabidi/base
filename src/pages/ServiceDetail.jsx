@@ -85,7 +85,7 @@ export default function ServiceDetail() {
               </div>
               <span className="font-mono text-sm text-text-secondary">{service.tagline}</span>
             </div>
-            <h1 className="mt-6 font-heading text-hero uppercase text-black">{service.title}</h1>
+            <h1 className="mt-6 font-heading text-hero uppercase text-black dark:text-white">{service.title}</h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-text-secondary md:text-lg">{service.description}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link to="/contact" className="btn-sweep group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5">

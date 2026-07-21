@@ -100,11 +100,11 @@ export default function About() {
               const Icon = value.icon;
               return (
                 <div key={value.title} data-anim="value-card">
-                  <TiltCard maxTilt={1} className="group h-full rounded-2xl border border-slate-200 bg-white p-8 shadow-soft transition-colors hover:bg-slate-50">
+                  <TiltCard maxTilt={1} className="group h-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-soft transition-colors hover:bg-slate-50 dark:hover:bg-slate-800">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Icon size={18} className="text-white" />
                     </div>
-                    <h3 className="mt-6 font-heading text-xl font-extrabold uppercase text-black">{value.title}</h3>
+                    <h3 className="mt-6 font-heading text-xl font-extrabold uppercase text-black dark:text-white">{value.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-text-secondary">{value.description}</p>
                   </TiltCard>
                 </div>
@@ -115,12 +115,12 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="relative py-32 border-t border-slate-200 bg-white">
+      <section className="relative py-32 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
         <div className="grid-bg absolute inset-0 opacity-30" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="mb-16 max-w-2xl">
             <SectionLabel>Team</SectionLabel>
-            <h2 className="mt-6 font-heading text-section uppercase text-black">
+            <h2 className="mt-6 font-heading text-section uppercase text-black dark:text-white">
               Senior engineers.<br />
               <span className="text-gradient">No layers.</span>
             </h2>
@@ -131,11 +131,11 @@ export default function About() {
           </div>
           <div data-anim="team-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
-              <div key={member.id} data-anim="team-card" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition-colors hover:bg-slate-50">
-                <div className="relative mb-6 h-32 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+              <div key={member.id} data-anim="team-card" className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-soft transition-colors hover:bg-slate-50 dark:hover:bg-slate-800">
+                <div className="relative mb-6 h-32 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
                   <div className="grid-bg absolute inset-0 opacity-50" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-heading text-4xl font-extrabold text-accent">
+                    <span className="font-heading text-4xl font-extrabold text-accent dark:text-indigo-400">
                       {member.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>

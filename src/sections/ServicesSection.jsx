@@ -15,50 +15,87 @@ const iconMap = { code: Code2, mobile: Smartphone, cloud: Cloud, pos: CreditCard
 export default function ServicesSection({ detailed = false }) {
   const root = useRef(null);
   const headerRef = useParallax(0.08);
+  const cardsContainerRef = useRef(null);
+  const headerTriggerRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('[data-anim="service-card"]', {
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 70%' },
+      // Animate header with explicit callbacks
+      ScrollTrigger.create({
+        trigger: headerTriggerRef.current,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.to('[data-anim="service-header"]', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            overwrite: true
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to('[data-anim="service-header"]', {
+            opacity: 0,
+            y: 40,
+            duration: 0.5,
+            overwrite: true
+          });
+        }
       });
-      gsap.from('[data-anim="service-header"]', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: root.current, start: 'top 80%' },
+
+      // Animate cards with stagger for reliable sequential animation
+      ScrollTrigger.create({
+        trigger: cardsContainerRef.current,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.to('[data-anim="service-card"]', {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 0.85,
+            ease: 'back.out(1.2)',
+            overwrite: true
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to('[data-anim="service-card"]', {
+            opacity: 0,
+            y: -60,
+            stagger: 0.05,
+            duration: 0.4,
+            ease: 'power2.in',
+            overwrite: true
+          });
+        }
       });
     }, root);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative py-32">
+    <section ref={root} className="relative py-32 overflow-hidden">
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
-        <div data-anim="service-header" ref={headerRef} className="mb-16 max-w-2xl">
-          <SectionLabel>Services</SectionLabel>
-          <h2 className="mt-6 font-heading text-section uppercase text-black">
-            Nine disciplines.{' '}
-            <span className="text-gradient">One partner.</span>
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-text-secondary">
-            From web, mobile, and SaaS to POS, financial services, cybersecurity, AI automation,
-            conversational AI, and SEO/GEO/AEO — we cover the full spectrum of your digital and
-            business needs.
-          </p>
+        <div ref={headerTriggerRef}>
+          <div data-anim="service-header" ref={headerRef} className="mb-16 max-w-2xl opacity-0 translate-y-10">
+            <SectionLabel>Services</SectionLabel>
+            <h2 className="mt-6 font-heading text-section uppercase text-black">
+              Nine disciplines.{' '}
+              <span className="text-gradient">One partner.</span>
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-text-secondary">
+              From web, mobile, and SaaS to POS, financial services, cybersecurity, AI automation,
+              conversational AI, and SEO/GEO/AEO — we cover the full spectrum of your digital and
+              business needs.
+            </p>
+          </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div ref={cardsContainerRef} className="grid gap-5 md:grid-cols-3">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Code2;
             const isFirst = i === 0;
             return (
-              <div key={service.id} data-anim="service-card">
+              <div key={service.id} data-anim="service-card" className="opacity-0 -translate-y-[60px]">
                 <TiltCard
                   className={`group relative h-full overflow-hidden rounded-2xl border border-slate-200 p-8 shadow-soft transition-all duration-300 ${isFirst ? 'shimmer-overlay bg-gradient-to-br from-indigo-500 to-violet-600' : 'gradient-border-glow hover-fill bg-white'}`}
                   maxTilt={2}
