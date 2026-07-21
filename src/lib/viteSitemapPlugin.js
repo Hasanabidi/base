@@ -1,6 +1,6 @@
-import { services } from '@/data/services';
-import { blogPosts } from '@/data/blogPosts';
-import siteConfig from '@/data/siteConfig';
+import { services } from '../data/services.js';
+import { blogPosts } from '../data/blogPosts.js';
+import siteConfig from '../data/siteConfig.js';
 
 /**
  * Vite plugin to generate sitemap.xml at build time
