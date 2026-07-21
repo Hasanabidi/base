@@ -10,11 +10,16 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'es2020',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/three') || id.includes('@react-three')) {
-            return 'three';
+            return 'three-vendor';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'lucide';
           }
           if (id.includes('node_modules/gsap')) {
             return 'gsap';
@@ -23,11 +28,12 @@ export default defineConfig({
             return 'motion';
           }
           if (
-            id.includes('node_modules/react') ||
-            id.includes('node_modules/react-dom') ||
-            id.includes('react-router')
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/react-router-dom/') ||
+            id.includes('node_modules/@tanstack/')
           ) {
-            return 'vendor';
+            return 'react-core';
           }
         },
       },

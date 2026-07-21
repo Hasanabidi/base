@@ -183,7 +183,7 @@ export const generateBreadcrumbSchema = (items) => ({
     "name": item.name,
     "item": `${siteConfig.url}${item.path}`
   }))
-};
+});
 
 /**
  * Generate FAQ schema helper

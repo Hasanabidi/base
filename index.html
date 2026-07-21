@@ -54,23 +54,17 @@
 
     <!-- Theme & Preconnect -->
     <meta name="theme-color" content="#6366F1" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
 
-    <!-- Non-blocking font load (display=swap avoids invisible text) -->
+    <!-- Google Fonts with swap display for zero-CLS and non-blocking load -->
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap"
-      />
-    </noscript>
 
     <!-- Structured Data: Organization + ProfessionalService (AEO/GEO optimized) -->
     <script type="application/ld+json">

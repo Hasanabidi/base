@@ -317,13 +317,17 @@ function Scene({ theme }) {
 export default function CosmicParticles({ theme = 'dark', className = '' }) {
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
 
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <div className={`pointer-events-none ${className}`} aria-hidden="true">
       <Canvas
         key={theme}
         camera={{ position: [0, 0, 20], fov: 60 }}
-        dpr={isMobile ? [1, 1.5] : [1, 2]}
-        gl={{ antialias: !isMobile, alpha: true, powerPreference: 'low-power' }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: 'low-power' }}
         style={{ background: 'transparent' }}
       >
         <ambientLight intensity={0.2} />

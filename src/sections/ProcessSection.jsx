@@ -62,11 +62,11 @@ export default function ProcessSection() {
           {/* Left: Fixed info */}
           <div data-anim="process-header">
             <SectionLabel>Process</SectionLabel>
-            <h2 className="mt-6 font-heading text-section uppercase text-black">
+            <h2 className="mt-6 font-heading text-section uppercase text-slate-900 dark:text-white">
               The Engineering{' '}
               <span className="text-gradient">Pipeline</span>
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-text-secondary">
+            <p className="mt-6 text-base leading-relaxed text-slate-600 dark:text-slate-300">
               Every project follows a rigorous five-stage pipeline. No guesswork.
               No shortcuts. Just engineering excellence from blueprint to growth.
             </p>
@@ -116,8 +116,9 @@ export default function ProcessSection() {
                   <div className="flex items-baseline gap-3">
                     <span className="font-mono text-xs text-accent">{step.step}</span>
                     <h3
-                      className="font-heading text-2xl font-extrabold uppercase transition-colors duration-500"
-                      style={{ color: i === activeStep ? '#0F172A' : '#64748B' }}
+                      className={`font-heading text-2xl font-extrabold uppercase transition-colors duration-500 ${
+                        i === activeStep ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'
+                      }`}
                     >
                       {step.title}
                     </h3>
@@ -125,14 +126,14 @@ export default function ProcessSection() {
 
                   {i === activeStep && (
                     <div className="mt-4 max-w-lg">
-                      <p className="text-sm leading-relaxed text-text-secondary">
+                      <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                         {step.description}
                       </p>
                       <div className="mt-6 flex flex-wrap gap-2">
                         {step.deliverables.map((d) => (
                           <span
                             key={d}
-                            className="rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs text-slate-900"
+                            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-1 text-xs text-slate-900 dark:text-slate-100"
                           >
                             {d}
                           </span>
