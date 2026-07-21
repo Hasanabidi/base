@@ -3,6 +3,7 @@ export const siteConfig = {
   // Basic Info
   siteName: 'Fulcrum System',
   siteUrl: 'https://fulcrumsystem.com',
+  baseUrl: 'https://fulcrumsystem.com',
   defaultTitle: 'Fulcrum System | Web Development, Mobile Apps, SaaS, POS & Cybersecurity',
   defaultDescription: 'Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions.',
   
