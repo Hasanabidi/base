@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://fulcrumsystem.com/sitemap.xml
+
+# Disallow admin/private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
