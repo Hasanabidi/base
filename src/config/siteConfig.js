@@ -10,7 +10,7 @@ export const DEFAULT_OG_IMAGE =
   'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop&q=80';
 
 export const CONTACT = {
-  email: 'abidi113@gmail.com',
+  email: 'contact@fulcrumsystem.com',
   phone: '+92-337-5766888',
   phoneDisplay: '+92 337 5766888',
   whatsapp: '923375766888',

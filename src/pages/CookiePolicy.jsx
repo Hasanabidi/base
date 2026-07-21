@@ -36,7 +36,7 @@ const sections = [
   },
   {
     heading: 'Contact Us',
-    body: ['For questions about our use of cookies, email abidi113@gmail.com.'],
+    body: ['For questions about our use of cookies, email contact@fulcrumsystem.com.'],
   },
 ];
 

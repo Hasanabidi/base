@@ -42,7 +42,7 @@ const sections = [
   },
   {
     heading: 'Contact Us',
-    body: ['Questions about these Terms can be sent to abidi113@gmail.com.'],
+    body: ['Questions about these Terms can be sent to contact@fulcrumsystem.com.'],
   },
 ];
 

@@ -27,7 +27,7 @@ export default function Contact() {
     e.preventDefault();
 
     if (!FORMSPREE_ENDPOINT) {
-      setErrorMsg('The contact form is not configured yet. Please email us directly at abidi113@gmail.com.');
+      setErrorMsg('The contact form is not configured yet. Please email us directly at contact@fulcrumsystem.com.');
       setStatus('error');
       return;
     }
@@ -242,11 +242,11 @@ export default function Contact() {
               <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-soft">
                 <h3 className="font-heading text-lg font-extrabold uppercase text-black">Direct Contact</h3>
                 <div className="mt-6 space-y-4">
-                  <a href="mailto:abidi113@gmail.com" className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
+                  <a href="mailto:contact@fulcrumsystem.com" className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">
                       <Mail size={16} className="text-white" />
                     </div>
-                    abidi113@gmail.com
+                    contact@fulcrumsystem.com
                   </a>
                   <a href={`tel:${CONTACT.phone.replace(/-/g, '')}`} className="flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-accent">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-transparent bg-gradient-to-br from-indigo-500 to-violet-600">

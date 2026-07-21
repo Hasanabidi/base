@@ -40,13 +40,13 @@ const sections = [
   {
     heading: 'Your Rights',
     body: [
-      'Depending on your location, you may have the right to access, correct, or delete your personal data, or to object to certain processing. To exercise these rights, contact us at abidi113@gmail.com.',
+      'Depending on your location, you may have the right to access, correct, or delete your personal data, or to object to certain processing. To exercise these rights, contact us at contact@fulcrumsystem.com.',
     ],
   },
   {
     heading: 'Contact Us',
     body: [
-      'If you have questions about this Privacy Policy, reach out to abidi113@gmail.com.',
+      'If you have questions about this Privacy Policy, reach out to contact@fulcrumsystem.com.',
     ],
   },
 ];
