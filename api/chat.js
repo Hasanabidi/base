@@ -100,7 +100,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'No valid user message found' });
   }
 
-  // Updated endpoint without key in query string
+  // Native Gemini endpoint (not OpenAI-compatible) — key goes via x-goog-api-key only
   const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse`;
 
   try {
@@ -109,7 +109,10 @@ export default async function handler(req, res) {
       headers: {
         'Content-Type': 'application/json',
         'x-goog-api-key': apiKey,
-        'Authorization': `Bearer ${apiKey}`,
+        // NOTE: Do NOT also send an 'Authorization: Bearer' header here.
+        // Sending the key both ways at once conflicts with Google's newer
+        // AQ. auth-key format and can cause the request to be rejected
+        // ("multiple authentication credentials received").
       },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },

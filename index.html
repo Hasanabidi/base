@@ -1,73 +1,74 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
 
-    <!-- Theme flash prevention (blocking, minimal) -->
-    <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem('fulcrum-theme');
-          var theme =
-            stored === 'light' || stored === 'dark'
-              ? stored
-              : window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light';
-          document.documentElement.classList.add(theme);
-          document.documentElement.style.colorScheme = theme;
-        } catch (e) {}
-      })();
-    </script>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="/manifest.json" />
 
-    <!-- Primary Meta Tags -->
-    <title>Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity</title>
-    <meta name="title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
-    <meta name="description" content="Full-service digital agency offering web development (Shopify, Wix, Framer, GoHighLevel, Next.js), mobile apps, Android games, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
-    <meta name="keywords" content="web development, web design, Shopify development, Wix Studio, Framer, GoHighLevel, Next.js development, React development, custom website, mobile app development, Android game development, SaaS application development, POS software, point of sale system, accounting services, tax filing, bookkeeping, corporate tax, personal tax, cybersecurity, penetration testing, security audit, technical SEO, GEO, AEO" />
-    <meta name="author" content="Fulcrum System" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="language" content="English" />
+  <!-- Theme flash prevention (safe inline execution) -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('fulcrum-theme');
+        var isDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = isDark ? 'dark' : 'light';
+        document.documentElement.classList.add(theme);
+        document.documentElement.style.colorScheme = theme;
+      } catch (e) { }
+    })();
+  </script>
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://fulcrumsystem.com/" />
+  <!-- Primary Meta Tags -->
+  <title>Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity</title>
+  <meta name="title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
+  <meta name="description"
+    content="Full-service digital agency offering web development (Shopify, Wix, Framer, GoHighLevel, Next.js), mobile apps, Android games, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
+  <meta name="keywords"
+    content="web development, web design, Shopify development, Wix Studio, Framer, GoHighLevel, Next.js development, React development, custom website, mobile app development, Android game development, SaaS application development, POS software, point of sale system, accounting services, tax filing, bookkeeping, corporate tax, personal tax, cybersecurity, penetration testing, security audit, technical SEO, GEO, AEO" />
+  <meta name="author" content="Fulcrum System" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="language" content="English" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fulcrumsystem.com/" />
-    <meta property="og:title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
-    <meta property="og:description" content="Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
-    <meta property="og:site_name" content="Fulcrum System" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;h=630&amp;fit=crop&amp;q=80" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+  <!-- Canonical -->
+  <link rel="canonical" href="https://fulcrumsystem.com/" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
-    <meta name="twitter:description" content="Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;h=630&amp;fit=crop&amp;q=80" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fulcrumsystem.com/" />
+  <meta property="og:title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
+  <meta property="og:description"
+    content="Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
+  <meta property="og:site_name" content="Fulcrum System" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image"
+    content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;h=630&amp;fit=crop&amp;q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-    <!-- Theme & Preconnect -->
-    <meta name="theme-color" content="#6366F1" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fulcrum System | Web Development, Mobile Apps, SaaS, POS &amp; Cybersecurity" />
+  <meta name="twitter:description"
+    content="Full-service digital agency offering web development, mobile apps, SaaS platforms, POS software, financial services, tax filing, and cybersecurity solutions." />
+  <meta name="twitter:image"
+    content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&amp;h=630&amp;fit=crop&amp;q=80" />
 
-    <!-- Google Fonts with swap display for zero-CLS and non-blocking load -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap"
-    />
+  <!-- Theme & Preconnect -->
+  <meta name="theme-color" content="#6366F1" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
 
-    <!-- Structured Data: Organization + ProfessionalService (AEO/GEO optimized) -->
-    <script type="application/ld+json">
+  <!-- Google Fonts -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" />
+
+  <!-- Structured Data: Organization + ProfessionalService -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": ["Organization", "ProfessionalService"],
@@ -77,8 +78,8 @@
       "logo": "https://fulcrumsystem.com/logo.svg",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop&q=80",
       "description": "Full-service digital agency offering web development, mobile applications, SaaS platforms, POS software, financial services, AI automation, and cybersecurity solutions.",
-      "email": "abidi113@gmail.com",
-      "telephone": "+92-303-2422542",
+      "email": "contact@fulcrumsystem.com",
+      "telephone": "+92-337-5766888",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -141,8 +142,8 @@
     }
     </script>
 
-    <!-- Structured Data: WebSite -->
-    <script type="application/ld+json">
+  <!-- Structured Data: WebSite -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -157,9 +158,11 @@
       }
     }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
