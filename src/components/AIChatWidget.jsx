@@ -257,7 +257,7 @@ export default function AIChatWidget() {
               <p className="font-heading text-xs font-bold uppercase tracking-wider text-white">
                 Fulcrum AI
               </p>
-              <p className="text-[10px] text-indigo-200">Online · Online · Powered by Gemini 2.0 Flash</p>
+              <p className="text-[10px] text-indigo-200">Online · Powered by Gemini 2.0 Flash</p>
             </div>
             <button
               type="button"
