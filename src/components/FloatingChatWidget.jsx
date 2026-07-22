@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useId, useState } from 'react';
-import { X } from 'lucide-react';
+import { X, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   CHAT_WIDGET_MODE,
   getWhatsAppUrl,
   WHATSAPP_CONFIG,
 } from '@/config/chatWidget';
+import ChatbotPanel from './ChatbotPanel';
 
 const WhatsAppIcon = ({ size = 24, className }) => (
   <svg
@@ -21,12 +22,12 @@ const WhatsAppIcon = ({ size = 24, className }) => (
 );
 
 /**
- * Fixed bottom-right contact widget.
- * Mode is controlled by chatWidget config — swap to chatbot SDK without layout changes.
+ * Fixed bottom-right contact widget with dual mode: WhatsApp + AI Chatbot.
  */
 export default function FloatingChatWidget() {
   const [mounted, setMounted] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('whatsapp'); // 'whatsapp' or 'chatbot'
   const panelId = useId();
   const labelId = useId();
 
@@ -42,15 +43,16 @@ export default function FloatingChatWidget() {
 
   const togglePanel = useCallback(() => {
     setPanelOpen((open) => !open);
-  }, []);
+    if (!panelOpen) setActiveTab('whatsapp');
+  }, [panelOpen]);
 
   const handlePrimaryAction = useCallback(() => {
     if (CHAT_WIDGET_MODE === 'whatsapp') {
       openWhatsApp();
       return;
     }
-    setPanelOpen(true);
-  }, [openWhatsApp]);
+    togglePanel();
+  }, [openWhatsApp, togglePanel]);
 
   return (
     <div
@@ -60,57 +62,104 @@ export default function FloatingChatWidget() {
       )}
       aria-hidden={false}
     >
-      {/* Expandable panel — hidden from AT until opened */}
+      {/* Expandable panel */}
       <div
         id={panelId}
         role="dialog"
         aria-labelledby={labelId}
         aria-hidden={!panelOpen}
         className={cn(
-          'pointer-events-auto w-[min(100vw-2rem,20rem)] origin-bottom-right rounded-2xl border border-slate-200 bg-white p-5 shadow-premium transition-all duration-300 dark:border-slate-700 dark:bg-slate-900',
+          'pointer-events-auto w-[min(100vw-2rem,22rem)] origin-bottom-right rounded-2xl border border-slate-200 bg-white p-0 shadow-premium transition-all duration-300 dark:border-slate-700 dark:bg-slate-900',
           panelOpen
             ? 'translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none translate-y-2 scale-95 opacity-0'
         )}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p id={labelId} className="font-heading text-sm font-bold uppercase tracking-wide text-slate-900 dark:text-white">
-              Chat with us
-            </p>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-              Get a reply on WhatsApp — typically within a few hours.
-            </p>
+        {/* Tab Header */}
+        {CHAT_WIDGET_MODE === 'dual' && (
+          <div className="flex border-b border-slate-200 dark:border-slate-700">
+            <button
+              type="button"
+              onClick={() => setActiveTab('whatsapp')}
+              className={cn(
+                'flex-1 py-3 text-sm font-semibold transition-colors',
+                activeTab === 'whatsapp'
+                  ? 'bg-[#25D366]/10 text-[#25D366] border-b-2 border-[#25D366]'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+              )}
+              aria-selected={activeTab === 'whatsapp'}
+              role="tab"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <WhatsAppIcon size={16} />
+                WhatsApp
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('chatbot')}
+              className={cn(
+                'flex-1 py-3 text-sm font-semibold transition-colors',
+                activeTab === 'chatbot'
+                  ? 'bg-indigo-600/10 text-indigo-600 border-b-2 border-indigo-600'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+              )}
+              aria-selected={activeTab === 'chatbot'}
+              role="tab"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <MessageCircle size={16} />
+                AI Chat
+              </span>
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setPanelOpen(false)}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
-            aria-label="Close chat panel"
-          >
-            <X size={16} aria-hidden="true" />
-          </button>
+        )}
+
+        {/* Panel Content */}
+        <div className="p-5">
+          {activeTab === 'whatsapp' ? (
+            <>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p id={labelId} className="font-heading text-sm font-bold uppercase tracking-wide text-slate-900 dark:text-white">
+                    Chat on WhatsApp
+                  </p>
+                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                    Get a reply typically within a few hours.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPanelOpen(false)}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+                  aria-label="Close chat panel"
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={openWhatsApp}
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+              >
+                <WhatsAppIcon size={18} aria-hidden="true" />
+                Open WhatsApp
+              </button>
+            </>
+          ) : (
+            <ChatbotPanel onClose={() => setPanelOpen(false)} />
+          )}
         </div>
-        <button
-          type="button"
-          onClick={openWhatsApp}
-          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
-        >
-          <WhatsAppIcon size={18} aria-hidden="true" />
-          Open WhatsApp
-        </button>
       </div>
 
-      {/* Primary FAB — always in tab order */}
+      {/* Primary FAB */}
       <button
         type="button"
-        onClick={CHAT_WIDGET_MODE === 'whatsapp' && !panelOpen ? handlePrimaryAction : togglePanel}
+        onClick={handlePrimaryAction}
         aria-label={
-          CHAT_WIDGET_MODE === 'whatsapp'
-            ? 'Chat with Fulcrum System on WhatsApp'
-            : panelOpen
-              ? 'Close chat widget'
-              : 'Open chat widget'
+          panelOpen
+            ? 'Close chat widget'
+            : 'Open chat widget'
         }
         aria-expanded={panelOpen}
         aria-controls={panelId}
@@ -130,9 +179,12 @@ export default function FloatingChatWidget() {
         )}
       </button>
 
-      {/* Screen-reader hint for WhatsApp deep link */}
+      {/* Screen-reader hint */}
       <span className="sr-only">
-        WhatsApp pre-filled message: {WHATSAPP_CONFIG.defaultMessage}
+        {activeTab === 'whatsapp' 
+          ? `WhatsApp pre-filled message: ${WHATSAPP_CONFIG.defaultMessage}`
+          : 'AI Chatbot - Type your message to get instant assistance'
+        }
       </span>
     </div>
   );

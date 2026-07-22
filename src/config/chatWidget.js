@@ -1,7 +1,7 @@
 import { CONTACT } from '@/config/siteConfig';
 
-/** Widget mode: 'whatsapp' today; swap to 'chatbot' when an AI SDK is wired in. */
-export const CHAT_WIDGET_MODE = 'whatsapp';
+/** Widget mode: 'whatsapp' for WhatsApp-only, 'dual' for both WhatsApp + AI Chatbot */
+export const CHAT_WIDGET_MODE = 'dual';
 
 export const WHATSAPP_CONFIG = {
   phone: CONTACT.whatsapp,
@@ -10,9 +10,11 @@ export const WHATSAPP_CONFIG = {
 };
 
 export const CHATBOT_CONFIG = {
-  /** Placeholder for a future AI chatbot SDK integration. */
-  apiKey: import.meta.env.VITE_CHATBOT_API_KEY || '',
-  endpoint: import.meta.env.VITE_CHATBOT_ENDPOINT || '',
+  /** Google Gemini API endpoint */
+  endpoint: '/api/chat',
+  botName: 'Fulcrum AI Assistant',
+  welcomeMessage: 'Hi! I\'m Fulcrum\'s AI assistant. How can I help you today?',
+  disclaimer: 'This is an AI assistant. For human support, choose WhatsApp.',
 };
 
 export function getWhatsAppUrl(message = WHATSAPP_CONFIG.defaultMessage) {
