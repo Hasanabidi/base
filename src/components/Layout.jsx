@@ -7,6 +7,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import CookieConsent from '@/components/CookieConsent';
 import SkipLink from '@/components/SkipLink';
 import FloatingChatWidget from '@/components/FloatingChatWidget';
+import AIChatWidget from '@/components/AIChatWidget';
 
 const CustomCursor = lazy(() => import('@/components/CustomCursor'));
 
@@ -26,7 +27,10 @@ export default function Layout() {
       </main>
       <Footer />
       <CookieConsent />
+      {/* WhatsApp widget — bottom-right FAB */}
       <FloatingChatWidget />
+      {/* AI chat widget — stacked above WhatsApp */}
+      <AIChatWidget />
     </div>
   );
 }
