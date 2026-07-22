@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'Work', to: '/work' },
   { label: 'About', to: '/about' },
   { label: 'Insights', to: '/blog' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Navbar() {
