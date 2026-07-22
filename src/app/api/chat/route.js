@@ -2,10 +2,10 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(req) {
   try {
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
-      console.error('Missing API Key:', !!process.env.GOOGLE_GENERATIVE_AI_API_KEY);
+      console.error('Missing API Key:', !!process.env.GEMINI_API_KEY);
       return new Response(
         JSON.stringify({ error: 'AI service not configured. Please contact the site administrator.' }), 
         { 
