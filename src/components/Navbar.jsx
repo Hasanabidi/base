@@ -67,11 +67,11 @@ export default function Navbar() {
             </div>
             <ThemeToggle className="ml-3" />
             <Link
-              to="/contact"
-              aria-label="Contact Fulcrum System"
+              to="/booking"
+              aria-label="Book a Free Consultation"
               className="ml-3 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 px-5 py-2 text-xs uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
             >
-              Contact
+              Book a Call
             </Link>
           </div>
 
@@ -120,7 +120,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            to="/contact"
+            to="/booking"
             className="mt-6 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 px-8 py-4 text-sm uppercase tracking-[0.15em] font-heading font-bold text-white shadow-lg shadow-indigo-500/25"
             style={{
               transitionDelay: menuOpen ? '300ms' : '0ms',
@@ -129,7 +129,7 @@ export default function Navbar() {
               transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            Contact
+            Book a Call
           </Link>
         </div>
       </div>

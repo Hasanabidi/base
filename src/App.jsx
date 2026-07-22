@@ -14,6 +14,7 @@ import Blog from '@/pages/Blog';
 import BlogPost from '@/pages/BlogPost';
 import Contact from '@/pages/Contact';
 import ServiceDetail from '@/pages/ServiceDetail';
+import Booking from '@/pages/Booking';
 import PageNotFound from '@/pages/PageNotFound';
 
 function AuthenticatedApp() {
@@ -27,6 +28,7 @@ function AuthenticatedApp() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/booking" element={<Booking />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
