@@ -22,12 +22,13 @@ const WhatsAppIcon = ({ size = 24, className }) => (
 );
 
 /**
- * Fixed bottom-right contact widget with dual mode: WhatsApp + AI Chatbot.
+ * Fixed bottom-right contact widget with dual mode: AI Chatbot + WhatsApp.
+ * AI Chat is the default/first tab; WhatsApp is second.
  */
 export default function FloatingChatWidget() {
   const [mounted, setMounted] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('whatsapp'); // 'whatsapp' or 'chatbot'
+  const [activeTab, setActiveTab] = useState('chatbot'); // 'chatbot' or 'whatsapp'
   const panelId = useId();
   const labelId = useId();
 
@@ -43,7 +44,7 @@ export default function FloatingChatWidget() {
 
   const togglePanel = useCallback(() => {
     setPanelOpen((open) => !open);
-    if (!panelOpen) setActiveTab('whatsapp');
+    if (!panelOpen) setActiveTab('chatbot');
   }, [panelOpen]);
 
   const handlePrimaryAction = useCallback(() => {
@@ -80,6 +81,23 @@ export default function FloatingChatWidget() {
           <div className="flex border-b border-slate-200 dark:border-slate-700">
             <button
               type="button"
+              onClick={() => setActiveTab('chatbot')}
+              className={cn(
+                'flex-1 py-3 text-sm font-semibold transition-colors',
+                activeTab === 'chatbot'
+                  ? 'bg-indigo-600/10 text-indigo-600 border-b-2 border-indigo-600'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+              )}
+              aria-selected={activeTab === 'chatbot'}
+              role="tab"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <MessageCircle size={16} />
+                Get in Touch
+              </span>
+            </button>
+            <button
+              type="button"
               onClick={() => setActiveTab('whatsapp')}
               className={cn(
                 'flex-1 py-3 text-sm font-semibold transition-colors',
@@ -93,23 +111,6 @@ export default function FloatingChatWidget() {
               <span className="flex items-center justify-center gap-2">
                 <WhatsAppIcon size={16} />
                 WhatsApp
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('chatbot')}
-              className={cn(
-                'flex-1 py-3 text-sm font-semibold transition-colors',
-                activeTab === 'chatbot'
-                  ? 'bg-indigo-600/10 text-indigo-600 border-b-2 border-indigo-600'
-                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
-              )}
-              aria-selected={activeTab === 'chatbot'}
-              role="tab"
-            >
-              <span className="flex items-center justify-center gap-2">
-                <MessageCircle size={16} />
-                AI Chat
               </span>
             </button>
           </div>
@@ -175,15 +176,15 @@ export default function FloatingChatWidget() {
         {panelOpen ? (
           <X size={22} aria-hidden="true" />
         ) : (
-          <WhatsAppIcon size={26} aria-hidden="true" />
+          <MessageCircle size={24} aria-hidden="true" />
         )}
       </button>
 
       {/* Screen-reader hint */}
       <span className="sr-only">
-        {activeTab === 'whatsapp' 
-          ? `WhatsApp pre-filled message: ${WHATSAPP_CONFIG.defaultMessage}`
-          : 'AI Chatbot - Type your message to get instant assistance'
+        {activeTab === 'chatbot'
+          ? 'AI Chatbot - Type your message to get instant assistance'
+          : `WhatsApp pre-filled message: ${WHATSAPP_CONFIG.defaultMessage}`
         }
       </span>
     </div>
