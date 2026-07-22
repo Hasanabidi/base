@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SEO } from '../components/SEO';
+import SEO from '../components/SEO';
 import MagneticButton from '../components/MagneticButton';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Video, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
