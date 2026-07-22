@@ -1,6 +1,6 @@
 /**
  * Vercel Serverless Function — /api/chat
- * Streams Google Gemini (gemini-2.0-flash) responses using the Gemini
+ * Streams Google Gemini (gemini-flash-latest) responses using the Gemini
  * generateContent SSE API for Fulcrum System's AI assistant.
  */
 
@@ -100,8 +100,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'No valid user message found' });
   }
 
-  // Native Gemini endpoint (not OpenAI-compatible) — key goes via x-goog-api-key only
-  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse`;
+  // Updated endpoint without key in query string
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse`;
 
   try {
     const upstream = await fetch(geminiUrl, {
@@ -109,10 +109,7 @@ export default async function handler(req, res) {
       headers: {
         'Content-Type': 'application/json',
         'x-goog-api-key': apiKey,
-        // NOTE: Do NOT also send an 'Authorization: Bearer' header here.
-        // Sending the key both ways at once conflicts with Google's newer
-        // AQ. auth-key format and can cause the request to be rejected
-        // ("multiple authentication credentials received").
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
